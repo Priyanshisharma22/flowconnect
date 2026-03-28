@@ -1,0 +1,117 @@
+.blockchain-viz {
+    position: relative;
+}
+
+.blockchain-viz__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blockchain-viz__chain {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 60px;
+    overflow-x: auto;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+}
+
+.blockchain-viz__block-wrapper {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+.blockchain-viz__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    color: var(--primary-400);
+    opacity: 0.4;
+}
+
+.blockchain-viz__block {
+    min-width: 200px;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.blockchain-viz__block:hover {
+    border-color: var(--primary-400);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow-cyan);
+}
+
+.blockchain-viz__block--confirmed {
+    border-left: 3px solid var(--success-400);
+}
+
+.blockchain-viz__block--pending {
+    border-left: 3px solid var(--warning-400);
+}
+
+.blockchain-viz__block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.blockchain-viz__block-id {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+.blockchain-viz__block-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.blockchain-viz__block-status--confirmed {
+    color: var(--success-400);
+}
+
+.blockchain-viz__block-status--pending {
+    color: var(--warning-400);
+}
+
+.blockchain-viz__block-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-bottom: 6px;
+}
+
+.blockchain-viz__block-hash {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
+}
+
+.blockchain-viz__block-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-weight: 500;
+}

@@ -1,0 +1,169 @@
+.integrations {
+    position: relative;
+    background: white;
+}
+
+.integrations__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.integrations__content {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.integrations__section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-500);
+}
+
+.integrations__section-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.integrations__section-dot--cyan {
+    background: #06b6d4;
+}
+
+.integrations__section-dot--violet {
+    background: #8b5cf6;
+}
+
+.integrations__section-dot--emerald {
+    background: #10b981;
+}
+
+.integrations__section-dot--amber {
+    background: #f59e0b;
+}
+
+/* Chain Cards - Light Mode */
+.integrations__chains {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .integrations__chains {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .integrations__chains {
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+.integrations__chain-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 16px;
+    text-align: center;
+    background: white;
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.integrations__chain-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-300);
+}
+
+.integrations__chain-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    /* Colors handled dynamicall in component, but lighter bg now */
+}
+
+.integrations__chain-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.integrations__chain-symbol {
+    font-size: 11px;
+    color: var(--gray-500);
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+/* Tags - Pill Style */
+.integrations__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.integrations__tag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 100px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.integrations__tag:hover {
+    border-color: var(--primary-400);
+    background: #fff7ed;
+    /* Orange-50 */
+    transform: translateY(-2px);
+    color: var(--primary-700);
+}
+
+.integrations__tag-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.integrations__tag:hover .integrations__tag-name {
+    color: var(--primary-900);
+}
+
+.integrations__tag-cat {
+    font-size: 11px;
+    color: var(--gray-400);
+    font-family: var(--font-mono);
+    padding: 2px 8px;
+    background: var(--gray-50);
+    border-radius: 100px;
+    text-transform: uppercase;
+}
+
+.integrations__tag:hover .integrations__tag-cat {
+    background: white;
+    color: var(--primary-600);
+}
