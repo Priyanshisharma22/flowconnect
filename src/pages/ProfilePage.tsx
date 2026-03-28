@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import {
     User, CreditCard, Shield, Wallet, LogOut, Zap,
-    TrendingUp, Clock, Plus, Trash2, Check, MessageSquare,
-    Table, RefreshCw
+    TrendingUp, Clock, Plus, Trash2, RefreshCw
 } from 'lucide-react'
 import Navbar from '../components/common/Navbar'
 import Footer from '../components/common/Footer'
