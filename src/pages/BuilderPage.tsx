@@ -23,6 +23,8 @@ const actions = [
     { id: 'a4', label: 'Send Email', desc: 'Gmail / Outlook',       icon: Mail,          color: 'emerald',action_key: 'send_email' },
     { id: 'a5', label: 'SMS Alert',  desc: 'Fast2SMS / Twilio',     icon: Image,         color: 'pink',   action_key: 'send_sms' },
     { id: 'a6', label: 'API Call',   desc: 'Custom HTTP Request',   icon: Blocks,        color: 'orange', action_key: 'api_call' },
+    { id: 'a7', label: 'Send Email',     desc: 'Gmail confirmation',    icon: Mail,    color: 'teal',   action_key: 'send_gmail' },
+    { id: 'a8', label: 'Schedule Call',  desc: 'Google Calendar',       icon: Clock,   color: 'blue',   action_key: 'schedule_meeting' },
 ]
 
 export default function BuilderPage() {
