@@ -1,0 +1,9 @@
+{
+  "name": "zoho-crm-mcp",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.4.0",
+    "node-fetch": "^3.3.2"
+  }
+}

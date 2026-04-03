@@ -1,0 +1,26 @@
+{
+    "name":  "razorpay-mcp",
+    "version":  "1.0.0",
+    "main":  "dist/index.js",
+    "scripts":  {
+                    "build":  "tsc",
+                    "dev":  "ts-node src/index.ts",
+                    "start":  "node dist/index.js"
+                },
+    "keywords":  [
+
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "description":  "",
+    "dependencies":  {
+                         "@modelcontextprotocol/sdk":  "^1.28.0",
+                         "axios":  "^1.14.0",
+                         "dotenv":  "^17.3.1"
+                     },
+    "devDependencies":  {
+                            "@types/node":  "^25.5.0",
+                            "ts-node":  "^10.9.2",
+                            "typescript":  "^6.0.2"
+                        }
+}

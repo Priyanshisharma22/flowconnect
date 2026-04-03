@@ -1,3 +1,4 @@
+import { loginUser, saveAuth } from '../api/client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
@@ -23,11 +24,22 @@ export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false)
     const [activeTab, setActiveTab] = useState<'wallet' | 'email'>('wallet')
 
-    const handleEmailLogin = (e: React.FormEvent) => {
-        e.preventDefault()
-        setIsLoading(true)
-        setTimeout(() => setIsLoading(false), 2000)
+    const [error, setError] = useState('')
+
+    const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setError('')
+    try {
+        const data = await loginUser(email, password)
+        saveAuth(data.access_token, data.user)
+        window.location.href = '/builder'
+    } catch (err: any) {
+        setError(err.message)
+    } finally {
+        setIsLoading(false)
     }
+}
 
     return (
         <div className="auth-page grid-pattern">
@@ -200,7 +212,19 @@ export default function LoginPage() {
                                     </button>
                                 </div>
                             </div>
-
+                             
+                            {error && (
+                                <div style={{
+                                    background: '#fee2e2',
+                                    color: '#dc2626',
+                                    padding: '10px 14px',
+                                    borderRadius: '8px',
+                                    fontSize: '13px',
+                                    marginBottom: '12px'
+                                }}>
+                                    {error}
+                                </div>
+                            )}
                             <button
                                 type="submit"
                                 className={`btn-primary auth-form__submit ${isLoading ? 'auth-form__submit--loading' : ''}`}

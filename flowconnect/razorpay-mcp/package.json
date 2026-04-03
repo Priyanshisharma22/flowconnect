@@ -1,0 +1,1 @@
+{"name":"razorpay-mcp","version":"1.0.0","type":"module","main":"index.js","scripts":{"start":"node index.js"},"dependencies":{"@modelcontextprotocol/sdk":"latest","axios":"latest","dotenv":"latest","zod":"^4.3.6"}}
