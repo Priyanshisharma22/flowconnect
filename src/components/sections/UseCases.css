@@ -1,0 +1,99 @@
+.use-cases {
+    padding: 100px 0;
+    position: relative;
+}
+
+.use-cases__header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.use-cases__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+}
+
+.use-cases__card {
+    background: white;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.use-cases__card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-200);
+}
+
+.use-cases__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.use-cases__title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--gray-900);
+}
+
+.use-cases__desc {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.use-cases__tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--gray-100);
+    color: var(--gray-600);
+}
+
+/* Colors */
+.use-cases__icon--cyan {
+    background: #ecfeff;
+    color: #06b6d4;
+}
+
+.use-cases__icon--violet {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+.use-cases__icon--emerald {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.use-cases__icon--rose {
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+.use-cases__icon--amber {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+.use-cases__icon--blue {
+    background: #eff6ff;
+    color: #2563eb;
+}

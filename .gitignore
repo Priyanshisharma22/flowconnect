@@ -1,12 +1,8 @@
-
+# --- Environment and Secret Files ---
 .env
-*.env
-**/*.env
-vdorecord-1f6941074178.json
 *.env
 *.env.*
 **/*.env
-.env
 *.key
 *.pem
 *.crt
@@ -26,28 +22,44 @@ vdorecord-1f6941074178.json
 *.csr
 *.ovpn
 *.kdbx
-*.sqlite
-*.db
+.envrc
+.secret
+secrets.json
+vdorecord-1f6941074178.json
+
+# --- Logs ---
+logs
 *.log
-# Node modules and build outputs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Node modules and build outputs ---
 node_modules/
 dist/
+dist-ssr/
 build/
 coverage/
-# OS generated files
+*.local
+
+# --- OS generated files ---
 .DS_Store
 Thumbs.db
-# IDE and editor folders
+
+# --- IDE and editor folders ---
 .vscode/
+!.vscode/extensions.json
 .idea/
-*.swp
-*.swo
-# Python
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- Python ---
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-# Misc
-.envrc
-.secret
-secrets.json

@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import express from "express";
+import cors from "cors";
 import axios from "axios";
 import crypto from "crypto";
 import { z } from "zod";
@@ -147,33 +148,27 @@ function extractValue(answer) {
   }
 }
 
-// ─── Express webhook listener ───────────────────────────────────
+// ─── Express app ───────────────────────────────────────────────
 const app = express();
+app.use(cors());
 app.use(express.json());
 
-// Verify Typeform webhook signature
-// Bypassed automatically in development mode (NODE_ENV=development)
-// or when no secret is set
+// ─── Verify Typeform webhook signature ─────────────────────────
 function verifySignature(req) {
-  // Skip signature check in dev mode
   if (process.env.NODE_ENV === "development") {
     console.log("⚠️  Dev mode — skipping signature check");
     return true;
   }
-
   const secret = process.env.TYPEFORM_WEBHOOK_SECRET;
-  if (!secret) return true; // No secret set → allow all
-
+  if (!secret) return true;
   const sig = req.headers["typeform-signature"];
   if (!sig) return false;
-
   const hash =
     "sha256=" +
     crypto
       .createHmac("sha256", secret)
       .update(JSON.stringify(req.body))
       .digest("base64");
-
   return sig === hash;
 }
 
@@ -191,7 +186,6 @@ app.post("/webhook/typeform", async (req, res) => {
     return res.status(400).json({ error: "Missing form_response" });
   }
 
-  // ── Build a clean answers map keyed by field title ──────────
   const lead = {
     form_id: formResponse.form_id,
     submitted_at: formResponse.submitted_at,
@@ -209,7 +203,6 @@ app.post("/webhook/typeform", async (req, res) => {
 
   console.log("📋 New Typeform lead:", JSON.stringify(lead, null, 2));
 
-  // ── Extract Name ────────────────────────────────────────────
   const name =
     lead.answers["What is your name?"] ||
     lead.answers["Name"] ||
@@ -217,7 +210,6 @@ app.post("/webhook/typeform", async (req, res) => {
     lead.answers["Your name"] ||
     "there";
 
-  // ── Extract Phone ───────────────────────────────────────────
   const phone =
     lead.answers["What is your WhatsApp number?"] ||
     lead.answers["What is your phone number?"] ||
@@ -226,7 +218,6 @@ app.post("/webhook/typeform", async (req, res) => {
     lead.answers["Phone Number"] ||
     null;
 
-  // ── Extract Email ───────────────────────────────────────────
   const email =
     lead.answers["What is your email address?"] ||
     lead.answers["Email"] ||
@@ -236,7 +227,6 @@ app.post("/webhook/typeform", async (req, res) => {
 
   console.log(`👤 Name: ${name} | 📞 Phone: ${phone} | 📧 Email: ${email}`);
 
-  // ── Send WhatsApp (Twilio Sandbox) ──────────────────────────
   if (phone) {
     await sendWhatsApp(
       phone,
@@ -246,7 +236,6 @@ app.post("/webhook/typeform", async (req, res) => {
     console.log("ℹ️  No phone number found — skipping WhatsApp");
   }
 
-  // ── Send Email (Gmail) ──────────────────────────────────────
   if (email) {
     await sendEmail(
       email,
@@ -260,14 +249,80 @@ app.post("/webhook/typeform", async (req, res) => {
   res.json({ status: "received", token: lead.token });
 });
 
+// ─── REST: List all forms ───────────────────────────────────────
+app.get("/typeform/forms", async (req, res) => {
+  try {
+    const result = await axios.get(`${TYPEFORM_API}/forms`, { headers });
+    const forms = result.data.items.map((f) => ({
+      id: f.id,
+      title: f.title,
+      _links: f._links?.display,
+    }));
+    res.json(forms);
+  } catch (err) {
+    console.error("❌ list forms error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── REST: Get form fields ──────────────────────────────────────
+app.get("/typeform/forms/:id/fields", async (req, res) => {
+  try {
+    const result = await axios.get(
+      `${TYPEFORM_API}/forms/${req.params.id}`,
+      { headers }
+    );
+    const fields = result.data.fields.map((f) => ({
+      id: f.id,
+      title: f.title,
+      type: f.type,
+      required: f.validations?.required ?? false,
+    }));
+    res.json(fields);
+  } catch (err) {
+    console.error("❌ get fields error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── REST: Get form responses ───────────────────────────────────
+app.get("/typeform/forms/:id/responses", async (req, res) => {
+  try {
+    const page_size = req.query.page_size || 20;
+    const result = await axios.get(
+      `${TYPEFORM_API}/forms/${req.params.id}/responses?page_size=${page_size}`,
+      { headers }
+    );
+    const responses = result.data.items.map((item) => ({
+      response_id: item.response_id,
+      submitted_at: item.submitted_at,
+      answers: item.answers?.map((a) => ({
+        field_id: a.field.id,
+        type: a.type,
+        value: extractValue(a),
+      })),
+    }));
+    res.json(responses);
+  } catch (err) {
+    console.error("❌ get responses error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ─── Health check ───────────────────────────────────────────────
 app.get("/health", (_, res) =>
-  res.json({ status: "ok", server: "typeform-mcp", time: new Date().toISOString() })
+  res.json({
+    status: "ok",
+    server: "typeform-mcp",
+    time: new Date().toISOString(),
+  })
 );
 
 const PORT = process.env.PORT || 3004;
 app.listen(PORT, () =>
-  console.log(`🚀 typeform-mcp webhook listening on :${PORT} | mode: ${process.env.NODE_ENV || "production"}`)
+  console.log(
+    `🚀 typeform-mcp webhook listening on :${PORT} | mode: ${process.env.NODE_ENV || "production"}`
+  )
 );
 
 // ─── Start MCP stdio transport ──────────────────────────────────
