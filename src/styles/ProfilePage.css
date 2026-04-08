@@ -235,8 +235,8 @@
     box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
 }
 
-/* Wallet List */
-.wallet-item {
+/* Connected Apps List */
+.app-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -247,13 +247,13 @@
     margin-bottom: 12px;
 }
 
-.wallet-info {
+.app-info {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.wallet-icon {
+.app-icon {
     width: 36px;
     height: 36px;
     border-radius: 8px;
@@ -262,24 +262,24 @@
     justify-content: center;
 }
 
-.wallet-icon.pera {
+.app-icon.pera {
     background: #ffeebb;
     color: #d97706;
 }
 
-.wallet-icon.defly {
+.app-icon.defly {
     background: #ede9fe;
     color: #7c3aed;
 }
 
-.wallet-address {
+.app-address {
     font-family: var(--font-mono);
     font-size: 13px;
     font-weight: 500;
     color: var(--gray-600);
 }
 
-.wallet-badge {
+.app-badge {
     padding: 4px 8px;
     border-radius: 6px;
     font-size: 11px;
@@ -287,7 +287,7 @@
     text-transform: uppercase;
 }
 
-.wallet-badge.primary {
+.app-badge.primary {
     background: var(--primary-100);
     color: var(--primary-700);
 }

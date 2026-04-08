@@ -1,7 +1,7 @@
 import Navbar from '../components/common/Navbar'
 import HowItWorks from '../components/sections/HowItWorks'
 import UseCases from '../components/sections/UseCases'
-import BlockchainVisualizer from '../components/sections/BlockchainVisualizer'
+import ActivityVisualizer from '../components/sections/ActivityVisualizer'
 import CTA from '../components/sections/CTA'
 import Footer from '../components/common/Footer'
 import { motion } from 'framer-motion'
@@ -26,18 +26,18 @@ export default function HowItWorksPage() {
                                 Under The Hood
                             </div>
                             <h1 className="hero__title" style={{ fontSize: '48px', marginBottom: '20px' }}>
-                                How <span className="gradient-text">AlgoZap</span> Works
+                                How <span className="gradient-text">Pravah</span> Works
                             </h1>
                             <p className="section-subtitle">
-                                We combine an intuitive drag-and-drop interface with the raw power of
-                                Algorand smart contracts. No code required, but fully extensible if you need it.
+                                We combine an intuitive drag-and-drop interface with powerful integrations.
+                                No code required, but fully extensible when you need it.
                             </p>
                         </motion.div>
                     </div>
                 </section>
 
                 <HowItWorks />
-                <BlockchainVisualizer />
+                <ActivityVisualizer />
                 <UseCases />
                 <CTA />
             </main>

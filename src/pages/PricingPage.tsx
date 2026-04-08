@@ -28,8 +28,8 @@ export default function PricingPage() {
                                 Start Free, <span className="gradient-text">Scale Securely</span>
                             </h1>
                             <p className="section-subtitle">
-                                Choose the plan that fits your needs. Use Algorand TestNet for free forever.
-                                Upgrade to MainNet when you're ready to deploy real value.
+                                Choose the plan that fits your needs. Start free and scale as your automation needs grow.
+                                Upgrade anytime for higher limits and advanced features.
                             </p>
                         </motion.div>
                     </div>

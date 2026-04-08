@@ -4,25 +4,25 @@ import './UseCases.css'
 
 const cases = [
     {
-        title: 'DeFi Auto-Compounding',
-        desc: 'Automatically claim rewards from Folks Finance or Tinyman and re-stake them to maximize APY without manual intervention.',
+        title: 'Payment Follow-ups',
+        desc: 'Automatically send reminders and updates after payment events to reduce manual follow-ups and missed collections.',
         icon: Coins,
         color: 'cyan',
-        tag: 'DeFi',
+        tag: 'Finance',
     },
     {
-        title: 'NFT Distribution',
-        desc: 'Trigger an automatic NFT airdrop to any wallet that holds a specific ASA or sends a payment to your address.',
+        title: 'Lead Routing',
+        desc: 'Route new leads to the right team instantly based on source, region, or priority.',
         icon: Image,
         color: 'violet',
-        tag: 'NFTs',
+        tag: 'Sales',
     },
     {
-        title: 'DAO Governance',
-        desc: 'Automate proposal execution based on on-chain voting results. Execute transactions only when consensus is reached.',
+        title: 'Approval Workflows',
+        desc: 'Trigger approval chains for budgets, invoices, or requests and notify the next approver automatically.',
         icon: Vote,
         color: 'emerald',
-        tag: 'DAO',
+        tag: 'Operations',
     },
     {
         title: 'Whale Alerts',
@@ -32,15 +32,15 @@ const cases = [
         tag: 'Monitoring',
     },
     {
-        title: 'Recurring Payments',
-        desc: 'Schedule automated payouts for payroll, subscriptions, or grants. AlgoZap handles the timing and execution.',
+        title: 'Recurring Tasks',
+        desc: 'Schedule recurring messages, reports, or updates so routine work runs automatically.',
         icon: Repeat,
         color: 'amber',
-        tag: 'Payments',
+        tag: 'Scheduling',
     },
     {
-        title: 'Smart Contract Testing',
-        desc: 'Chain multiple smart contract calls together to test complex interactions on TestNet before deploying to MainNet.',
+        title: 'Integration Testing',
+        desc: 'Chain multiple API steps to validate end-to-end workflows before rolling them into production.',
         icon: Code2,
         color: 'blue',
         tag: 'Dev Tools',
@@ -67,7 +67,7 @@ export default function UseCases() {
                     </h2>
                     <p className="section-subtitle">
                         From simple notifications to complex multi-step financial operations,
-                        AlgoZap powers a wide range of on-chain automations.
+                        Pravah powers a wide range of automation use cases.
                     </p>
                 </motion.div>
 

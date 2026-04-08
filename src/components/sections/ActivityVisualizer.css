@@ -1,15 +1,15 @@
-.blockchain-viz {
+.activity-viz {
     position: relative;
 }
 
-.blockchain-viz__header {
+.activity-viz__header {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.blockchain-viz__chain {
+.activity-viz__timeline {
     display: flex;
     align-items: center;
     gap: 0;
@@ -19,14 +19,14 @@
     scroll-snap-type: x mandatory;
 }
 
-.blockchain-viz__block-wrapper {
+.activity-viz__run-wrapper {
     display: flex;
     align-items: center;
     flex-shrink: 0;
     scroll-snap-align: start;
 }
 
-.blockchain-viz__link {
+.activity-viz__link {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +35,7 @@
     opacity: 0.4;
 }
 
-.blockchain-viz__block {
+.activity-viz__run {
     min-width: 200px;
     padding: 16px;
     background: var(--bg-card);
@@ -44,34 +44,34 @@
     transition: all var(--transition-base);
 }
 
-.blockchain-viz__block:hover {
+.activity-viz__run:hover {
     border-color: var(--primary-400);
     transform: translateY(-4px);
     box-shadow: var(--shadow-glow-cyan);
 }
 
-.blockchain-viz__block--confirmed {
+.activity-viz__run--confirmed {
     border-left: 3px solid var(--success-400);
 }
 
-.blockchain-viz__block--pending {
+.activity-viz__run--pending {
     border-left: 3px solid var(--warning-400);
 }
 
-.blockchain-viz__block-header {
+.activity-viz__run-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 12px;
 }
 
-.blockchain-viz__block-id {
+.activity-viz__run-id {
     font-size: 14px;
     font-weight: 700;
     font-family: var(--font-mono);
 }
 
-.blockchain-viz__block-status {
+.activity-viz__run-status {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -81,15 +81,15 @@
     letter-spacing: 0.05em;
 }
 
-.blockchain-viz__block-status--confirmed {
+.activity-viz__run-status--confirmed {
     color: var(--success-400);
 }
 
-.blockchain-viz__block-status--pending {
+.activity-viz__run-status--pending {
     color: var(--warning-400);
 }
 
-.blockchain-viz__block-row {
+.activity-viz__run-row {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -99,14 +99,14 @@
     margin-bottom: 6px;
 }
 
-.blockchain-viz__block-hash {
+.activity-viz__run-hash {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 120px;
 }
 
-.blockchain-viz__block-footer {
+.activity-viz__run-footer {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid var(--border-subtle);

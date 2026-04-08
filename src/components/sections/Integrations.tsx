@@ -57,7 +57,7 @@ export default function Integrations() {
                     </h2>
                     <p className="section-subtitle">
                         From Indian payment gateways to global CRM tools — 
-                        FlowConnect bridges the gap between your favorite apps.
+                        Pravah bridges the gap between your favorite apps.
                     </p>
                 </motion.div>
 

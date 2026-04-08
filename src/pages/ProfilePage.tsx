@@ -112,15 +112,15 @@ export default function ProfilePage() {
     const [invoiceHistory, setInvoiceHistory] = useState<GeneratedInvoice[]>([])
     const [fullForm, setFullForm]             = useState<InvoicePayload>({
         payment_id: '', amount: 0, customer_name: '', customer_email: '',
-        customer_phone: '', product_name: '', company_name: 'FlowConnect',
+        customer_phone: '', product_name: '', company_name: 'Pravah',
         send_email: true, send_whatsapp: true,
     })
     const [fullResult, setFullResult]       = useState<any>(null)
     const [fullLoading, setFullLoading]     = useState(false)
-    const [waForm, setWaForm]               = useState({ phone: '', invoice_number: '', amount: '', customer_name: '', company_name: 'FlowConnect', pdf_path: '' })
+    const [waForm, setWaForm]               = useState({ phone: '', invoice_number: '', amount: '', customer_name: '', company_name: 'Pravah', pdf_path: '' })
     const [waResult, setWaResult]           = useState<any>(null)
     const [waLoading, setWaLoading]         = useState(false)
-    const [emailForm, setEmailForm]         = useState({ customer_email: '', customer_name: '', invoice_number: '', amount: '', company_name: 'FlowConnect', pdf_path: '' })
+    const [emailForm, setEmailForm]         = useState({ customer_email: '', customer_name: '', invoice_number: '', amount: '', company_name: 'Pravah', pdf_path: '' })
     const [emailResult, setEmailResult]     = useState<any>(null)
     const [emailLoading, setEmailLoading]   = useState(false)
     const [directForm, setDirectForm]       = useState({ phone: '', message: '' })
@@ -593,7 +593,7 @@ export default function ProfilePage() {
             const result = await sendWhatsAppInvoice({
                 phone: waForm.phone, invoice_number: waForm.invoice_number,
                 amount: parseFloat(waForm.amount), customer_name: waForm.customer_name,
-                company_name: waForm.company_name || 'FlowConnect',
+                company_name: waForm.company_name || 'Pravah',
                 pdf_path: waForm.pdf_path || undefined,
             })
             setWaResult(result)
@@ -606,7 +606,7 @@ export default function ProfilePage() {
             const result = await sendEmailInvoice({
                 customer_email: emailForm.customer_email, customer_name: emailForm.customer_name,
                 invoice_number: emailForm.invoice_number, amount: parseFloat(emailForm.amount),
-                company_name: emailForm.company_name || 'FlowConnect', pdf_path: emailForm.pdf_path,
+                company_name: emailForm.company_name || 'Pravah', pdf_path: emailForm.pdf_path,
             })
             setEmailResult(result)
         } catch (e: any) { setEmailResult({ error: e.message }) }
@@ -961,9 +961,9 @@ export default function ProfilePage() {
                                     {apps.map(app => {
                                         const info = appIcons[app.app_name] || { icon: '🔌', label: app.app_name, color: '#6366f1' }
                                         return (
-                                            <div className="wallet-item" key={app.id}>
-                                                <div className="wallet-info">
-                                                    <div className="wallet-icon" style={{ fontSize: 24, background: `${info.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: 10 }}>{info.icon}</div>
+                                            <div className="app-item" key={app.id}>
+                                                <div className="app-info">
+                                                    <div className="app-icon" style={{ fontSize: 24, background: `${info.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: 10 }}>{info.icon}</div>
                                                     <div>
                                                         <div style={{ fontWeight: 700 }}>{info.label}</div>
                                                         <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>Connected {new Date(app.connected_at).toLocaleDateString()}</div>
@@ -1442,7 +1442,7 @@ export default function ProfilePage() {
                                             </div>
                                             <div>
                                                 <label className="form-label">Message *</label>
-                                                <textarea className="form-input" rows={5} placeholder="Hello from FlowConnect! 🚀" value={tgSendForm.message} onChange={e => setTgSendForm(p => ({ ...p, message: e.target.value }))} style={{ resize: 'vertical', fontFamily: 'monospace', fontSize: 13 }} />
+                                                <textarea className="form-input" rows={5} placeholder="Hello from Pravah! 🚀" value={tgSendForm.message} onChange={e => setTgSendForm(p => ({ ...p, message: e.target.value }))} style={{ resize: 'vertical', fontFamily: 'monospace', fontSize: 13 }} />
                                             </div>
                                             <div>
                                                 <label className="form-label">Parse Mode</label>

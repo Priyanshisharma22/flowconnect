@@ -1,9 +1,9 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import { Blocks, Hash, Clock, CheckCircle2, Link2 } from 'lucide-react'
-import './BlockchainVisualizer.css'
+import { Activity, Hash, Clock, CheckCircle2, Link2 } from 'lucide-react'
+import './ActivityVisualizer.css'
 
-interface Block {
+interface ActivityRun {
     id: number
     hash: string
     prevHash: string
@@ -18,7 +18,7 @@ function generateHash(): string {
     ).join('')
 }
 
-function generateBlock(id: number, prevHash: string): Block {
+function generateRun(id: number, prevHash: string): ActivityRun {
     return {
         id,
         hash: generateHash(),
@@ -29,16 +29,16 @@ function generateBlock(id: number, prevHash: string): Block {
     }
 }
 
-export default function BlockchainVisualizer() {
+export default function ActivityVisualizer() {
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true, margin: '-100px' })
-    const [blocks, setBlocks] = useState<Block[]>(() => {
-        const initial: Block[] = []
+    const [runs, setRuns] = useState<ActivityRun[]>(() => {
+        const initial: ActivityRun[] = []
         let prevHash = '0x00000000'
         for (let i = 1; i <= 5; i++) {
-            const block = generateBlock(i, prevHash)
-            initial.push(block)
-            prevHash = block.hash
+            const run = generateRun(i, prevHash)
+            initial.push(run)
+            prevHash = run.hash
         }
         return initial
     })
@@ -46,70 +46,70 @@ export default function BlockchainVisualizer() {
     useEffect(() => {
         if (!isInView) return
         const interval = setInterval(() => {
-            setBlocks((prev) => {
-                const lastBlock = prev[prev.length - 1]
-                const newBlock = generateBlock(lastBlock.id + 1, lastBlock.hash)
-                return [...prev.slice(-4), newBlock]
+            setRuns((prev) => {
+                const lastRun = prev[prev.length - 1]
+                const newRun = generateRun(lastRun.id + 1, lastRun.hash)
+                return [...prev.slice(-4), newRun]
             })
         }, 3000)
         return () => clearInterval(interval)
     }, [isInView])
 
     return (
-        <section className="blockchain-viz section" id="blockchain-viz" ref={ref}>
+        <section className="activity-viz section" id="activity-viz" ref={ref}>
             <div className="container">
                 <motion.div
-                    className="blockchain-viz__header"
+                    className="activity-viz__header"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="section-badge" id="blockchain-viz-badge">
-                        <Blocks size={14} />
-                        Live Algorand
+                    <div className="section-badge" id="activity-viz-badge">
+                        <Activity size={14} />
+                        Live Workflow Activity
                     </div>
                     <h2 className="section-title">
-                        See Your Workflows on <span className="gradient-text">Algorand</span>
+                        See Your Workflows in <span className="gradient-text">Real Time</span>
                     </h2>
                     <p className="section-subtitle">
-                        Every workflow execution is recorded as an immutable transaction on Algorand.
-                        Full transparency. Pure Proof-of-Stake consensus. 3.3s finality.
+                        Monitor recent workflow runs with timestamps, status, and execution volume.
+                        Get clear visibility into what is running right now.
                     </p>
                 </motion.div>
 
-                <div className="blockchain-viz__chain">
-                    {blocks.map((block, i) => (
+                <div className="activity-viz__timeline">
+                    {runs.map((run, i) => (
                         <motion.div
-                            key={block.id}
-                            className="blockchain-viz__block-wrapper"
+                            key={run.id}
+                            className="activity-viz__run-wrapper"
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={isInView ? { opacity: 1, scale: 1 } : {}}
                             transition={{ duration: 0.4, delay: i * 0.1 }}
                         >
                             {i > 0 && (
-                                <div className="blockchain-viz__link">
+                                <div className="activity-viz__link">
                                     <Link2 size={14} />
                                 </div>
                             )}
-                            <div className={`blockchain-viz__block blockchain-viz__block--${block.status}`}>
-                                <div className="blockchain-viz__block-header">
-                                    <span className="blockchain-viz__block-id">Round #{block.id}</span>
-                                    <span className={`blockchain-viz__block-status blockchain-viz__block-status--${block.status}`}>
+                            <div className={`activity-viz__run activity-viz__run--${run.status}`}>
+                                <div className="activity-viz__run-header">
+                                    <span className="activity-viz__run-id">Run #{run.id}</span>
+                                    <span className={`activity-viz__run-status activity-viz__run-status--${run.status}`}>
                                         <CheckCircle2 size={12} />
-                                        {block.status}
+                                        {run.status}
                                     </span>
                                 </div>
-                                <div className="blockchain-viz__block-row">
+                                <div className="activity-viz__run-row">
                                     <Hash size={12} />
-                                    <span className="blockchain-viz__block-hash">{block.hash}</span>
+                                    <span className="activity-viz__run-hash">{run.hash}</span>
                                 </div>
-                                <div className="blockchain-viz__block-row">
+                                <div className="activity-viz__run-row">
                                     <Clock size={12} />
-                                    <span>{block.timestamp}</span>
+                                    <span>{run.timestamp}</span>
                                 </div>
-                                <div className="blockchain-viz__block-footer">
-                                    {block.txCount} txns
+                                <div className="activity-viz__run-footer">
+                                    {run.txCount} txns
                                 </div>
                             </div>
                         </motion.div>

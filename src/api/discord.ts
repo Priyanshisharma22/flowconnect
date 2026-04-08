@@ -16,7 +16,7 @@ async function sendWebhook(payload: object) {
 export async function sendMessage(message: string, username?: string) {
   await sendWebhook({
     content: message,
-    username: username || 'FlowConnect',
+    username: username || 'Pravah',
     avatar_url: 'https://cdn-icons-png.flaticon.com/512/2936/2936886.png',
   })
   return { success: true, message: 'Message sent to Discord successfully' }
@@ -30,7 +30,7 @@ export async function sendPaymentAlert(params: {
 }) {
   const now = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
   await sendWebhook({
-    username: 'FlowConnect Payments',
+    username: 'Pravah Payments',
     avatar_url: 'https://cdn-icons-png.flaticon.com/512/2936/2936886.png',
     embeds: [{
       title: '💰 New Payment Received!',
@@ -42,7 +42,7 @@ export async function sendPaymentAlert(params: {
         ...(params.payment_id ? [{ name: '🔖 Payment ID', value: `\`${params.payment_id}\``,    inline: false }] : []),
         { name: '⏰ Time', value: now, inline: false },
       ],
-      footer: { text: 'FlowConnect Payment System' },
+      footer: { text: 'Pravah Payment System' },
       timestamp: new Date().toISOString(),
     }],
   })
@@ -56,7 +56,7 @@ export async function sendEmbed(params: {
   fields?: { name: string; value: string; inline?: boolean }[]
 }) {
   await sendWebhook({
-    username: 'FlowConnect',
+    username: 'Pravah',
     avatar_url: 'https://cdn-icons-png.flaticon.com/512/2936/2936886.png',
     embeds: [{
       title: params.title,
@@ -64,7 +64,7 @@ export async function sendEmbed(params: {
       color: params.color || 3447003,
       fields: params.fields || [],
       timestamp: new Date().toISOString(),
-      footer: { text: 'FlowConnect' },
+      footer: { text: 'Pravah' },
     }],
   })
   return { success: true, message: 'Embed sent to Discord' }
@@ -73,7 +73,7 @@ export async function sendEmbed(params: {
 export async function sendNotification(event_type: string, details: string) {
   const now = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
   await sendWebhook({
-    username: 'FlowConnect Alerts',
+    username: 'Pravah Alerts',
     avatar_url: 'https://cdn-icons-png.flaticon.com/512/2936/2936886.png',
     embeds: [{
       title: `🔔 ${event_type}`,
@@ -81,7 +81,7 @@ export async function sendNotification(event_type: string, details: string) {
       color: 3447003,
       fields: [{ name: '⏰ Time', value: now, inline: false }],
       timestamp: new Date().toISOString(),
-      footer: { text: 'FlowConnect Notification System' },
+      footer: { text: 'Pravah Notification System' },
     }],
   })
   return { success: true, message: `Notification sent: ${event_type}` }

@@ -25,7 +25,7 @@ export default function CTA() {
                             Ready to Automate Your <span className="gradient-text">Business</span>?
                         </h2>
                         <p className="cta__subtitle">
-                            Join thousands of Indian founders using FlowConnect to automate their
+                            Join thousands of Indian founders using Pravah to automate their
                             daily operations. Free to start, no credit card required.
                         </p>
                         <div className="cta__actions">

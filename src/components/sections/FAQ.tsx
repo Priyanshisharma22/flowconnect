@@ -5,24 +5,24 @@ import './FAQ.css'
 
 const faqs = [
     {
-        question: 'Do I need ALGO to use AlgoZap?',
-        answer: 'You can start building workflows for free on TestNet without any real funds. For MainNet automation, you will need a small amount of ALGO for transaction fees (0.001 ALGO per txn) and to pay for the Pro or Enterprise plans if you upgrade.',
+        question: 'Do I need a card to start?',
+        answer: 'No. You can start with a free plan and explore core workflow features before upgrading.',
     },
     {
-        question: 'Is my private key safe?',
-        answer: 'Yes. AlgoZap triggers transactions, but your private keys never leave your specific wallet (Pera, Defly, etc.). We use WalletConnect for signing, so you approve every interaction securely.',
+        question: 'Is my data secure?',
+        answer: 'Yes. Pravah uses secure API-based integrations and keeps your credentials protected. You control connected apps and can revoke access anytime.',
     },
     {
-        question: 'Can I automate smart contract calls?',
-        answer: 'Absolutely. AlgoZap supports ABI method calls, allowing you to interact with any ARC-4 compliant smart contract on Algorand. You can pass arguments dynamically from previous steps.',
+        question: 'Can I automate custom API calls?',
+        answer: 'Absolutely. You can trigger HTTP/API steps and pass dynamic values from previous steps in your workflow.',
     },
     {
         question: 'What happens if a workflow fails?',
-        answer: 'If a step fails (e.g., smart contract logic rejection), the workflow stops, and you are notified immediately via email, Telegram, or Discord. Detailed logs are available in your dashboard.',
+        answer: 'If a step fails, the workflow stops and you are notified immediately via email, Telegram, or Discord. Detailed logs are available in your dashboard.',
     },
     {
-        question: 'Can I use AlgoZap for high-frequency trading?',
-        answer: 'AlgoZap is optimized for reliability rather than microsecond latency. While it is fast (blocks are 3.3s), it is better suited for DeFi rebalancing, notifications, NFT drops, and scheduled tasks rather than HFT arbitrage.',
+        question: 'Can I use Pravah for high-frequency workloads?',
+        answer: 'Pravah is optimized for reliability and business automation, not ultra-low-latency trading scenarios.',
     },
 ]
 

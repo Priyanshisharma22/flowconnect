@@ -53,7 +53,7 @@ export default function LearnAutomation() {
                                     <div className="learn-demo__step-badge">Step 1: Initiation</div>
                                     <h3 className="learn-demo__title">Start a New Workflow</h3>
                                     <p className="learn-demo__desc">
-                                        Every automation begins with a <strong>Trigger</strong>. This tells FlowConnect when to run.
+                                        Every automation begins with a <strong>Trigger</strong>. This tells Pravah when to run.
                                     </p>
                                     <div className="learn-demo__options">
                                         <button className="learn-demo__btn" onClick={nextStep}>
@@ -97,7 +97,7 @@ export default function LearnAutomation() {
                                     <div className="learn-demo__step-badge">Step 3: Deployment</div>
                                     <h3 className="learn-demo__title">Deploy & Run</h3>
                                     <p className="learn-demo__desc">
-                                        Your logica workflow is ready. Deploy it to FlowConnect.
+                                        Your logica workflow is ready. Deploy it to Pravah.
                                     </p>
                                     <div className="learn-demo__options">
                                         <button className="learn-demo__btn" onClick={nextStep}>

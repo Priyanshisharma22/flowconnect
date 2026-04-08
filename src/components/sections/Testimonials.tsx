@@ -5,26 +5,26 @@ import './Testimonials.css'
 const testimonials = [
     {
         name: 'Alex Rivera',
-        role: 'DeFi Protocol Lead',
-        text: 'AlgoZap replaced our entire backend cron system on Algorand. Now every rebalance on Folks Finance, harvest, and notification is fully on-chain and verifiable via Allo Explorer.',
+        role: 'Operations Lead',
+        text: 'Pravah replaced our fragile cron setup with reliable automations. Payments, alerts, and reports now run on time without manual follow-up.',
         rating: 5,
     },
     {
         name: 'Priya Sharma',
-        role: 'DAO Operations Manager',
-        text: 'We manage 30+ governance workflows on Algorand using AlgoZap. The deep Algorand integration is incredible — what used to take a dev team writing TEAL now takes minutes.',
+        role: 'Growth Operations Manager',
+        text: 'We run 30+ workflows across Razorpay, WhatsApp, and Sheets using Pravah. What used to take a dedicated engineering queue now takes minutes.',
         rating: 5,
     },
     {
         name: 'Marcus Chen',
-        role: 'NFT Platform CTO',
-        text: 'The Algorand smart contract triggers are game-changing. We automate ARC-72 NFT royalty distributions, metadata updates, and Rand Gallery listings all from a visual canvas.',
+        role: 'Product Engineering Lead',
+        text: 'The visual builder is excellent. We automated onboarding, invoice reminders, and team notifications without writing custom backend glue code.',
         rating: 5,
     },
     {
         name: 'Elena Volkov',
-        role: 'Algorand Developer',
-        text: 'PyTEAL script nodes + the encrypted vault let me build complex Algorand automations without compromising security. The Algokit integration is top-notch.',
+        role: 'Automation Engineer',
+        text: 'Pravah helped us connect multiple tools into one dependable flow. The logs are clear, retries are predictable, and setup is straightforward.',
         rating: 5,
     },
 ]
@@ -48,8 +48,8 @@ export default function Testimonials() {
                         Loved by <span className="gradient-text">Builders</span> Everywhere
                     </h2>
                     <p className="section-subtitle">
-                        From solo devs to enterprise DAOs — AlgoZap powers
-                        the next generation of Algorand automation.
+                        From solo founders to growing teams, Pravah powers
+                        reliable day-to-day automation.
                     </p>
                 </motion.div>
 

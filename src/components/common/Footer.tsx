@@ -20,11 +20,11 @@ export default function Footer() {
                                 <Zap size={18} />
                             </div>
                             <span className="footer__logo-text">
-                                Flow<span className="gradient-text">Connect</span>
+                                <span className="gradient-text">Pravah</span>
                             </span>
                         </a>
                         <p className="footer__brand-desc">
-                            The ultimate Indian Zapier. Automate your business workflows 
+                            Pravah helps you automate business workflows 
                             across WhatsApp, Razorpay, Zoho, and 500+ Indian apps.
                         </p>
                         <div className="footer__socials">
@@ -57,7 +57,7 @@ export default function Footer() {
 
                 <div className="footer__bottom">
                     <p className="footer__copyright">
-                        © 2026 FlowConnect. All rights reserved. Made in India.
+                        © 2026 Pravah. All rights reserved. Made in India.
                     </p>
                     <div className="footer__chain-badge">
                         <span className="footer__chain-dot" />

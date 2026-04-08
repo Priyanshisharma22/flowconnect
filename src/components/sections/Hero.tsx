@@ -22,7 +22,7 @@ export default function Hero() {
                 >
                     <div className="section-badge" id="hero-badge">
                         <Zap size={14} />
-                        The Ultimate Indian Zapier
+                        Built for Modern Automation
                     </div>
                 </motion.div>
 
@@ -48,7 +48,7 @@ export default function Hero() {
                 >
                     Connect WhatsApp, Razorpay, Zoho, and 500+ Indian apps into powerful
                     automated workflows. Save hours of manual work every day with
-                    FlowConnect.
+                    Pravah.
                 </motion.p>
 
                 {/* CTA */}

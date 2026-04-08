@@ -268,7 +268,7 @@ const defaultZohoConfig: ZohoConfig = {
 
 const defaultInvoiceConfig: InvoiceConfig = {
     payment_id: '', amount: '', customer_name: '', customer_email: '',
-    customer_phone: '', product_name: '', company_name: 'FlowConnect',
+    customer_phone: '', product_name: '', company_name: 'Pravah',
     send_email: true, send_whatsapp: true,
     invoice_number: '', pdf_path: '', wa_message: '',
 }
@@ -605,7 +605,7 @@ export default function BuilderPage() {
                         customer_email: cfg.customer_email,
                         customer_phone: cfg.customer_phone,
                         product_name: cfg.product_name || undefined,
-                        company_name: cfg.company_name || 'FlowConnect',
+                        company_name: cfg.company_name || 'Pravah',
                         send_email: cfg.send_email,
                         send_whatsapp: cfg.send_whatsapp,
                     })
@@ -617,7 +617,7 @@ export default function BuilderPage() {
                         invoice_number: cfg.invoice_number,
                         amount: parseFloat(cfg.amount),
                         customer_name: cfg.customer_name,
-                        company_name: cfg.company_name || 'FlowConnect',
+                        company_name: cfg.company_name || 'Pravah',
                         pdf_path: cfg.pdf_path || undefined,
                     })
                 } else if (action.action_key === 'invoice_email') {
@@ -628,7 +628,7 @@ export default function BuilderPage() {
                         customer_name: cfg.customer_name,
                         invoice_number: cfg.invoice_number,
                         amount: parseFloat(cfg.amount),
-                        company_name: cfg.company_name || 'FlowConnect',
+                        company_name: cfg.company_name || 'Pravah',
                         pdf_path: cfg.pdf_path,
                     })
                 } else if (action.action_key === 'invoice_wa_direct') {
@@ -814,7 +814,7 @@ export default function BuilderPage() {
                     .replace('{amount}', '0')
                     .replace('{payment_id}', workflowId)
                     .replace('{phone}', cleaned)
-                : `FlowConnect: Workflow "${workflowName}" failed to deploy.`
+                : `Pravah: Workflow "${workflowName}" failed to deploy.`
             await sendSMS({ numbers: cleaned, message: smsText })
         } catch {}
     }
@@ -1648,7 +1648,7 @@ export default function BuilderPage() {
                                             <div style={{ marginBottom: 10 }}>
                                                 <label className="auth-form__label">Message *</label>
                                                 <textarea className="auth-form__input" rows={4}
-                                                    placeholder="Hello from FlowConnect! 🚀"
+                                                    placeholder="Hello from Pravah! 🚀"
                                                     value={tgConfig.message}
                                                     onChange={e => setTgField('message', e.target.value)}
                                                     style={{ resize: 'vertical', fontFamily: 'monospace', fontSize: 12 }} />
@@ -1804,7 +1804,7 @@ export default function BuilderPage() {
                                                 style={{ marginBottom: 10 }} />
                                             <label className="auth-form__label">Your Name / Business</label>
                                             <input type="text" className="auth-form__input"
-                                                placeholder="FlowConnect"
+                                                placeholder="Pravah"
                                                 value={instaConfig.link_name}
                                                 onChange={e => setInstaConfig({ ...instaConfig, link_name: e.target.value })}
                                                 style={{ marginBottom: 10 }} />
@@ -1870,7 +1870,7 @@ export default function BuilderPage() {
                                         { label: 'Customer Email *',  field: 'customer_email', placeholder: 'rohit@example.com' },
                                         { label: 'Customer Phone *',  field: 'customer_phone', placeholder: '+919876543210' },
                                         { label: 'Product / Service', field: 'product_name',   placeholder: 'Pro Plan' },
-                                        { label: 'Company Name',      field: 'company_name',   placeholder: 'FlowConnect' },
+                                        { label: 'Company Name',      field: 'company_name',   placeholder: 'Pravah' },
                                     ] as { label: string; field: keyof InvoiceConfig; placeholder: string }[]).map(({ label, field, placeholder }) => (
                                         <div key={field} style={{ marginBottom: 10 }}>
                                             <label className="auth-form__label">{label}</label>

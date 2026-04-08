@@ -1,32 +1,29 @@
 import { registerUser, saveAuth } from '../api/client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/common/Navbar'
 import {
-    Zap,
     Mail,
     Lock,
     Eye,
     EyeOff,
     ArrowRight,
-    Wallet,
-    Blocks,
     Shield,
     User,
-    Fingerprint,
     Check,
+    Zap,
 } 
 from 'lucide-react'
 import '../styles/AuthPages.css'
 
 export default function SignupPage() {
+    const navigate = useNavigate()
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [activeTab, setActiveTab] = useState<'wallet' | 'email'>('wallet')
     const [agreedToTerms, setAgreedToTerms] = useState(false)
 
     const passwordStrength = (() => {
@@ -51,7 +48,7 @@ export default function SignupPage() {
     try {
         const data = await registerUser(fullName, email, password)
         saveAuth(data.access_token, data.user)
-        window.location.href = '/builder'
+        navigate('/builder')
     } catch (err: any) {
         setError(err.message)
     } finally {
@@ -69,13 +66,6 @@ export default function SignupPage() {
                 <div className="auth-page__orb auth-page__orb--3" />
             </div>
 
-            {/* Floating Blockchain Nodes */}
-            <div className="auth-page__nodes">
-                <div className="auth-page__node auth-page__node--1"><Blocks size={16} /></div>
-                <div className="auth-page__node auth-page__node--2"><Shield size={14} /></div>
-                <div className="auth-page__node auth-page__node--3"><Fingerprint size={14} /></div>
-            </div>
-
             <motion.div
                 className="auth-card"
                 initial={{ opacity: 0, y: 30, scale: 0.96 }}
@@ -88,7 +78,7 @@ export default function SignupPage() {
                         <Zap size={20} />
                     </div>
                     <span className="auth-card__logo-text">
-                        Algo<span className="gradient-text">Zap</span>
+                        <span className="gradient-text">Pravah</span>
                     </span>
                 </Link>
 
@@ -101,93 +91,16 @@ export default function SignupPage() {
                 >
                     <h1 className="auth-card__title">Create Your Account</h1>
                     <p className="auth-card__subtitle">
-                        Start automating on Algorand in minutes
+                        Create your Pravah account in seconds
                     </p>
                 </motion.div>
 
-                {/* Tab Switcher */}
                 <motion.div
-                    className="auth-tabs"
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 }}
+                    transition={{ duration: 0.3 }}
                 >
-                    <button
-                        className={`auth-tabs__btn ${activeTab === 'wallet' ? 'auth-tabs__btn--active' : ''}`}
-                        onClick={() => setActiveTab('wallet')}
-                        id="signup-tab-wallet"
-                    >
-                        <Wallet size={16} />
-                        Wallet
-                    </button>
-                    <button
-                        className={`auth-tabs__btn ${activeTab === 'email' ? 'auth-tabs__btn--active' : ''}`}
-                        onClick={() => setActiveTab('email')}
-                        id="signup-tab-email"
-                    >
-                        <Mail size={16} />
-                        Email
-                    </button>
-                </motion.div>
-
-                {/* Wallet Signup */}
-                {activeTab === 'wallet' && (
-                    <motion.div
-                        className="auth-card__wallet-section"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3 }}
-                        key="wallet"
-                    >
-                        <button className="auth-wallet-btn auth-wallet-btn--pera" id="signup-pera">
-                            <div className="auth-wallet-btn__icon">
-                                <Wallet size={20} />
-                            </div>
-                            <div className="auth-wallet-btn__info">
-                                <span className="auth-wallet-btn__name">Pera Wallet</span>
-                                <span className="auth-wallet-btn__desc">Create account with Pera</span>
-                            </div>
-                            <ArrowRight size={16} className="auth-wallet-btn__arrow" />
-                        </button>
-
-                        <button className="auth-wallet-btn auth-wallet-btn--defly" id="signup-defly">
-                            <div className="auth-wallet-btn__icon auth-wallet-btn__icon--defly">
-                                <Wallet size={20} />
-                            </div>
-                            <div className="auth-wallet-btn__info">
-                                <span className="auth-wallet-btn__name">Defly Wallet</span>
-                                <span className="auth-wallet-btn__desc">Create account with Defly</span>
-                            </div>
-                            <ArrowRight size={16} className="auth-wallet-btn__arrow" />
-                        </button>
-
-                        <button className="auth-wallet-btn auth-wallet-btn--walletconnect" id="signup-walletconnect">
-                            <div className="auth-wallet-btn__icon auth-wallet-btn__icon--wc">
-                                <Blocks size={20} />
-                            </div>
-                            <div className="auth-wallet-btn__info">
-                                <span className="auth-wallet-btn__name">WalletConnect</span>
-                                <span className="auth-wallet-btn__desc">Scan QR to create account</span>
-                            </div>
-                            <ArrowRight size={16} className="auth-wallet-btn__arrow" />
-                        </button>
-
-                        <div className="auth-card__security-note">
-                            <Shield size={14} />
-                            <span>One-click sign up. Your wallet address becomes your identity.</span>
-                        </div>
-                    </motion.div>
-                )}
-
-                {/* Email Signup */}
-                {activeTab === 'email' && (
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3 }}
-                        key="email"
-                    >
-                        <form onSubmit={handleEmailSignup} className="auth-form">
+                    <form onSubmit={handleEmailSignup} className="auth-form">
                             <div className="auth-form__field">
                                 <label className="auth-form__label" htmlFor="signup-name">Full Name</label>
                                 <div className="auth-form__input-wrapper">
@@ -312,9 +225,8 @@ export default function SignupPage() {
                                     </>
                                 )}
                             </button>
-                        </form>
-                    </motion.div>
-                )}
+                    </form>
+                </motion.div>
 
                 {/* Footer */}
                 <div className="auth-card__footer">
@@ -339,12 +251,8 @@ export default function SignupPage() {
                     End-to-end encrypted
                 </div>
                 <div className="auth-page__trust-item">
-                    <Blocks size={14} />
-                    Algorand secured
-                </div>
-                <div className="auth-page__trust-item">
                     <Lock size={14} />
-                    SOC 2 compliant
+                    Secure account setup
                 </div>
             </motion.div>
         </div>

@@ -21,7 +21,7 @@ const steps = [
         number: '03',
         icon: Share2,
         title: 'Connect Integrations',
-        description: 'Securely link your accounts with FlowConnect for instant data synchronization.',
+        description: 'Securely link your accounts with Pravah for instant data synchronization.',
         color: 'emerald',
     },
     {

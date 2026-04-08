@@ -1,7 +1,7 @@
 {
-  "name": "algozap",
+  "name": "pravah",
   "version": "1.0.0",
-  "description": "AlgoZap - Blockchain Verified Workflow Automation",
+  "description": "Pravah - Workflow Automation Platform",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,6 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "auth:server": "node flowconnect/auth-backend/auth-server.js",
     "server": "nodemon index.js",
     "start": "node index.js"
   },

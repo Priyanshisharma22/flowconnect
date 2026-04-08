@@ -64,7 +64,7 @@ export default function Navbar() {
                         <Zap size={20} />
                     </div>
                     <span className="navbar__logo-text">
-                        Flow<span className="gradient-text">Connect</span>
+                        <span className="gradient-text">Pravah</span>
                     </span>
                 </Link>
 
