@@ -1,35 +1,45 @@
 ---
-name: Bug report
-about: Report a reproducible problem in Pravah
-title: "[Bug] "
+name: 🪲 Bug Report
+about: Create a bug report to help us resolve a problem in Pravah
+title: "🪲[Bug]: "
 labels: bug
 assignees: ""
 ---
 
-## Summary
+## Describe the bug
 
-Describe the problem clearly.
+A clear and concise description of what the bug is.
 
-## Steps to Reproduce
+## To Reproduce
 
-1. 
-2. 
-3. 
+Steps to reproduce the behavior:
 
-## Expected Behavior
+1. Go to '...'
+2. Click on '...'
+3. Scroll down to '...'
+4. See error
 
-What should have happened?
+## Expected behavior
 
-## Actual Behavior
+A clear and concise description of what you expected to happen.
 
-What happened instead?
+## Screenshots
 
-## Environment
+If applicable, add screenshots to help explain your problem.
 
-- OS:
-- Node version:
-- Browser:
+## Desktop
 
-## Additional Context
+- OS: [e.g. Windows 11]
+- Browser: [e.g. Chrome, Safari]
+- Version: [e.g. 22]
 
-Screenshots, logs, or related details.
+## Smartphone
+
+- Device: [e.g. iPhone 6]
+- OS: [e.g. iOS 18]
+- Browser: [e.g. stock browser, Safari]
+- Version: [e.g. 22]
+
+## Additional context
+
+Add any other context about the problem here.

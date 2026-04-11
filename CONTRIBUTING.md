@@ -13,9 +13,10 @@ Thanks for contributing. This project is still evolving, so small, focused pull 
 
 ```bash
 npm install
-cp .env.example .env
 npm run dev
 ```
+
+Create a local `.env` file before starting the app.
 
 Run the auth backend separately when working on authenticated flows:
 

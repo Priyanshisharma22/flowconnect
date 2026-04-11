@@ -26,11 +26,7 @@ npm install
 
 ### Environment
 
-Create a local `.env` from the example and fill in only the services you plan to run:
-
-```bash
-cp .env.example .env
-```
+Create a local `.env` file and fill in only the services you plan to run.
 
 The auth backend stores local workflow and connected-app data so the authenticated builder and profile pages can work without a separate backend. The default local files are:
 
@@ -88,7 +84,6 @@ Review [`SECURITY.md`](./SECURITY.md) before reporting a vulnerability, and foll
 |   -- ...
 |-- index.js                 # Express server for built frontend
 |-- index.html               # App HTML shell
--- .env.example              # Environment variable template
 ```
 
 ## Notes
