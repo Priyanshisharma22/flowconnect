@@ -1,56 +1,44 @@
 # Pravah
 
-Pravah is an open-source workflow automation project with a React + Vite frontend, a lightweight Express server for production hosting, and a set of service-specific integration modules under [`flowconnect/`](./flowconnect).
+Pravah is an open-source workflow automation platform with a React + Vite frontend, a lightweight Express server for production hosting, and service-specific integration modules under [`flowconnect/`](./flowconnect).
 
-The goal of the project is to help teams orchestrate actions across messaging, forms, CRM, invoicing, and payment systems from one interface.
+The project lets teams orchestrate actions across messaging, forms, CRM, invoicing, and payment systems from one interface.
 
-## What's Included
+## Repository At A Glance
 
-- A React frontend in [`src/`](./src)
-- A production static server in [`index.js`](./index.js)
-- A local auth backend in [`flowconnect/auth-backend/`](./flowconnect/auth-backend)
+- Frontend app in [`src/`](./src)
+- Production static server in [`index.js`](./index.js)
+- Local auth backend in [`flowconnect/auth-backend/`](./flowconnect/auth-backend)
 - Integration modules for Slack, Discord, Telegram, Zoho, Airtable, Razorpay, Typeform, Tally, and more in [`flowconnect/`](./flowconnect)
 
-## Tech Stack
+## Setup
 
-- React 19
-- TypeScript
-- Vite
-- Express
-- ESLint
-
-## Getting Started
-
-### Prerequisites
+### Requirements
 
 - Node.js 20 or newer
 - npm 10 or newer
 
-### Installation
+### Install
 
 ```bash
 npm install
 ```
 
-### Environment Setup
+### Environment
 
-Create a local `.env` file from the example:
+Create a local `.env` from the example and fill in only the services you plan to run:
 
 ```bash
 cp .env.example .env
 ```
 
-At minimum, set the auth server variables for local development. The bundled auth server also stores local workflow and connected-app data so the authenticated builder and profile pages can work without a separate backend.
-
-Local auth data files created from the default `.env.example` setup:
+The auth backend stores local workflow and connected-app data so the authenticated builder and profile pages can work without a separate backend. The default local files are:
 
 - `flowconnect/auth-backend/users.local.json`
 - `flowconnect/auth-backend/workflows.local.json`
 - `flowconnect/auth-backend/apps.local.json`
 
-Add integration-specific secrets only for the services you want to test.
-
-### Run the App
+### Run Locally
 
 Frontend:
 
@@ -64,7 +52,7 @@ Local auth backend:
 npm run auth:server
 ```
 
-With `npm run dev` and `npm run auth:server` running together, you can sign up, log in, save workflows, toggle workflow status, view dashboard stats, and manage connected apps locally.
+With both commands running, you can sign up, log in, save workflows, toggle workflow status, view dashboard stats, and manage connected apps locally.
 
 Production-style local server after building:
 
@@ -72,6 +60,20 @@ Production-style local server after building:
 npm run build
 npm start
 ```
+
+## Scripts
+
+- `npm run dev` starts the Vite frontend.
+- `npm run auth:server` starts the local auth API.
+- `npm run server` starts the Express server with `nodemon`.
+- `npm run build` type-checks and builds the frontend.
+- `npm run lint` runs ESLint across the repo.
+
+## Contributing
+
+Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) before opening a pull request. If you want a smaller entry point, use the issue templates in [.github/ISSUE_TEMPLATE](./.github/ISSUE_TEMPLATE) to file a bug, feature request, or task.
+
+Review [`SECURITY.md`](./SECURITY.md) before reporting a vulnerability, and follow [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) when participating in the project.
 
 ## Project Structure
 
@@ -89,13 +91,7 @@ npm start
 -- .env.example              # Environment variable template
 ```
 
-## Open Source Workflow
-
-- Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) before opening a pull request.
-- Review [`SECURITY.md`](./SECURITY.md) before reporting a vulnerability.
-- Participation in this repository is covered by [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md).
-
-## Current Notes
+## Notes
 
 - Some integration modules expect third-party credentials and local service setup.
 - Runtime-generated files should stay local and are ignored where possible.
