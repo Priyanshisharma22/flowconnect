@@ -246,7 +246,7 @@ export default function ProfilePage() {
         if (activeTab === 'typeform')      loadTfForms()
         if (activeTab === 'tally')         loadTallyOverview()
         if (activeTab === 'zoho')          loadZohoLeads()
-    }, [activeTab])
+    }, [activeTab, loadZohoLeads])
 
     // ── Generic loaders ────────────────────────────────────────────────────────
     async function loadAll() {
@@ -534,9 +534,6 @@ export default function ProfilePage() {
     }
 
     // ── Zoho CRM loaders ──────────────────────────────────────────────────────
-    async function getZohoLeads(): Promise<any[]> {
-        return apiCall('/zoho/leads')
-    }
     async function getZohoDeals(): Promise<any[]> {
         return apiCall('/zoho/deals')
     }
@@ -546,7 +543,7 @@ export default function ProfilePage() {
 
     async function loadZohoLeads() {
         setZohoLoading(true); setZohoError('')
-        try { setZohoLeads(await getZohoLeads()) }
+        try { setZohoLeads(await apiCall('/zoho/leads')) }
         catch (e: any) { setZohoError(e.message || 'Failed to load Zoho leads') }
         finally { setZohoLoading(false) }
     }

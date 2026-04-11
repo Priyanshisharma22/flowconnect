@@ -25,6 +25,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "algosdk": "^2.8.0",
     "axios": "^1.14.0",
     "bcryptjs": "^3.0.2",

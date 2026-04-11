@@ -18,6 +18,73 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+interface RazorpayToolArgs {
+  count?: number;
+  status?: string;
+  subscription_id?: string;
+  cancel_at_cycle_end?: boolean;
+  pause_at?: string;
+  resume_at?: string;
+  days?: number;
+  plan_id?: string;
+  total_count?: number;
+  quantity?: number;
+  customer_notify?: boolean;
+  notes?: Record<string, unknown>;
+}
+
+interface RazorpaySubscriptionItem {
+  id: string;
+  plan_id?: string;
+  status?: string;
+  current_start?: number;
+  current_end?: number;
+  paid_count?: number;
+  total_count?: number;
+  quantity?: number;
+  remaining_count?: number;
+  ended_at?: number;
+  notes?: unknown;
+}
+
+interface RazorpayInvoiceItem {
+  id: string;
+  status?: string;
+  amount?: number;
+  date?: number;
+}
+
+interface RazorpayPlanItem {
+  id: string;
+  item?: {
+    name?: string;
+    amount?: number;
+  };
+  interval?: string;
+  period?: string;
+}
+
+interface RazorpayListResponse<T> {
+  count: number;
+  items: T[];
+}
+
+function formatDateFromUnixSeconds(value?: number) {
+  return value ? new Date(value * 1000).toLocaleDateString("en-IN") : null;
+}
+
+function getErrorMessage(error: unknown) {
+  if (axios.isAxiosError(error)) {
+    return error.response?.data?.error?.description || error.message || "Unknown error";
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Unknown error";
+}
+
 const server = new Server(
   { name: "razorpay-subscription-mcp", version: "1.0.0" },
   { capabilities: { tools: {} } }
@@ -159,24 +226,25 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 }));
 
 // ── HANDLE TOOL CALLS ────────────────────────────────────────────
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
+server.setRequestHandler(CallToolRequestSchema, async (request: { params: { name: string; arguments?: RazorpayToolArgs } }) => {
   const { name, arguments: args } = request.params;
+  const toolArgs = args as RazorpayToolArgs | undefined;
 
   try {
     switch (name) {
 
       // ── Get all subscriptions ──────────────────────────────────
       case "get_all_subscriptions": {
-        const params: any = { count: args?.count || 10 };
-        if (args?.status) params.status = args.status;
+        const params: Record<string, string | number> = { count: toolArgs?.count || 10 };
+        if (toolArgs?.status) params.status = toolArgs.status;
 
-        const { data } = await api.get("/subscriptions", { params });
-        const subs = data.items.map((s: any) => ({
+        const { data } = await api.get<RazorpayListResponse<RazorpaySubscriptionItem>>("/subscriptions", { params });
+        const subs = data.items.map((s) => ({
           id:            s.id,
           plan_id:       s.plan_id,
           status:        s.status,
-          current_start: s.current_start ? new Date(s.current_start * 1000).toLocaleDateString("en-IN") : null,
-          current_end:   s.current_end   ? new Date(s.current_end   * 1000).toLocaleDateString("en-IN") : null,
+          current_start: formatDateFromUnixSeconds(s.current_start),
+          current_end:   formatDateFromUnixSeconds(s.current_end),
           paid_count:    s.paid_count,
           total_count:   s.total_count,
           quantity:      s.quantity,
@@ -192,7 +260,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       // ── Get subscription by ID ─────────────────────────────────
       case "get_subscription_by_id": {
-        const { data: s } = await api.get(`/subscriptions/${args?.subscription_id}`);
+        const { data: s } = await api.get<RazorpaySubscriptionItem>(`/subscriptions/${toolArgs?.subscription_id}`);
         return {
           content: [{
             type: "text",
@@ -203,9 +271,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
               paid_count:    s.paid_count,
               total_count:   s.total_count,
               remaining:     s.remaining_count,
-              current_start: s.current_start ? new Date(s.current_start * 1000).toLocaleDateString("en-IN") : null,
-              current_end:   s.current_end   ? new Date(s.current_end   * 1000).toLocaleDateString("en-IN") : null,
-              ended_at:      s.ended_at      ? new Date(s.ended_at      * 1000).toLocaleDateString("en-IN") : null,
+              current_start: formatDateFromUnixSeconds(s.current_start),
+              current_end:   formatDateFromUnixSeconds(s.current_end),
+              ended_at:      formatDateFromUnixSeconds(s.ended_at),
               notes:         s.notes,
             }, null, 2),
           }],
@@ -214,15 +282,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       // ── Get subscription invoices ──────────────────────────────
       case "get_subscription_invoices": {
-        const { data } = await api.get(`/subscriptions/${args?.subscription_id}/invoices`);
+        const { data } = await api.get<RazorpayListResponse<RazorpayInvoiceItem>>(`/subscriptions/${toolArgs?.subscription_id}/invoices`);
         return {
           content: [{
             type: "text",
-            text: JSON.stringify(data.items.map((inv: any) => ({
+            text: JSON.stringify(data.items.map((inv) => ({
               id:      inv.id,
               status:  inv.status,
               amount:  `Rs.${(inv.amount || 0) / 100}`,
-              date:    inv.date ? new Date(inv.date * 1000).toLocaleDateString("en-IN") : null,
+              date:    formatDateFromUnixSeconds(inv.date),
             })), null, 2),
           }],
         };
@@ -231,8 +299,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       // ── Cancel subscription ────────────────────────────────────
       case "cancel_subscription": {
         const { data } = await api.post(
-          `/subscriptions/${args?.subscription_id}/cancel`,
-          { cancel_at_cycle_end: args?.cancel_at_cycle_end ? 1 : 0 }
+          `/subscriptions/${toolArgs?.subscription_id}/cancel`,
+          { cancel_at_cycle_end: toolArgs?.cancel_at_cycle_end ? 1 : 0 }
         );
         return {
           content: [{
@@ -240,7 +308,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             text: JSON.stringify({
               id:      data.id,
               status:  data.status,
-              message: args?.cancel_at_cycle_end
+              message: toolArgs?.cancel_at_cycle_end
                 ? "Subscription will cancel at end of current cycle"
                 : "Subscription cancelled immediately",
             }, null, 2),
@@ -251,8 +319,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       // ── Pause subscription ─────────────────────────────────────
       case "pause_subscription": {
         const { data } = await api.post(
-          `/subscriptions/${args?.subscription_id}/pause`,
-          { pause_at: args?.pause_at || "now" }
+          `/subscriptions/${toolArgs?.subscription_id}/pause`,
+          { pause_at: toolArgs?.pause_at || "now" }
         );
         return {
           content: [{
@@ -269,8 +337,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       // ── Resume subscription ────────────────────────────────────
       case "resume_subscription": {
         const { data } = await api.post(
-          `/subscriptions/${args?.subscription_id}/resume`,
-          { resume_at: args?.resume_at || "now" }
+          `/subscriptions/${toolArgs?.subscription_id}/resume`,
+          { resume_at: toolArgs?.resume_at || "now" }
         );
         return {
           content: [{
@@ -286,14 +354,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       // ── Get subscription summary ───────────────────────────────
       case "get_subscription_summary": {
-        const { data } = await api.get("/subscriptions", {
-          params: { count: args?.count || 50 }
+        const { data } = await api.get<RazorpayListResponse<RazorpaySubscriptionItem>>("/subscriptions", {
+          params: { count: toolArgs?.count || 50 }
         });
         const items     = data.items;
-        const active    = items.filter((s: any) => s.status === "active");
-        const halted    = items.filter((s: any) => s.status === "halted");
-        const cancelled = items.filter((s: any) => s.status === "cancelled");
-        const paused    = items.filter((s: any) => s.status === "paused");
+        const active    = items.filter((s) => s.status === "active");
+        const halted    = items.filter((s) => s.status === "halted");
+        const cancelled = items.filter((s) => s.status === "cancelled");
+        const paused    = items.filter((s) => s.status === "paused");
 
         return {
           content: [{
@@ -313,14 +381,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       // ── Get expiring subscriptions ─────────────────────────────
       case "get_expiring_subscriptions": {
-        const days      = Number(args?.days) || 7;
+        const days      = Number(toolArgs?.days) || 7;
         const now       = Math.floor(Date.now() / 1000);
         const future    = now + (days * 24 * 60 * 60);
-        const { data }  = await api.get("/subscriptions", {
+        const { data }  = await api.get<RazorpayListResponse<RazorpaySubscriptionItem>>("/subscriptions", {
           params: { count: 100, status: "active" }
         });
 
-        const expiring = data.items.filter((s: any) =>
+        const expiring = data.items.filter((s) =>
           s.current_end && s.current_end >= now && s.current_end <= future
         );
 
@@ -330,10 +398,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             text: JSON.stringify({
               expiring_in_days: days,
               count: expiring.length,
-              subscriptions: expiring.map((s: any) => ({
+              subscriptions: expiring.map((s) => ({
                 id:          s.id,
-                expires_on:  new Date(s.current_end * 1000).toLocaleDateString("en-IN"),
-                days_left:   Math.ceil((s.current_end - now) / 86400),
+                expires_on:  new Date((s.current_end ?? now) * 1000).toLocaleDateString("en-IN"),
+                days_left:   Math.ceil(((s.current_end ?? now) - now) / 86400),
                 paid_count:  s.paid_count,
               })),
             }, null, 2),
@@ -343,20 +411,20 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       // ── Get failed subscriptions ───────────────────────────────
       case "get_failed_subscriptions": {
-        const { data } = await api.get("/subscriptions", {
-          params: { count: args?.count || 20, status: "halted" }
+        const { data } = await api.get<RazorpayListResponse<RazorpaySubscriptionItem>>("/subscriptions", {
+          params: { count: toolArgs?.count || 20, status: "halted" }
         });
         return {
           content: [{
             type: "text",
             text: JSON.stringify({
               failed_count: data.count,
-              subscriptions: data.items.map((s: any) => ({
+              subscriptions: data.items.map((s) => ({
                 id:          s.id,
                 plan_id:     s.plan_id,
-                paid_count:  s.paid_count,
+                paid_count:   s.paid_count,
                 total_count: s.total_count,
-                notes:       s.notes,
+                notes:        s.notes,
               })),
             }, null, 2),
           }],
@@ -365,13 +433,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       // ── Create subscription ────────────────────────────────────
       case "create_subscription": {
-        const body: any = {
-          plan_id:         args?.plan_id,
-          total_count:     args?.total_count,
-          quantity:        args?.quantity || 1,
-          customer_notify: args?.customer_notify !== false ? 1 : 0,
+        const body: Record<string, string | number | Record<string, unknown>> = {
+          plan_id:         toolArgs?.plan_id || "",
+          total_count:     toolArgs?.total_count || 0,
+          quantity:        toolArgs?.quantity || 1,
+          customer_notify: toolArgs?.customer_notify !== false ? 1 : 0,
         };
-        if (args?.notes) body.notes = args.notes;
+        if (toolArgs?.notes) body.notes = toolArgs.notes;
 
         const { data } = await api.post("/subscriptions", body);
         return {
@@ -389,13 +457,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       // ── Get all plans ──────────────────────────────────────────
       case "get_all_plans": {
-        const { data } = await api.get("/plans", {
-          params: { count: args?.count || 10 }
+        const { data } = await api.get<RazorpayListResponse<RazorpayPlanItem>>("/plans", {
+          params: { count: toolArgs?.count || 10 }
         });
         return {
           content: [{
             type: "text",
-            text: JSON.stringify(data.items.map((p: any) => ({
+            text: JSON.stringify(data.items.map((p) => ({
               id:       p.id,
               name:     p.item?.name,
               amount:   `Rs.${(p.item?.amount || 0) / 100}`,
@@ -409,18 +477,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       // ── Get subscription revenue (MRR) ─────────────────────────
       case "get_subscription_revenue": {
         const [subsData, plansData] = await Promise.all([
-          api.get("/subscriptions", { params: { count: 100, status: "active" } }),
-          api.get("/plans",         { params: { count: 100 } }),
+          api.get<RazorpayListResponse<RazorpaySubscriptionItem>>("/subscriptions", { params: { count: 100, status: "active" } }),
+          api.get<RazorpayListResponse<RazorpayPlanItem>>("/plans",         { params: { count: 100 } }),
         ]);
 
         const planMap: Record<string, number> = {};
-        plansData.data.items.forEach((p: any) => {
+        plansData.data.items.forEach((p) => {
           planMap[p.id] = p.item?.amount || 0;
         });
 
         const activeSubs = subsData.data.items;
-        const mrr = activeSubs.reduce((sum: number, s: any) => {
-          return sum + (planMap[s.plan_id] || 0);
+        const mrr = activeSubs.reduce((sum: number, s) => {
+          return sum + (s.plan_id ? (planMap[s.plan_id] || 0) : 0);
         }, 0);
 
         return {
@@ -442,11 +510,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         throw new Error(`Unknown tool: ${name}`);
     }
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       content: [{
         type: "text",
-        text: `Error: ${error.response?.data?.error?.description || error.message}`,
+        text: `Error: ${getErrorMessage(error)}`,
       }],
       isError: true,
     };
