@@ -17,6 +17,7 @@ function App() {
 
   return (
     <Router>
+      <div id="aria-live-announcer" aria-live="polite" aria-atomic="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route

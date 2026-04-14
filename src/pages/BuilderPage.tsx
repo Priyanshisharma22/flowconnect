@@ -1010,15 +1010,19 @@ export default function BuilderPage() {
 
             {/* Toast */}
             {toast && (
-                <div style={{
-                    position: 'fixed', top: 20, right: 20, zIndex: 9999,
-                    background: toast.type === 'success' ? '#dcfce7' : '#fee2e2',
-                    color: toast.type === 'success' ? '#16a34a' : '#dc2626',
-                    padding: '12px 20px', borderRadius: '10px',
-                    display: 'flex', alignItems: 'center', gap: 8,
-                    fontSize: 14, fontWeight: 500,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                }}>
+                <div 
+                    role="alert"
+                    aria-live="assertive"
+                    aria-atomic="true"
+                    style={{
+                        position: 'fixed', top: 20, right: 20, zIndex: 9999,
+                        background: toast.type === 'success' ? '#dcfce7' : '#fee2e2',
+                        color: toast.type === 'success' ? '#16a34a' : '#dc2626',
+                        padding: '12px 20px', borderRadius: '10px',
+                        display: 'flex', alignItems: 'center', gap: 8,
+                        fontSize: 14, fontWeight: 500,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    }}>
                     {toast.type === 'success' ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
                     {toast.msg}
                 </div>
@@ -1037,6 +1041,7 @@ export default function BuilderPage() {
                     You are not logged in. Saving workflows requires an account.
                     <button
                         onClick={() => navigate('/login')}
+                        aria-label="Go to login page"
                         style={{
                             background: '#f59e0b', color: '#fff', border: 'none',
                             padding: '4px 12px', borderRadius: 6, cursor: 'pointer',
@@ -1051,10 +1056,11 @@ export default function BuilderPage() {
             {/* Header */}
             <header className="builder-header" style={{ marginTop: !isAuthed ? 44 : 0 }}>
                 <div className="builder-header__left">
-                    <Link to="/" className="builder-header__back"><ArrowLeft size={20} /></Link>
+                    <Link to="/" className="builder-header__back" aria-label="Back to home"><ArrowLeft size={20} /></Link>
                     <input
                         value={workflowName}
                         onChange={e => setWorkflowName(e.target.value)}
+                        aria-label="Workflow name"
                         style={{
                             background: 'transparent', border: 'none', outline: 'none',
                             fontSize: 15, fontWeight: 600, color: 'inherit', minWidth: 200,
@@ -1066,6 +1072,7 @@ export default function BuilderPage() {
                         className="btn-secondary"
                         style={{ padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 6 }}
                         onClick={handleSave} disabled={saving}
+                        aria-label="Save workflow"
                     >
                         {saving ? <Loader size={16} className="spin" /> : <Save size={16} />} Save
                     </button>
@@ -1073,6 +1080,7 @@ export default function BuilderPage() {
                         className="btn-primary"
                         style={{ padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 6 }}
                         onClick={handleDeploy} disabled={deploying}
+                        aria-label="Deploy workflow"
                     >
                         {deploying ? <Loader size={16} className="spin" /> : <Play size={16} />} Deploy
                     </button>
@@ -1082,15 +1090,23 @@ export default function BuilderPage() {
             <div className="builder-body">
 
                 {/* ── Sidebar ─────────────────────────────────────────────── */}
-                <aside className="builder-sidebar">
-                    <div className="builder-sidebar__tabs">
+                <aside className="builder-sidebar" role="complementary" aria-label="Workflow components">
+                    <div className="builder-sidebar__tabs" role="tablist">
                         <div
                             className={`builder-sidebar__tab ${selectedTab === 'triggers' ? 'builder-sidebar__tab--active' : ''}`}
                             onClick={() => setSelectedTab('triggers')}
+                            role="tab"
+                            aria-selected={selectedTab === 'triggers'}
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === 'Enter' && setSelectedTab('triggers')}
                         >Triggers</div>
                         <div
                             className={`builder-sidebar__tab ${selectedTab === 'actions' ? 'builder-sidebar__tab--active' : ''}`}
                             onClick={() => setSelectedTab('actions')}
+                            role="tab"
+                            aria-selected={selectedTab === 'actions'}
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === 'Enter' && setSelectedTab('actions')}
                         >Actions</div>
                     </div>
 
@@ -1240,6 +1256,7 @@ export default function BuilderPage() {
                                     {isZoho  && <span style={{ marginLeft: 6, background: '#16a34a', color: '#fff', fontSize: 9, fontWeight: 700, padding: '2px 6px', borderRadius: 4 }}>ZOHO CRM</span>}
                                     <button
                                         onClick={() => removeAction(action.id)}
+                                        aria-label={`Remove ${action.label} action`}
                                         style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: '#ef4444', fontSize: 16 }}
                                     >×</button>
                                 </div>
