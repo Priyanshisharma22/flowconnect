@@ -19,7 +19,7 @@ export default function HowItWorksPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
-                            style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}
+                            style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 20px' }}
                         >
                             <div className="section-badge" style={{ margin: '0 auto 20px' }}>
                                 <GitBranch size={14} />
