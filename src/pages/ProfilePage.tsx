@@ -46,6 +46,7 @@ import {
     type TypeformForm, type TypeformField, type TypeformResponse,
 } from '../api/typeform'
 
+import Skeleton from '../components/common/Skeleton'
 import '../styles/ProfilePage.css'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -850,10 +851,20 @@ export default function ProfilePage() {
     }
 
     if (loading) return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-            <div style={{ textAlign: 'center' }}>
-                <RefreshCw size={32} style={{ animation: 'spin 1s linear infinite', color: '#6366f1' }} />
-                <p style={{ marginTop: 12, color: '#6b7280' }}>Loading your profile...</p>
+        <div style={{ padding: '60px 40px', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+            <div style={{ display: 'flex', gap: '24px', marginBottom: '40px' }}>
+                <Skeleton width="250px" height="80px" />
+                <Skeleton width="100%" height="80px" />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '250px 1fr', gap: '32px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <Skeleton width="100%" height="48px" count={6} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <Skeleton width="40%" height="32px" style={{ marginBottom: '8px' }} />
+                    <Skeleton width="100%" height="180px" />
+                    <Skeleton width="100%" height="120px" count={3} />
+                </div>
             </div>
         </div>
     )
@@ -1017,7 +1028,7 @@ export default function ProfilePage() {
                                 </div>
                             </div>
                             {paymentsLoading ? (
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}><RefreshCw size={24} style={{ animation: 'spin 1s linear infinite', color: '#6366f1' }} /></div>
+                                <div style={{ padding: '30px 20px' }}><Skeleton width="30%" height="24px" style={{ marginBottom: '24px' }} /><Skeleton height="50px" count={3} /></div>
                             ) : payments.length === 0 ? (
                                 <div className="profile-card" style={{ textAlign: 'center', padding: 40 }}><Database size={32} style={{ color: '#d1d5db', margin: '0 auto 12px' }} /><p style={{ color: '#9ca3af', fontSize: 14 }}>No payment records found.</p></div>
                             ) : (
@@ -1083,7 +1094,7 @@ export default function ProfilePage() {
                                 ))}
                             </div>
                             {rzpError && <div style={{ background: '#fee2e2', color: '#dc2626', padding: '12px 16px', borderRadius: 10, marginBottom: 16, fontSize: 13 }}><AlertCircle size={14} style={{ display: 'inline', marginRight: 6 }} />{rzpError}</div>}
-                            {rzpLoading && <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}><RefreshCw size={24} style={{ animation: 'spin 1s linear infinite', color: '#2B6CB0' }} /></div>}
+                            {rzpLoading && <div style={{ padding: '30px 20px' }}><Skeleton width="30%" height="24px" style={{ marginBottom: '24px' }} /><Skeleton height="50px" count={3} /></div>}
                             {rzpSubTab === 'today' && !rzpLoading && (rzpToday ? <RzpPaymentTable payments={rzpToday.payments} /> : <div className="profile-card" style={{ textAlign: 'center', padding: 48 }}><IndianRupee size={36} style={{ color: '#d1d5db', margin: '0 auto 14px' }} /><p style={{ color: '#9ca3af', fontSize: 14 }}>Click Refresh to load today's payments.</p></div>)}
                             {rzpSubTab === 'range' && !rzpLoading && (
                                 <>
@@ -1189,7 +1200,7 @@ export default function ProfilePage() {
                             </div>
                             {subError && <div style={{ background: '#fee2e2', color: '#dc2626', padding: '12px 16px', borderRadius: 10, marginBottom: 16, fontSize: 13 }}><AlertCircle size={14} style={{ display: 'inline', marginRight: 6 }} />{subError}</div>}
                             {subActionMsg && <div style={{ background: subActionMsg.ok ? '#dcfce7' : '#fee2e2', color: subActionMsg.ok ? '#16a34a' : '#dc2626', padding: '12px 16px', borderRadius: 10, marginBottom: 16, fontSize: 13 }}>{subActionMsg.text}</div>}
-                            {subLoading && <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}><RefreshCw size={24} style={{ animation: 'spin 1s linear infinite', color: '#0e7490' }} /></div>}
+                            {subLoading && <div style={{ padding: '30px 20px' }}><Skeleton width="30%" height="24px" style={{ marginBottom: '24px' }} /><Skeleton height="50px" count={3} /></div>}
 
                             {subTab === 'overview' && !subLoading && (
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
@@ -1424,7 +1435,7 @@ export default function ProfilePage() {
                             </div>
 
                             {tgError && <div style={{ background: '#fee2e2', color: '#dc2626', padding: '12px 16px', borderRadius: 10, marginBottom: 16, fontSize: 13 }}><AlertCircle size={14} style={{ display: 'inline', marginRight: 6 }} />{tgError}</div>}
-                            {tgLoading && <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}><RefreshCw size={24} style={{ animation: 'spin 1s linear infinite', color: '#0088cc' }} /></div>}
+                            {tgLoading && <div style={{ padding: '30px 20px' }}><Skeleton width="30%" height="24px" style={{ marginBottom: '24px' }} /><Skeleton height="50px" count={3} /></div>}
 
                             {tgSubTab === 'send' && !tgLoading && (
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
@@ -1640,9 +1651,7 @@ export default function ProfilePage() {
                                 </div>
                             )}
                             {tfLoading && (
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}>
-                                    <RefreshCw size={24} style={{ animation: 'spin 1s linear infinite', color: '#262627' }} />
-                                </div>
+                                <div style={{ padding: '30px 20px' }}><Skeleton width="30%" height="24px" style={{ marginBottom: '24px' }} /><Skeleton height="50px" count={3} /></div>
                             )}
 
                             {tfSubTab === 'forms' && !tfLoading && (
@@ -1926,7 +1935,7 @@ export default function ProfilePage() {
                             </div>
 
                             {tallyError && <div style={{ background: '#fee2e2', color: '#dc2626', padding: '12px 16px', borderRadius: 10, marginBottom: 16, fontSize: 13 }}><AlertCircle size={14} style={{ display: 'inline', marginRight: 6 }} />{tallyError}</div>}
-                            {tallyLoading && <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}><RefreshCw size={24} style={{ animation: 'spin 1s linear infinite', color: '#0e7490' }} /></div>}
+                            {tallyLoading && <div style={{ padding: '30px 20px' }}><Skeleton width="30%" height="24px" style={{ marginBottom: '24px' }} /><Skeleton height="50px" count={3} /></div>}
 
                             {tallySubTab === 'overview' && !tallyLoading && (
                                 <div className="profile-card" style={{ textAlign: 'center', padding: 48 }}>

@@ -1,3 +1,4 @@
+import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
@@ -11,6 +12,28 @@ import TermsPage from './pages/TermsPage'
 import PrivacyPage from './pages/PrivacyPage'
 import AboutPage from './pages/AboutPage'
 import './styles/App.css'
+<<<<<<< Updated upstream
+=======
+import { Toaster } from 'react-hot-toast'
+
+// --- Route Protectors ---
+
+// This protects private routes like /builder or /profile
+// If there isn't an access token, it immediately sends you back to /login
+const ProtectedRoute = ({ children }: { children: React.JSX.Element }) => {
+  const isAuth = !!localStorage.getItem('access_token')
+  return isAuth ? children : <Navigate to="/login" replace />
+}
+
+// This protects public routes like /login or /signup
+// If you are already logged in, you shouldn't see log in screens, so it sends you to /builder
+const PublicRoute = ({ children }: { children: React.JSX.Element }) => {
+  const isAuth = !!localStorage.getItem('access_token')
+  return isAuth ? <Navigate to="/builder" replace /> : children
+}
+
+// --- Main Application ---
+>>>>>>> Stashed changes
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('access_token')
