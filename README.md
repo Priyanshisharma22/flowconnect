@@ -1,96 +1,208 @@
-# Pravah
+# ⚡ Pravah
 
-Pravah is an open-source workflow automation platform with a React + Vite frontend, a lightweight Express server for production hosting, and service-specific integration modules under [`flowconnect/`](./flowconnect).
+Pravah is an open-source workflow automation platform that enables teams to design, execute, and manage workflows across multiple services from a single interface.
 
-The project lets teams orchestrate actions across messaging, forms, CRM, invoicing, and payment systems from one interface.
+It is built with a **React + Vite frontend**, a **lightweight Express server**, and a **modular integration layer (`flowconnect/`)** supporting messaging, CRM, forms, invoicing, and payment systems.
 
-## Repository At A Glance
+---
 
-- Frontend app in [`src/`](./src)
-- Production static server in [`index.js`](./index.js)
-- Local auth backend in [`flowconnect/auth-backend/`](./flowconnect/auth-backend)
-- Integration modules for Slack, Discord, Telegram, Zoho, Airtable, Razorpay, Typeform, Tally, and more in [`flowconnect/`](./flowconnect)
+## 🚀 NSOC '26 Participation
 
-## Setup
+Pravah is an **official project in Nexus Spring of Code 2026 (NSOC '26)**.
+
+- 👨‍💻 Role: **Project Admin**
+- 🤝 Open for contributors
+- 🎯 Focus Areas:
+  - Workflow automation engine
+  - Integration ecosystem
+  - Frontend UX improvements
+  - Backend scalability
+
+---
+
+## ✨ Features
+
+- 🔄 Visual workflow builder
+- 🔌 Plug-and-play integrations (Slack, Discord, Telegram, Zoho, Airtable, Razorpay, Typeform, Tally, etc.)
+- 🧠 Local-first architecture (no external DB required)
+- 🔐 Built-in authentication backend
+- 📊 Dashboard with workflow insights
+- ⚙️ Enable/disable workflows dynamically
+- 🧩 Extensible integration system
+
+---
+
+## 🧩 Architecture
+
+Frontend (React + Vite) ↓ Express Server (Production Hosting) ↓ Local Auth Backend (JSON Storage) ↓ Integration Layer (flowconnect/)
+
+---
+
+## 📁 Project Structure
+
+. ├── src/                     # Frontend application ├── public/                  # Static assets ├── flowconnect/             # Integrations + local backends │   ├── auth-backend/        # Local auth & storage │   ├── slack-mcp/ │   ├── invoice-mcp/ │   └── ... ├── index.js                 # Express production server ├── index.html               # App shell
+
+---
+
+## ⚙️ Setup
 
 ### Requirements
 
-- Node.js 20 or newer
-- npm 10 or newer
+- Node.js ≥ 20
+- npm ≥ 10
 
-### Install
+### Installation
 
 ```bash
 npm install
-```
 
-### Environment
 
-Create a local `.env` file and fill in only the services you plan to run.
+---
 
-The auth backend stores local workflow and connected-app data so the authenticated builder and profile pages can work without a separate backend. The default local files are:
+🔐 Environment
 
-- `flowconnect/auth-backend/users.local.json`
-- `flowconnect/auth-backend/workflows.local.json`
-- `flowconnect/auth-backend/apps.local.json`
+Create a .env file in the root directory.
 
-### Run Locally
+Configure only the services you plan to use.
 
-Frontend:
+Local storage files (auto-generated):
 
-```bash
+flowconnect/auth-backend/users.local.json
+
+flowconnect/auth-backend/workflows.local.json
+
+flowconnect/auth-backend/apps.local.json
+
+
+
+---
+
+▶️ Running the Project
+
+1. Start Frontend
+
 npm run dev
-```
 
-Local auth backend:
+2. Start Local Auth Backend
 
-```bash
 npm run auth:server
-```
 
-With both commands running, you can sign up, log in, save workflows, toggle workflow status, view dashboard stats, and manage connected apps locally.
+3. Production Mode
 
-Production-style local server after building:
-
-```bash
 npm run build
 npm start
-```
 
-## Scripts
 
-- `npm run dev` starts the Vite frontend.
-- `npm run auth:server` starts the local auth API.
-- `npm run server` starts the Express server with `nodemon`.
-- `npm run build` type-checks and builds the frontend.
-- `npm run lint` runs ESLint across the repo.
+---
 
-## Contributing
+📜 Scripts
 
-Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) before opening a pull request. If you want a smaller entry point, use the issue templates in [.github/ISSUE_TEMPLATE](./.github/ISSUE_TEMPLATE) to file a bug, feature request, or task.
+Command	Description
 
-Review [`SECURITY.md`](./SECURITY.md) before reporting a vulnerability, and follow [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) when participating in the project.
+npm run dev	Start frontend (Vite)
+npm run auth:server	Start local auth backend
+npm run server	Start Express server (nodemon)
+npm run build	Build frontend
+npm run lint	Run ESLint
 
-## Project Structure
 
-```text
-.
-|-- src/                     # Frontend application
-|-- public/                  # Static public assets
-|-- flowconnect/             # Service integrations and local backends
-|   |-- auth-backend/
-|   |-- invoice-mcp/
-|   |-- slack-mcp/
-|   -- ...
-|-- index.js                 # Express server for built frontend
-|-- index.html               # App HTML shell
-```
 
-## Notes
+---
 
-- Some integration modules expect third-party credentials and local service setup.
-- Runtime-generated files should stay local and are ignored where possible.
+🔌 Integrations
 
-## License
+Located in flowconnect/, including:
 
-MIT. See [`LICENSE`](./LICENSE).
+Messaging → Slack, Discord, Telegram
+
+CRM → Zoho, Airtable
+
+Payments → Razorpay
+
+Forms → Typeform
+
+Accounting → Tally
+
+
+Each module is independently extendable.
+
+
+---
+
+🤝 Contributing
+
+We welcome contributions, especially during NSOC '26.
+
+Steps
+
+1. Read CONTRIBUTING.md
+
+
+2. Choose an issue from .github/ISSUE_TEMPLATE
+
+
+3. Fork the repository
+
+
+4. Create a feature branch
+
+
+5. Submit a pull request
+
+
+
+Also review:
+
+SECURITY.md
+
+CODE_OF_CONDUCT.md
+
+
+
+---
+
+⚠️ Notes
+
+Some integrations require API keys and local setup
+
+Runtime-generated files are ignored where possible
+
+Designed for extensibility — add custom integrations inside flowconnect/
+
+
+
+---
+
+📄 License
+
+MIT License
+See LICENSE
+
+
+---
+
+💡 Vision
+
+Pravah aims to be a developer-first alternative to n8n and Zapier, with:
+
+Open architecture
+
+Local-first execution
+
+High customizability
+
+Scalable integration ecosystem
+
+
+
+---
+
+👨‍💻 Maintainers
+
+Priyansh Chaurasiya – Frontend developer|Ui/Ux designer
+
+Priyanshi Sharma – Machine Learning Engineer | Full Stack Developer
+
+
+
+---

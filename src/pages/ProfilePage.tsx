@@ -812,18 +812,18 @@ export default function ProfilePage() {
                     </div>
                     <span><span style={{ background: cols.bg, color: cols.text, fontSize: 11, padding: '3px 10px', borderRadius: 20, fontWeight: 600 }}>{sub.status}</span></span>
                     <span style={{ fontSize: 12, color: '#6b7280' }}>Qty: {sub.quantity}</span>
-                    <button onClick={() => { setSubInvoiceId(sub.id); loadSubInvoices(sub.id) }} style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#f9fafb', cursor: 'pointer', fontSize: 11, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <button onClick={() => { setSubInvoiceId(sub.id); loadSubInvoices(sub.id) }} aria-label={`View invoices for subscription ${sub.id}`} style={{ padding: '5px 10px', borderRadius: 6, border: '1px solid #e5e7eb', background: '#f9fafb', cursor: 'pointer', fontSize: 11, display: 'flex', alignItems: 'center', gap: 4 }}>
                         <FileText size={11} /> Invoices
                     </button>
                     <div style={{ display: 'flex', gap: 4 }}>
                         {sub.status === 'active' && (
-                            <button title="Pause" onClick={() => doAction(() => pauseSubscription(sub.id))} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #fde68a', background: '#fef9c3', cursor: 'pointer' }} disabled={actionLoading}><PauseCircle size={14} color="#ca8a04" /></button>
+                            <button title="Pause" aria-label={`Pause subscription ${sub.id}`} onClick={() => doAction(() => pauseSubscription(sub.id))} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #fde68a', background: '#fef9c3', cursor: 'pointer' }} disabled={actionLoading}><PauseCircle size={14} color="#ca8a04" /></button>
                         )}
                         {sub.status === 'paused' && (
-                            <button title="Resume" onClick={() => doAction(() => resumeSubscription(sub.id))} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #86efac', background: '#dcfce7', cursor: 'pointer' }} disabled={actionLoading}><PlayCircle size={14} color="#16a34a" /></button>
+                            <button title="Resume" aria-label={`Resume subscription ${sub.id}`} onClick={() => doAction(() => resumeSubscription(sub.id))} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #86efac', background: '#dcfce7', cursor: 'pointer' }} disabled={actionLoading}><PlayCircle size={14} color="#16a34a" /></button>
                         )}
                         {(sub.status === 'active' || sub.status === 'authenticated') && (
-                            <button title="Cancel" onClick={() => doAction(() => cancelSubscription(sub.id, false))} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #fca5a5', background: '#fee2e2', cursor: 'pointer' }} disabled={actionLoading}><XCircle size={14} color="#dc2626" /></button>
+                            <button title="Cancel" aria-label={`Cancel subscription ${sub.id}`} onClick={() => doAction(() => cancelSubscription(sub.id, false))} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid #fca5a5', background: '#fee2e2', cursor: 'pointer' }} disabled={actionLoading}><XCircle size={14} color="#dc2626" /></button>
                         )}
                     </div>
                 </div>
@@ -967,7 +967,7 @@ export default function ProfilePage() {
                                                     </div>
                                                     <span style={{ background: '#dcfce7', color: '#16a34a', fontSize: 11, padding: '3px 10px', borderRadius: 20, fontWeight: 600 }}>✅ Active</span>
                                                 </div>
-                                                <button className="action-btn" title="Disconnect" onClick={() => handleDisconnect(app.app_name)}><Trash2 size={18} /></button>
+                                                <button className="action-btn" title="Disconnect" aria-label={`Disconnect ${app.app_name}`} onClick={() => handleDisconnect(app.app_name)}><Trash2 size={18} /></button>
                                             </div>
                                         )
                                     })}

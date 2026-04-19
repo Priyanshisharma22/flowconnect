@@ -27,6 +27,14 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
 
+    useEffect(() => {
+        if (mobileOpen && mobileMenuRef.current) {
+            const focusable = mobileMenuRef.current.querySelectorAll('a, button')
+            const first = focusable[0] as HTMLElement
+            first?.focus()
+        }
+    }, [mobileOpen])
+
     if (isBuilder) return null
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, type: string) => {
@@ -119,7 +127,10 @@ export default function Navbar() {
             <AnimatePresence>
                 {mobileOpen && (
                     <motion.div
+                        ref={mobileMenuRef}
                         className="navbar__mobile"
+                        role="dialog"
+                        aria-label="Mobile navigation menu"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}

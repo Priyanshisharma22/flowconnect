@@ -13,9 +13,10 @@ import {
     User,
     Check,
     Zap,
-} 
-from 'lucide-react'
+}
+    from 'lucide-react'
 import '../styles/AuthPages.css'
+import toast from 'react-hot-toast'
 
 export default function SignupPage() {
     const navigate = useNavigate()
@@ -41,20 +42,20 @@ export default function SignupPage() {
     const [error, setError] = useState('')
 
     const handleEmailSignup = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!agreedToTerms) return
-    setIsLoading(true)
-    setError('')
-    try {
-        const data = await registerUser(fullName, email, password)
-        saveAuth(data.access_token, data.user)
-        navigate('/builder')
-    } catch (err: any) {
-        setError(err.message)
-    } finally {
-        setIsLoading(false)
+        e.preventDefault()
+        if (!agreedToTerms) return
+        setIsLoading(true)
+        setError('')
+        try {
+            const data = await registerUser(fullName, email, password)
+            saveAuth(data.access_token, data.user)
+            navigate('/builder')
+        } catch (err: any) {
+            setError(err.message)
+        } finally {
+            setIsLoading(false)
+        }
     }
-}
 
     return (
         <div className="auth-page grid-pattern">
@@ -101,130 +102,130 @@ export default function SignupPage() {
                     transition={{ duration: 0.3 }}
                 >
                     <form onSubmit={handleEmailSignup} className="auth-form">
-                            <div className="auth-form__field">
-                                <label className="auth-form__label" htmlFor="signup-name">Full Name</label>
-                                <div className="auth-form__input-wrapper">
-                                    <User size={16} className="auth-form__input-icon" />
-                                    <input
-                                        type="text"
-                                        id="signup-name"
-                                        className="auth-form__input"
-                                        placeholder="John Doe"
-                                        value={fullName}
-                                        onChange={(e) => setFullName(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="auth-form__field">
-                                <label className="auth-form__label" htmlFor="signup-email">Email Address</label>
-                                <div className="auth-form__input-wrapper">
-                                    <Mail size={16} className="auth-form__input-icon" />
-                                    <input
-                                        type="email"
-                                        id="signup-email"
-                                        className="auth-form__input"
-                                        placeholder="you@example.com"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="auth-form__field">
-                                <label className="auth-form__label" htmlFor="signup-password">Password</label>
-                                <div className="auth-form__input-wrapper">
-                                    <Lock size={16} className="auth-form__input-icon" />
-                                    <input
-                                        type={showPassword ? 'text' : 'password'}
-                                        id="signup-password"
-                                        className="auth-form__input"
-                                        placeholder="Create a strong password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                        minLength={6}
-                                    />
-                                    <button
-                                        type="button"
-                                        className="auth-form__toggle-pw"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        aria-label="Toggle password"
-                                    >
-                                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                                    </button>
-                                </div>
-                                {/* Password Strength */}
-                                {password.length > 0 && (
-                                    <div className="auth-form__pw-strength">
-                                        <div className="auth-form__pw-bars">
-                                            {[1, 2, 3, 4].map((level) => (
-                                                <div
-                                                    key={level}
-                                                    className="auth-form__pw-bar"
-                                                    style={{
-                                                        background: level <= passwordStrength.level ? passwordStrength.color : 'var(--border-subtle)',
-                                                    }}
-                                                />
-                                            ))}
-                                        </div>
-                                        <span className="auth-form__pw-label" style={{ color: passwordStrength.color }}>
-                                            {passwordStrength.label}
-                                        </span>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Terms */}
-                            <label className="auth-form__checkbox-wrapper" htmlFor="signup-terms">
-                                <div
-                                    className={`auth-form__checkbox ${agreedToTerms ? 'auth-form__checkbox--checked' : ''}`}
-                                    onClick={() => setAgreedToTerms(!agreedToTerms)}
-                                >
-                                    {agreedToTerms && <Check size={12} />}
-                                </div>
+                        <div className="auth-form__field">
+                            <label className="auth-form__label" htmlFor="signup-name">Full Name</label>
+                            <div className="auth-form__input-wrapper">
+                                <User size={16} className="auth-form__input-icon" />
                                 <input
-                                    type="checkbox"
-                                    id="signup-terms"
-                                    className="auth-form__checkbox-input"
-                                    checked={agreedToTerms}
-                                    onChange={(e) => setAgreedToTerms(e.target.checked)}
+                                    type="text"
+                                    id="signup-name"
+                                    className="auth-form__input"
+                                    placeholder="John Doe"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
+                                    required
                                 />
-                                <span className="auth-form__checkbox-label">
-                                    I agree to the <Link to="/terms" className="auth-form__link">Terms of Service</Link> and{' '}
-                                    <Link to="/privacy" className="auth-form__link">Privacy Policy</Link>
-                                </span>
-                            </label>
+                            </div>
+                        </div>
 
-                           {error && (
-                                <div style={{
-                                    background: '#fee2e2',
-                                    color: '#dc2626',
-                                    padding: '10px 14px',
-                                    borderRadius: '8px',
-                                    fontSize: '13px',
-                                    marginBottom: '12px'
-                                }}>
-                                    {error}
+                        <div className="auth-form__field">
+                            <label className="auth-form__label" htmlFor="signup-email">Email Address</label>
+                            <div className="auth-form__input-wrapper">
+                                <Mail size={16} className="auth-form__input-icon" />
+                                <input
+                                    type="email"
+                                    id="signup-email"
+                                    className="auth-form__input"
+                                    placeholder="you@example.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="auth-form__field">
+                            <label className="auth-form__label" htmlFor="signup-password">Password</label>
+                            <div className="auth-form__input-wrapper">
+                                <Lock size={16} className="auth-form__input-icon" />
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    id="signup-password"
+                                    className="auth-form__input"
+                                    placeholder="Create a strong password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    minLength={6}
+                                />
+                                <button
+                                    type="button"
+                                    className="auth-form__toggle-pw"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    aria-label="Toggle password"
+                                >
+                                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                </button>
+                            </div>
+                            {/* Password Strength */}
+                            {password.length > 0 && (
+                                <div className="auth-form__pw-strength">
+                                    <div className="auth-form__pw-bars">
+                                        {[1, 2, 3, 4].map((level) => (
+                                            <div
+                                                key={level}
+                                                className="auth-form__pw-bar"
+                                                style={{
+                                                    background: level <= passwordStrength.level ? passwordStrength.color : 'var(--border-subtle)',
+                                                }}
+                                            />
+                                        ))}
+                                    </div>
+                                    <span className="auth-form__pw-label" style={{ color: passwordStrength.color }}>
+                                        {passwordStrength.label}
+                                    </span>
                                 </div>
                             )}
-                            <button
-                                type="submit"
-                                className={`btn-primary auth-form__submit ${isLoading ? 'auth-form__submit--loading' : ''}`}
-                                id="signup-submit"
-                                disabled={isLoading || !agreedToTerms}
-                    >
-                                {isLoading ? (
-                                    <div className="auth-form__spinner" />
-                                ) : (
-                                    <>
-                                        Create Account
-                                        <ArrowRight size={16} />
-                                    </>
-                                )}
-                            </button>
+                        </div>
+
+                        {/* Terms */}
+                        <label className="auth-form__checkbox-wrapper" htmlFor="signup-terms">
+                            <div
+                                className={`auth-form__checkbox ${agreedToTerms ? 'auth-form__checkbox--checked' : ''}`}
+                                onClick={() => setAgreedToTerms(!agreedToTerms)}
+                            >
+                                {agreedToTerms && <Check size={12} />}
+                            </div>
+                            <input
+                                type="checkbox"
+                                id="signup-terms"
+                                className="auth-form__checkbox-input"
+                                checked={agreedToTerms}
+                                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                            />
+                            <span className="auth-form__checkbox-label">
+                                I agree to the <Link to="/terms" className="auth-form__link">Terms of Service</Link> and{' '}
+                                <Link to="/privacy" className="auth-form__link">Privacy Policy</Link>
+                            </span>
+                        </label>
+
+                        {error && (
+                            <div style={{
+                                background: '#fee2e2',
+                                color: '#dc2626',
+                                padding: '10px 14px',
+                                borderRadius: '8px',
+                                fontSize: '13px',
+                                marginBottom: '12px'
+                            }}>
+                                {error}
+                            </div>
+                        )}
+                        <button
+                            type="submit"
+                            className={`btn-primary auth-form__submit ${isLoading ? 'auth-form__submit--loading' : ''}`}
+                            id="signup-submit"
+                            disabled={isLoading || !agreedToTerms}
+                        >
+                            {isLoading ? (
+                                <div className="auth-form__spinner" />
+                            ) : (
+                                <>
+                                    Create Account
+                                    <ArrowRight size={16} />
+                                </>
+                            )}
+                        </button>
                     </form>
                 </motion.div>
 

@@ -61,15 +61,19 @@ export default function FAQ() {
                             <button
                                 className="faq__question"
                                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                                aria-expanded={openIndex === i}
+                                aria-controls={`faq-answer-${i}`}
                             >
                                 {faq.question}
-                                <span className="faq__icon">
+                                <span className="faq__icon" aria-hidden="true">
                                     {openIndex === i ? <Minus size={20} /> : <Plus size={20} />}
                                 </span>
                             </button>
                             <AnimatePresence>
                                 {openIndex === i && (
                                     <motion.div
+                                        id={`faq-answer-${i}`}
+                                        role="region"
                                         className="faq__answer"
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: 'auto', opacity: 1 }}

@@ -12,6 +12,7 @@ import {
     Zap,
 } from 'lucide-react'
 import '../styles/AuthPages.css'
+import toast from 'react-hot-toast'
 
 export default function LoginPage() {
     const navigate = useNavigate()
@@ -22,19 +23,23 @@ export default function LoginPage() {
     const [error, setError] = useState('')
 
     const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError('')
-    try {
-        const data = await loginUser(email, password)
-        saveAuth(data.access_token, data.user)
-        navigate('/builder')
-    } catch (err: any) {
-        setError(err.message)
-    } finally {
-        setIsLoading(false)
+        e.preventDefault()
+        setIsLoading(true)
+        // We can remove setError('') because toast handles it cleanly
+
+        try {
+            const data = await loginUser(email, password)
+            saveAuth(data.access_token, data.user)
+            toast.success("Successfully logged in!") // Add success toast
+            navigate('/builder')
+        } catch (err: any) {
+            setError(err.message) // Optional: keep this if you still want the red box
+            toast.error(err.message || "Failed to log in") // Add error toast
+        } finally {
+            setIsLoading(false)
+        }
     }
-}
+
 
     return (
         <div className="auth-page grid-pattern">
@@ -81,76 +86,76 @@ export default function LoginPage() {
                     transition={{ duration: 0.3 }}
                 >
                     <form onSubmit={handleEmailLogin} className="auth-form">
-                            <div className="auth-form__field">
-                                <label className="auth-form__label" htmlFor="login-email">Email Address</label>
-                                <div className="auth-form__input-wrapper">
-                                    <Mail size={16} className="auth-form__input-icon" />
-                                    <input
-                                        type="email"
-                                        id="login-email"
-                                        className="auth-form__input"
-                                        placeholder="you@example.com"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                    />
-                                </div>
+                        <div className="auth-form__field">
+                            <label className="auth-form__label" htmlFor="login-email">Email Address</label>
+                            <div className="auth-form__input-wrapper">
+                                <Mail size={16} className="auth-form__input-icon" />
+                                <input
+                                    type="email"
+                                    id="login-email"
+                                    className="auth-form__input"
+                                    placeholder="you@example.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
                             </div>
+                        </div>
 
-                            <div className="auth-form__field">
-                                <div className="auth-form__label-row">
-                                    <label className="auth-form__label" htmlFor="login-password">Password</label>
-                                    <Link to="/forgot-password" className="auth-form__forgot" id="forgot-password">Forgot?</Link>
-                                </div>
-                                <div className="auth-form__input-wrapper">
-                                    <Lock size={16} className="auth-form__input-icon" />
-                                    <input
-                                        type={showPassword ? 'text' : 'password'}
-                                        id="login-password"
-                                        className="auth-form__input"
-                                        placeholder="Enter your password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        className="auth-form__toggle-pw"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        aria-label="Toggle password"
-                                    >
-                                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                                    </button>
-                                </div>
+                        <div className="auth-form__field">
+                            <div className="auth-form__label-row">
+                                <label className="auth-form__label" htmlFor="login-password">Password</label>
+                                <Link to="/forgot-password" className="auth-form__forgot" id="forgot-password">Forgot?</Link>
                             </div>
-                             
-                            {error && (
-                                <div style={{
-                                    background: '#fee2e2',
-                                    color: '#dc2626',
-                                    padding: '10px 14px',
-                                    borderRadius: '8px',
-                                    fontSize: '13px',
-                                    marginBottom: '12px'
-                                }}>
-                                    {error}
-                                </div>
+                            <div className="auth-form__input-wrapper">
+                                <Lock size={16} className="auth-form__input-icon" />
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    id="login-password"
+                                    className="auth-form__input"
+                                    placeholder="Enter your password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="auth-form__toggle-pw"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    aria-label="Toggle password"
+                                >
+                                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                </button>
+                            </div>
+                        </div>
+
+                        {error && (
+                            <div style={{
+                                background: '#fee2e2',
+                                color: '#dc2626',
+                                padding: '10px 14px',
+                                borderRadius: '8px',
+                                fontSize: '13px',
+                                marginBottom: '12px'
+                            }}>
+                                {error}
+                            </div>
+                        )}
+                        <button
+                            type="submit"
+                            className={`btn-primary auth-form__submit ${isLoading ? 'auth-form__submit--loading' : ''}`}
+                            id="login-submit"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? (
+                                <div className="auth-form__spinner" />
+                            ) : (
+                                <>
+                                    Sign In
+                                    <ArrowRight size={16} />
+                                </>
                             )}
-                            <button
-                                type="submit"
-                                className={`btn-primary auth-form__submit ${isLoading ? 'auth-form__submit--loading' : ''}`}
-                                id="login-submit"
-                                disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <div className="auth-form__spinner" />
-                                ) : (
-                                    <>
-                                        Sign In
-                                        <ArrowRight size={16} />
-                                    </>
-                                )}
-                            </button>
+                        </button>
                     </form>
                 </motion.div>
 
