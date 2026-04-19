@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: #f8fafc;
+    background: var(--bg-primary);
     font-family: Inter, sans-serif;
 }
 
@@ -11,8 +11,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 20px;
-    background: #fff;
-    border-bottom: 1px solid #e5e7eb;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-default);
     height: 56px;
 }
 
@@ -23,18 +23,18 @@
 }
 
 .builder-header__back {
-    color: #6b7280;
+    color: var(--text-muted);
     display: flex;
     align-items: center;
     text-decoration: none;
 }
 
-.builder-header__back:hover { color: #111; }
+.builder-header__back:hover { color: var(--text-primary); }
 
 .builder-header__title {
     font-size: 15px;
     font-weight: 600;
-    color: #111;
+    color: var(--text-primary);
 }
 
 .builder-header__actions {
@@ -51,8 +51,8 @@
 /* ── Sidebar ─────────────────────────────────────────── */
 .builder-sidebar {
     width: 260px;
-    background: #fff;
-    border-right: 1px solid #e5e7eb;
+    background: var(--bg-card);
+    border-right: 1px solid var(--border-default);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -60,7 +60,7 @@
 
 .builder-sidebar__tabs {
     display: flex;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-default);
 }
 
 .builder-sidebar__tab {
@@ -69,14 +69,14 @@
     padding: 12px;
     font-size: 13px;
     font-weight: 500;
-    color: #6b7280;
+    color: var(--text-muted);
     cursor: pointer;
     transition: all 0.15s;
 }
 
 .builder-sidebar__tab:hover {
-    background: #f9fafb;
-    color: #111;
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
 }
 
 .builder-sidebar__tab--active {
@@ -99,8 +99,8 @@
     gap: 10px;
     padding: 10px 12px;
     border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    background: #fff;
+    border: 1px solid var(--border-default);
+    background: var(--bg-card);
     cursor: pointer;
     transition: all 0.15s;
 }
@@ -129,12 +129,12 @@
 .node-item__label {
     font-size: 13px;
     font-weight: 600;
-    color: #111;
+    color: var(--text-primary);
 }
 
 .node-item__desc {
     font-size: 11px;
-    color: #9ca3af;
+    color: var(--text-muted);
     margin-top: 1px;
 }
 
@@ -152,8 +152,8 @@
 .canvas-node {
     position: absolute;
     width: 220px;
-    background: #fff;
-    border: 1.5px solid #e5e7eb;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-default);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
@@ -175,7 +175,7 @@
     gap: 8px;
     padding: 10px 14px;
     background: #f5f3ff;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-default);
     font-size: 13px;
     color: #4f46e5;
 }
@@ -183,14 +183,14 @@
 .canvas-node__body {
     padding: 10px 14px;
     font-size: 12px;
-    color: #6b7280;
+    color: var(--text-muted);
 }
 
 /* ── Properties Panel ────────────────────────────────── */
 .builder-properties {
     width: 260px;
-    background: #fff;
-    border-left: 1px solid #e5e7eb;
+    background: var(--bg-card);
+    border-left: 1px solid var(--border-default);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -198,7 +198,7 @@
 
 .builder-properties__header {
     padding: 14px 16px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-default);
 }
 
 .builder-properties__content {
@@ -208,7 +208,7 @@
 /* ── Buttons ─────────────────────────────────────────── */
 .btn-primary {
     background: #6366f1;
-    color: #fff;
+    color: var(--bg-card);
     border: none;
     border-radius: 8px;
     padding: 8px 16px;
@@ -225,9 +225,9 @@
 .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .btn-secondary {
-    background: #fff;
-    color: #374151;
-    border: 1px solid #e5e7eb;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
     border-radius: 8px;
     padding: 8px 16px;
     font-size: 13px;
@@ -239,7 +239,7 @@
     transition: all 0.15s;
 }
 
-.btn-secondary:hover { background: #f9fafb; border-color: #d1d5db; }
+.btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--border-hover); }
 
 /* ── Spin animation ──────────────────────────────────── */
 @keyframes spin {
@@ -253,18 +253,18 @@
     display: block;
     font-size: 12px;
     font-weight: 500;
-    color: #374151;
+    color: var(--text-secondary);
     margin-bottom: 6px;
 }
 
 .auth-form__input {
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-default);
     border-radius: 8px;
     font-size: 13px;
-    color: #111;
-    background: #fff;
+    color: var(--text-primary);
+    background: var(--bg-card);
     box-sizing: border-box;
     outline: none;
     transition: border-color 0.15s;

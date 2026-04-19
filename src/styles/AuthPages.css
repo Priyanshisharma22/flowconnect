@@ -11,7 +11,7 @@
     justify-content: center;
     padding: 100px 20px 40px;
     overflow: hidden;
-    background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+    background: linear-gradient(135deg, #fff7ed 0%, var(--bg-card) 100%);
 }
 
 .auth-page__bg {

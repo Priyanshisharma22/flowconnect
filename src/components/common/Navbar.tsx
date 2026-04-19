@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Zap } from 'lucide-react'
+import { Menu, X, Zap, Sun, Moon } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
+import { useTheme } from '../../context/ThemeContext'
 import './Navbar.css'
 
 const navLinks = [
@@ -15,6 +16,7 @@ const navLinks = [
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false)
     const [mobileOpen, setMobileOpen] = useState(false)
+    const { theme, toggleTheme } = useTheme()
     const location = useLocation()
     const isHome = location.pathname === '/'
     const isBuilder = location.pathname.startsWith('/builder')
@@ -86,6 +88,14 @@ export default function Navbar() {
 
                 {/* Desktop CTA */}
                 <div className="navbar__actions">
+                    <button 
+                        onClick={toggleTheme} 
+                        className="navbar__link" 
+                        style={{ padding: '8px', display: 'flex', alignItems: 'center' }}
+                        aria-label="Toggle dark mode"
+                    >
+                        {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                    </button>
                     <Link to="/profile" className="navbar__link" id="nav-profile">Profile</Link>
                     <Link to="/login" className="navbar__link" id="nav-login">Log In</Link>
                     <Link to="/signup" className="btn-primary navbar__cta" id="nav-get-started">
