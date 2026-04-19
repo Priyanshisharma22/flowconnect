@@ -1,4 +1,6 @@
+import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import type { JSX } from 'react'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
@@ -36,8 +38,7 @@ const PublicRoute = ({ children }: { children: JSX.Element }) => {
 function App() {
   return (
     <Router>
-      <Toaster position="top-right" reverseOrder={false} />
-
+      <div id="aria-live-announcer" aria-live="polite" aria-atomic="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }} />
       <Routes>
         <Route path="/" element={<HomePage />} />
 

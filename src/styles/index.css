@@ -114,6 +114,37 @@
 }
 
 /* ============================
+   Dark Mode Overrides
+   ============================ */
+
+[data-theme='dark'] {
+  --bg-primary: #020617; /* Very dark slate */
+  --bg-secondary: #0f172a; /* Slate 900 */
+  --bg-card: #0f172a;
+  --bg-card-hover: #1e293b;
+  --bg-glass: rgba(15, 23, 42, 0.7);
+  --bg-glass-border: rgba(249, 115, 22, 0.2);
+
+  --text-primary: #f8fafc; /* Slate 50 */
+  --text-secondary: #cbd5e1; /* Slate 300 */
+  --text-muted: #64748b; /* Slate 500 */
+
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(249, 115, 22, 0.4);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -4px rgba(0, 0, 0, 0.8);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 8px 10px -6px rgba(0, 0, 0, 0.8);
+
+  --gradient-glow: linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(234, 88, 12, 0.25));
+  --gradient-hero: radial-gradient(ellipse at 50% 0%, rgba(249, 115, 22, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+
+  color-scheme: dark;
+}
+
+/* ============================
    Reset & Base Styles
    ============================ */
 

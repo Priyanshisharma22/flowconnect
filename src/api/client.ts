@@ -1,4 +1,4 @@
-const AUTH_BASE = import.meta.env.VITE_AUTH_API_BASE_URL || "http://localhost:4000";
+const AUTH_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
 
 export async function loginUser(email: string, password: string) {
     const formData = new URLSearchParams()

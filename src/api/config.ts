@@ -1,4 +1,6 @@
-﻿export const API_BASE = "https://flowconnect-backend-production.up.railway.app";
+﻿// Local development uses localhost:4000, production uses Railway
+export const API_BASE = import.meta.env.VITE_API_BASE || "https://flowconnect-backend-production.up.railway.app";
+
 export const api = {
   signup:    `${API_BASE}/api/auth/register`,
   login:     `${API_BASE}/api/auth/login`,

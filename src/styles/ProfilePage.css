@@ -7,7 +7,7 @@
     padding-top: 100px;
     /* Space for fixed navbar */
     padding-bottom: 60px;
-    background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+    background: linear-gradient(135deg, #fff7ed 0%, var(--bg-card) 100%);
 }
 
 .profile-container {
