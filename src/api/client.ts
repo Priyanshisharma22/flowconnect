@@ -1,4 +1,21 @@
-const AUTH_BASE = import.meta.env.VITE_AUTH_API_BASE_URL || "http://localhost:4000";
+const AUTH_BASE = import.meta.env.VITE_AUTH_API_BASE_URL || "";
+
+// Helper to safely parse JSON responses
+async function parseResponse(res: Response) {
+    const text = await res.text();
+    try {
+        return text ? JSON.parse(text) : {};
+    } catch {
+        return { detail: text || `HTTP Error ${res.status}` };
+    }
+}
+
+// Helper to handle unauthorized access
+function handleUnauthorized() {
+    logout();
+    window.location.href = '/login';
+    throw new Error('Session expired. Please log in again.');
+}
 
 export async function loginUser(email: string, password: string) {
     const formData = new URLSearchParams()
@@ -9,7 +26,8 @@ export async function loginUser(email: string, password: string) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formData,
     })
-    const data = await res.json()
+    
+    const data = await parseResponse(res)
     if (!res.ok) throw new Error(data.detail || 'Login failed')
     return data
 }
@@ -20,7 +38,8 @@ export async function registerUser(name: string, email: string, password: string
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ full_name: name, email, password }),
     })
-    const data = await res.json()
+    
+    const data = await parseResponse(res)
     if (!res.ok) throw new Error(data.detail || 'Registration failed')
     return data
 }
@@ -46,6 +65,7 @@ export async function getMe() {
 export async function apiCall(endpoint: string, options: RequestInit = {}) {
     const token = getToken()
     const url = `${AUTH_BASE}/api${endpoint}`
+    
     const res = await fetch(url, {
         ...options,
         headers: {
@@ -54,7 +74,14 @@ export async function apiCall(endpoint: string, options: RequestInit = {}) {
             ...options.headers,
         },
     })
-    const data = await res.json()
-    if (!res.ok) throw new Error(data.detail || 'Request failed')
+    
+    const data = await parseResponse(res)
+
+    // Check for authorization explicitly
+    if (res.status === 401) {
+        handleUnauthorized();
+    }
+
+    if (!res.ok) throw new Error(data.detail || data.message || 'Request failed')
     return data
 }
