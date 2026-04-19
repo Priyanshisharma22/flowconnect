@@ -14,6 +14,8 @@ import PrivacyPage from './pages/PrivacyPage'
 import AboutPage from './pages/AboutPage'
 import './styles/App.css'
 import { Toaster } from 'react-hot-toast'
+import ErrorBoundary from './components/common/ErrorBoundary'
+import { ErrorTestComponent } from './components/common/ErrorBoundaryTest'
 
 // --- Route Protectors ---
 
@@ -63,7 +65,9 @@ function App() {
           path="/builder"
           element={
             <ProtectedRoute>
-              <BuilderPage />
+              <ErrorBoundary>
+                <BuilderPage />
+              </ErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -71,7 +75,9 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <ProfilePage />
+              <ErrorBoundary>
+                <ProfilePage />
+              </ErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -83,6 +89,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+
+        {/* Test Route for Error Boundary */}
+        <Route path="/test-error" element={<ErrorBoundary><ErrorTestComponent /></ErrorBoundary>} />
       </Routes>
     </Router>
   )
