@@ -1,0 +1,198 @@
+/* ════════════════════════════════════════════════════════════
+   SKELETON LOADER - Pure CSS Animations
+   ════════════════════════════════════════════════════════════ */
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ─── Base Skeleton ──────────────────────────────────────── */
+
+.skeleton-text {
+  background-color: #e2e8f0;
+  background-color: var(--gray-200, #e2e8f0);
+  border-radius: 4px;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  display: block;
+  margin-bottom: 0;
+  min-height: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-text {
+    background-color: #334155;
+    background-color: var(--gray-700, #334155);
+  }
+}
+
+/* Margin utilities */
+.skeleton-text.mb-2 {
+  margin-bottom: 12px;
+}
+
+.skeleton-text.mb-3 {
+  margin-bottom: 16px;
+}
+
+.skeleton-text.mb-4 {
+  margin-bottom: 20px;
+}
+
+/* ─── Card Skeleton ──────────────────────────────────────── */
+
+.skeleton-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.skeleton-card {
+  background: #ffffff;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid #e5e7eb;
+  border-color: var(--border-subtle, #e5e7eb);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-card {
+    background: #1e293b;
+    background: var(--gray-800, #1e293b);
+    border-color: #334155;
+    border-color: var(--gray-700, #334155);
+  }
+}
+
+/* ─── Row Skeleton (Table/List) ──────────────────────────── */
+
+.skeleton-row-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid #e5e7eb;
+  border-color: var(--border-subtle, #e5e7eb);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  background: var(--bg-card, #ffffff);
+  min-height: 120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-row-container {
+    background: #1e293b;
+    background: var(--gray-800, #1e293b);
+    border-color: #334155;
+    border-color: var(--gray-700, #334155);
+  }
+}
+
+.skeleton-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  border-bottom-color: var(--border-subtle, #e5e7eb);
+  align-items: center;
+}
+
+.skeleton-row:last-child {
+  border-bottom: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-row {
+    border-bottom-color: #334155;
+    border-bottom-color: var(--gray-700, #334155);
+  }
+}
+
+@media (max-width: 768px) {
+  .skeleton-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+}
+
+/* ─── Stat Skeleton ──────────────────────────────────────– */
+
+.skeleton-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-stat-card {
+  background: #ffffff;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid #e5e7eb;
+  border-color: var(--border-subtle, #e5e7eb);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-stat-card {
+    background: #1e293b;
+    background: var(--gray-800, #1e293b);
+    border-color: #334155;
+    border-color: var(--gray-700, #334155);
+  }
+}
+
+@media (max-width: 768px) {
+  .skeleton-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Skeleton Avatar (Circle) ──────────────────────────── */
+
+.skeleton-avatar {
+  background-color: #e2e8f0;
+  background-color: var(--gray-200, #e2e8f0);
+  border-radius: 50%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-avatar {
+    background-color: #334155;
+    background-color: var(--gray-700, #334155);
+  }
+}
+
+/* ─── Skeleton Nav Item ─────────────────────────────────── */
+
+.skeleton-nav-icon {
+  background-color: #e2e8f0;
+  background-color: var(--gray-200, #e2e8f0);
+  border-radius: 4px;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-nav-icon {
+    background-color: #334155;
+    background-color: var(--gray-700, #334155);
+  }
+}

@@ -45,6 +45,7 @@ import {
     listTypeforms, getTypeformFields, getTypeformResponses,
     type TypeformForm, type TypeformField, type TypeformResponse,
 } from '../api/typeform'
+import { SkeletonText, SkeletonRow, SkeletonStat } from '../components/common/SkeletonLoader'
 
 import '../styles/ProfilePage.css'
 
@@ -233,7 +234,11 @@ export default function ProfilePage() {
 
     // ── Init ───────────────────────────────────────────────────────────────────
     useEffect(() => {
-        if (!getToken()) { window.location.href = '/login'; return }
+        if (!getToken()) { 
+            // Give React time to render skeleton before redirecting
+            setTimeout(() => { window.location.href = '/login' }, 500)
+            return 
+        }
         loadAll()
     }, [])
 
@@ -251,6 +256,7 @@ export default function ProfilePage() {
     // ── Generic loaders ────────────────────────────────────────────────────────
     async function loadAll() {
         setLoading(true)
+        const startTime = Date.now()
         try {
             const [u, a, w, d] = await Promise.all([
                 apiCall('/auth/me'), apiCall('/apps/'),
@@ -258,7 +264,13 @@ export default function ProfilePage() {
             ])
             setUser(u); setName(u.name); setApps(a); setWorkflows(w); setDashboard(d)
         } catch (e) { console.error(e) }
-        finally { setLoading(false) }
+        finally { 
+            // Ensure skeleton is visible for minimum 1.5 seconds (even on fast networks)
+            const elapsedTime = Date.now() - startTime
+            const minLoadingTime = 1500 // 1.5 seconds minimum
+            const remainingTime = Math.max(0, minLoadingTime - elapsedTime)
+            setTimeout(() => setLoading(false), remainingTime) 
+        }
     }
 
     async function loadPayments(filterStatus?: string) {
@@ -850,10 +862,55 @@ export default function ProfilePage() {
     }
 
     if (loading) return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-            <div style={{ textAlign: 'center' }}>
-                <RefreshCw size={32} style={{ animation: 'spin 1s linear infinite', color: '#6366f1' }} />
-                <p style={{ marginTop: 12, color: '#6b7280' }}>Loading your profile...</p>
+        <div className="profile-page">
+            <Navbar />
+            <div className="profile-container">
+                {/* Sidebar Skeleton */}
+                <aside className="profile-sidebar">
+                    {/* Profile Card Skeleton */}
+                    <div className="profile-card profile-user" style={{ textAlign: 'center', padding: '24px 16px' }}>
+                        <div className="skeleton-avatar" style={{ width: 80, height: 80, margin: '0 auto 16px' }} />
+                        <SkeletonText width="60%" height={20} className="mb-2" style={{ margin: '0 auto 8px' }} />
+                        <SkeletonText width="80%" height={14} className="mb-3" style={{ margin: '0 auto 12px' }} />
+                        <SkeletonText width="50%" height={16} style={{ margin: '0 auto' }} />
+                    </div>
+
+                    {/* Nav Items Skeleton */}
+                    <nav className="profile-card profile-nav">
+                        {Array.from({ length: 8 }).map((_, i) => (
+                            <div key={`nav-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', borderRadius: '8px', background: i === 0 ? '#f3f4f6' : 'transparent' }}>
+                                <div className="skeleton-nav-icon" style={{ width: 20, height: 20, flexShrink: 0 }} />
+                                <SkeletonText width="70%" height={14} />
+                            </div>
+                        ))}
+                    </nav>
+                </aside>
+
+                {/* Main Content Skeleton */}
+                <main className="profile-main">
+                    {/* Header */}
+                    <div style={{ marginBottom: '24px' }}>
+                        <SkeletonText width="20%" height={28} className="mb-4" />
+                    </div>
+
+                    {/* Stats Grid */}
+                    <SkeletonStat count={3} />
+
+                    {/* Account Details Section */}
+                    <div className="profile-card" style={{ marginTop: '24px', padding: '24px' }}>
+                        <SkeletonText width="25%" height={20} className="mb-4" />
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                            <div>
+                                <SkeletonText width="40%" height={14} className="mb-2" />
+                                <SkeletonText width="100%" height={40} />
+                            </div>
+                            <div>
+                                <SkeletonText width="40%" height={14} className="mb-2" />
+                                <SkeletonText width="100%" height={40} />
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
     )
@@ -1017,7 +1074,7 @@ export default function ProfilePage() {
                                 </div>
                             </div>
                             {paymentsLoading ? (
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}><RefreshCw size={24} style={{ animation: 'spin 1s linear infinite', color: '#6366f1' }} /></div>
+                                <SkeletonRow columns={5} count={3} />
                             ) : payments.length === 0 ? (
                                 <div className="profile-card" style={{ textAlign: 'center', padding: 40 }}><Database size={32} style={{ color: '#d1d5db', margin: '0 auto 12px' }} /><p style={{ color: '#9ca3af', fontSize: 14 }}>No payment records found.</p></div>
                             ) : (
@@ -1083,8 +1140,9 @@ export default function ProfilePage() {
                                 ))}
                             </div>
                             {rzpError && <div style={{ background: '#fee2e2', color: '#dc2626', padding: '12px 16px', borderRadius: 10, marginBottom: 16, fontSize: 13 }}><AlertCircle size={14} style={{ display: 'inline', marginRight: 6 }} />{rzpError}</div>}
-                            {rzpLoading && <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}><RefreshCw size={24} style={{ animation: 'spin 1s linear infinite', color: '#2B6CB0' }} /></div>}
-                            {rzpSubTab === 'today' && !rzpLoading && (rzpToday ? <RzpPaymentTable payments={rzpToday.payments} /> : <div className="profile-card" style={{ textAlign: 'center', padding: 48 }}><IndianRupee size={36} style={{ color: '#d1d5db', margin: '0 auto 14px' }} /><p style={{ color: '#9ca3af', fontSize: 14 }}>Click Refresh to load today's payments.</p></div>)}
+                            {rzpLoading ? (
+                                <SkeletonStat count={3} />
+                            ) : rzpSubTab === 'today' && (rzpToday ? <RzpPaymentTable payments={rzpToday.payments} /> : <div className="profile-card" style={{ textAlign: 'center', padding: 48 }}><IndianRupee size={36} style={{ color: '#d1d5db', margin: '0 auto 14px' }} /><p style={{ color: '#9ca3af', fontSize: 14 }}>Click Refresh to load today's payments.</p></div>)}
                             {rzpSubTab === 'range' && !rzpLoading && (
                                 <>
                                     <div className="profile-card" style={{ marginBottom: 20 }}>
