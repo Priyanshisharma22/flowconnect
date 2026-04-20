@@ -15,7 +15,9 @@
  * Set VITE_INVOICE_MCP_URL in your .env to point to your server.
  */
 
-const BASE = (import.meta as any).env?.VITE_INVOICE_MCP_URL ?? "http://localhost:3000";
+import { http } from './httpClient'
+
+const BASE = import.meta.env.VITE_INVOICE_MCP_URL ?? "http://localhost:3000";
 
 // ── Types ─────────────────────────────────────────────────────────
 
@@ -92,19 +94,7 @@ export interface EmailInvoicePayload {
 // ── Core fetch helper ─────────────────────────────────────────────
 
 async function invoicePost<T>(path: string, body: object): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data?.error ?? `Invoice MCP error ${res.status}`);
-  }
-
-  return data as T;
+  return http.post(`${BASE}${path}`, body, { skipAuth: true })
 }
 
 // ── Public API ────────────────────────────────────────────────────
