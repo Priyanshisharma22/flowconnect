@@ -1,6 +1,8 @@
 // src/api/slack.ts
 
-const BASE_URL = (import.meta as any).env?.VITE_BACKEND_URL || 'http://localhost:8000'
+import { http } from './httpClient'
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
 export interface SlackMessagePayload {
   message: string
@@ -32,16 +34,7 @@ export interface SlackToolResult {
 }
 
 async function slackPost(tool: string, args: object): Promise<SlackToolResult> {
-  const res = await fetch(`${BASE_URL}/slack/tool`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ tool, args }),
-  })
-  if (!res.ok) {
-    const text = await res.text()
-    throw new Error(`Slack API error ${res.status}: ${text}`)
-  }
-  return res.json()
+  return http.post(`${BASE_URL}/slack/tool`, { tool, args })
 }
 
 export const sendSlackMessage = (p: SlackMessagePayload) =>

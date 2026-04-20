@@ -1,6 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import type { JSX } from 'react'
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
@@ -12,6 +11,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import TermsPage from './pages/TermsPage'
 import PrivacyPage from './pages/PrivacyPage'
 import AboutPage from './pages/AboutPage'
+import { onAuthError } from './api/httpClient'
 import './styles/App.css'
 import { Toaster } from 'react-hot-toast'
 import ErrorBoundary from './components/common/ErrorBoundary'
@@ -21,22 +21,34 @@ import { ErrorTestComponent } from './components/common/ErrorBoundaryTest'
 
 // This protects private routes like /builder or /profile
 // If there isn't an access token, it immediately sends you back to /login
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuth = !!localStorage.getItem('access_token')
   return isAuth ? children : <Navigate to="/login" replace />
 }
 
 // This protects public routes like /login or /signup
 // If you are already logged in, you shouldn't see log in screens, so it sends you to /builder
-const PublicRoute = ({ children }: { children: JSX.Element }) => {
+const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuth = !!localStorage.getItem('access_token')
   return isAuth ? <Navigate to="/builder" replace /> : children
 }
 
-// --- Main Application ---
+// --- App Content (inside Router) ---
 
-function App() {
+function AppContent() {
+  const navigate = useNavigate()
+
+  // Setup global 401 error handler
+  useEffect(() => {
+    onAuthError(() => {
+      navigate('/login', { replace: true })
+    })
+  }, [navigate])
+
   return (
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+
     <Router>
       <div id="aria-live-announcer" aria-live="polite" aria-atomic="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }} />
       <Routes>
@@ -93,6 +105,16 @@ function App() {
         {/* Test Route for Error Boundary */}
         <Route path="/test-error" element={<ErrorBoundary><ErrorTestComponent /></ErrorBoundary>} />
       </Routes>
+    </>
+  )
+}
+
+// --- Main Application ---
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   )
 }

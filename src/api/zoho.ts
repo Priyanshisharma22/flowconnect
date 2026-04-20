@@ -1,15 +1,11 @@
 // src/api/zoho.ts
 
+import { http } from './httpClient'
+
 const ZOHO_MCP_URL = import.meta.env.VITE_ZOHO_MCP_URL || 'http://localhost:3001'
 
 async function zohoCall(tool: string, args: Record<string, any>) {
-  const res = await fetch(`${ZOHO_MCP_URL}/zoho/${tool}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(args),
-  })
-  if (!res.ok) throw new Error(`Zoho API error: ${res.statusText}`)
-  return res.json()
+  return http.post(`${ZOHO_MCP_URL}/zoho/${tool}`, args)
 }
 
 export const createZohoLead = (args: {

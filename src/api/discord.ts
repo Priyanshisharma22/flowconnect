@@ -1,16 +1,9 @@
+import { http } from './httpClient'
+
 const WEBHOOK_URL = import.meta.env.VITE_DISCORD_WEBHOOK_URL
 
 async function sendWebhook(payload: object) {
-  const res = await fetch(WEBHOOK_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  })
-  if (!res.ok) {
-    const text = await res.text()
-    throw new Error(`Discord webhook error: ${res.status} - ${text}`)
-  }
-  return { success: true }
+  return http.post(WEBHOOK_URL, payload, { skipAuth: true })
 }
 
 export async function sendMessage(message: string, username?: string) {

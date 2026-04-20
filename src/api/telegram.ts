@@ -1,19 +1,12 @@
 // src/api/telegram.ts
 // Calls your backend which proxies to the Telegram MCP server
 
+import { http } from './httpClient'
+
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 async function telegramCall<T>(tool: string, args: Record<string, any>): Promise<T> {
-  const res = await fetch(`${API_BASE}/telegram/${tool}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(args),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: res.statusText }))
-    throw new Error(err.detail || `Telegram API error: ${res.status}`)
-  }
-  return res.json()
+  return http.post(`${API_BASE}/telegram/${tool}`, args)
 }
 
 // ── Types ──────────────────────────────────────────────────────────────────────

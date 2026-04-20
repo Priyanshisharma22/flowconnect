@@ -4,19 +4,12 @@
  * Backend must expose these endpoints via a tally_bridge router (registered at /tally/*)
  */
 
-const BASE = (import.meta as any).env?.VITE_API_URL || 'http://localhost:8000'
+import { http } from './httpClient'
+
+const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 async function tallyCall<T>(endpoint: string, body?: object): Promise<T> {
-    const res = await fetch(`${BASE}/tally${endpoint}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: body ? JSON.stringify(body) : '{}',
-    })
-    if (!res.ok) {
-        const err = await res.json().catch(() => ({ detail: res.statusText }))
-        throw new Error(err.detail || `Tally API error: ${res.status}`)
-    }
-    return res.json()
+    return http.post(`${BASE}/tally${endpoint}`, body || {})
 }
 
 // ── Types ──────────────────────────────────────────────────────────────────────
