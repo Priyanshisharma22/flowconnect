@@ -1,29 +1,14 @@
-const AUTH_BASE = import.meta.env.VITE_AUTH_API_BASE_URL || "http://localhost:4000";
+import { http } from './httpClient'
+import * as authModule from './auth'
 
-export async function loginUser(email: string, password: string) {
-    const formData = new URLSearchParams()
-    formData.append('username', email)
-    formData.append('password', password)
-    const res = await fetch(`${AUTH_BASE}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData,
-    })
-    const data = await res.json()
-    if (!res.ok) throw new Error(data.detail || 'Login failed')
-    return data
-}
+const AUTH_BASE = import.meta.env.VITE_AUTH_API_BASE_URL || 'http://localhost:4000'
 
-export async function registerUser(name: string, email: string, password: string) {
-    const res = await fetch(`${AUTH_BASE}/api/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ full_name: name, email, password }),
-    })
-    const data = await res.json()
-    if (!res.ok) throw new Error(data.detail || 'Registration failed')
-    return data
-}
+// Re-export auth functions for backward compatibility
+export const loginUser = (email: string, password: string) =>
+  authModule.loginUser({ username: email, password })
+
+export const registerUser = (name: string, email: string, password: string) =>
+  authModule.signupUser({ full_name: name, email, password })
 
 export function saveAuth(token: string, user: any) {
     localStorage.setItem('access_token', token)
@@ -40,21 +25,10 @@ export function logout() {
 }
 
 export async function getMe() {
-    return apiCall('/auth/me', { method: 'GET' })
+    return http.get(`${AUTH_BASE}/api/auth/me`)
 }
 
-export async function apiCall(endpoint: string, options: RequestInit = {}) {
-    const token = getToken()
+export async function apiCall(endpoint: string, options: RequestInit & { skipAuth?: boolean } = {}) {
     const url = `${AUTH_BASE}/api${endpoint}`
-    const res = await fetch(url, {
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-            ...options.headers,
-        },
-    })
-    const data = await res.json()
-    if (!res.ok) throw new Error(data.detail || 'Request failed')
-    return data
+    return http.post(url, options.body ? JSON.parse(options.body as string) : {}, options)
 }
