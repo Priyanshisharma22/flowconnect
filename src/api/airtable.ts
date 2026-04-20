@@ -1,20 +1,26 @@
+import { http } from './httpClient'
+
 const AIRTABLE_API_KEY = import.meta.env.VITE_AIRTABLE_API_KEY
 const BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID
 const TABLE_NAME = import.meta.env.VITE_AIRTABLE_TABLE_NAME || 'Payments'
 const BASE_URL = `https://api.airtable.com/v0/${BASE_ID}`
 
 async function airtableRequest(method: string, endpoint: string, body?: object) {
-  const res = await fetch(`${BASE_URL}/${endpoint}`, {
-    method,
+  const url = `${BASE_URL}/${endpoint}`
+  const options: any = {
     headers: {
       Authorization: `Bearer ${AIRTABLE_API_KEY}`,
-      'Content-Type': 'application/json',
     },
-    ...(body ? { body: JSON.stringify(body) } : {}),
-  })
-  const data = await res.json()
-  if (!res.ok) throw new Error(data.error?.message || 'Airtable error')
-  return data
+    skipAuth: true, // Airtable has its own auth, don't add our Bearer token
+  }
+  
+  if (method === 'GET') {
+    return http.get(url, options)
+  } else if (method === 'POST') {
+    return http.post(url, body, options)
+  } else if (method === 'PATCH') {
+    return http.put(url, body, options)
+  }
 }
 
 export async function addPayment(params: {
