@@ -1,3 +1,4 @@
+import { http } from "./httpClient";
 import { api } from "./config";
 
 export async function signupUser(data: {
@@ -5,29 +6,19 @@ export async function signupUser(data: {
   email: string;
   password: string;
 }) {
-  const res = await fetch(api.signup, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.detail || "Signup failed");
-  }
-
-  return res.json(); // returns { access_token, token_type, user }
+  return http.post(api.signup, data, { skipAuth: true });
 }
 
 export async function loginUser(data: {
-  username: string; // FastAPI OAuth2 uses "username" field
+  username: string;
   password: string;
 }) {
+  const AUTH_BASE = import.meta.env.VITE_AUTH_API_BASE_URL || "http://localhost:4000";
   const formData = new URLSearchParams();
   formData.append("username", data.username);
   formData.append("password", data.password);
 
-  const res = await fetch(api.login, {
+  const res = await fetch(`${AUTH_BASE}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: formData,
@@ -38,5 +29,5 @@ export async function loginUser(data: {
     throw new Error(err.detail || "Login failed");
   }
 
-  return res.json(); // returns { access_token, token_type, user }
+  return res.json();
 }
