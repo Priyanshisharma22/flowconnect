@@ -1,5 +1,6 @@
 import Navbar from '../components/common/Navbar'
 import Hero from '../components/sections/Hero'
+import LiveStats from '../components/sections/LiveStats'
 import Features from '../components/sections/Features'
 import HowItWorks from '../components/sections/HowItWorks'
 import LearnAutomation from '../components/sections/LearnAutomation'
@@ -15,6 +16,7 @@ export default function HomePage() {
             <Navbar />
             <main>
                 <Hero />
+                <LiveStats />
                 <Features />
                 <HowItWorks />
                 <LearnAutomation />
