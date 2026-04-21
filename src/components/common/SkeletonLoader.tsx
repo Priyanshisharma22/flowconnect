@@ -6,6 +6,7 @@ interface SkeletonProps {
   height?: string | number
   borderRadius?: string | number
   className?: string
+  style?: React.CSSProperties
 }
 
 /**
@@ -19,6 +20,7 @@ export const SkeletonText: React.FC<SkeletonProps> = ({
   height = 16,
   borderRadius = 4,
   className = '',
+  style,
 }) => (
   <div
     className={`skeleton-text ${className}`}
@@ -26,6 +28,7 @@ export const SkeletonText: React.FC<SkeletonProps> = ({
       width: typeof width === 'number' ? `${width}px` : width,
       height: typeof height === 'number' ? `${height}px` : height,
       borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius,
+      ...style,
     }}
   />
 )
