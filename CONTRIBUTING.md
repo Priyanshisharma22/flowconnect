@@ -24,6 +24,57 @@ Run the auth backend separately when working on authenticated flows:
 npm run auth:server
 ```
 
+## 📁 Folder Structure
+
+### Frontend Changes (`src/`)
+
+Working on UI components, pages, or styling?
+
+```
+src/
+├── pages/          → Top-level page components (LoginPage, BuilderPage, etc.)
+├── components/     → Reusable UI components (Button, Modal, etc.)
+├── api/            → API client functions (one file per integration)
+├── context/        → Global state (AuthContext, ThemeContext)
+├── styles/         → CSS files (one file per page)
+└── utils/          → Helper functions
+```
+
+**Example:** Adding a new workflow feature?
+- New page? → `src/pages/NewFeaturePage.tsx`
+- New component? → `src/components/MyComponent.tsx`
+- New API client? → `src/api/myservice.ts`
+- New styles? → `src/styles/MyFeature.css`
+
+### Integration Changes (`flowconnect/`)
+
+Working on Slack, Discord, Zoho, or adding a new integration?
+
+```
+flowconnect/
+├── {service}-mcp/          → Integration folder
+│   ├── index.js            → MCP server entry
+│   ├── send{Service}.js    → Service logic
+│   ├── test.js             → Integration tests
+│   └── package.json
+└── auth-backend/           → Local auth service
+    ├── auth-server.js      → Auth logic
+    └── users.json          → User storage
+```
+
+**Example:** Fixing a Slack integration issue?
+- Logic fix? → `flowconnect/slack-mcp/sendSlack.js`
+- Frontend client? → `src/api/slack.ts`
+- Testing? → `flowconnect/slack-mcp/test.js`
+
+### File Naming Conventions
+
+- **Components:** `PascalCase.tsx` (e.g., `WorkflowBuilder.tsx`)
+- **API files:** `lowercase.ts` (e.g., `slack.ts`, `discord.ts`)
+- **Utilities:** `camelCase.ts` (e.g., `formatDate.ts`)
+- **Styles:** Match component name (e.g., `WorkflowBuilder.css`)
+- **Integrations:** `{service}-mcp` folder (e.g., `slack-mcp`, `zoho-crm-mcp`)
+
 ## Development Guidelines
 
 - Use clear names and keep changes easy to review.
