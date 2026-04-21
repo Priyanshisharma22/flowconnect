@@ -362,6 +362,65 @@ app.get("/api/dashboard/", authMiddleware, async (req, res) => {
   return res.json(dashboard);
 });
 
+app.get("/api/dashboard/analytics", authMiddleware, async (req, res) => {
+  const dateRange = req.query.dateRange || "30days";
+  const workflows = (await readWorkflows()).filter((w) => w.user_id === req.user.id);
+  
+  const now = new Date();
+  let threshold = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+  if (dateRange === "7days") threshold = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  if (dateRange === "all") threshold = new Date(0);
+
+  const dailyData = {};
+  workflows.forEach((w) => {
+    if (!w.created_at) return;
+    const date = new Date(w.created_at).toISOString().split("T")[0];
+    if (new Date(date) >= threshold) {
+      dailyData[date] = (dailyData[date] || 0) + (w.run_count || 0);
+    }
+  });
+
+  const executionHistory = Object.entries(dailyData)
+    .map(([date, count]) => ({ date, executions: count }))
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const successCount = workflows.reduce((sum, w) => sum + (w.success_count || 0), 0);
+  const failureCount = workflows.reduce((sum, w) => sum + (w.failure_count || 0), 0);
+
+  const mostActiveFlows = workflows
+    .sort((a, b) => (b.run_count || 0) - (a.run_count || 0))
+    .slice(0, 5)
+    .map((w) => ({ name: w.name, executions: w.run_count || 0 }));
+
+  const recentActivity = workflows
+    .filter((w) => w.last_executed_at)
+    .sort((a, b) => new Date(b.last_executed_at) - new Date(a.last_executed_at))
+    .slice(0, 10)
+    .map((w) => ({
+      id: w.id,
+      name: w.name,
+      timestamp: w.last_executed_at,
+      status: w.status,
+      executionCount: w.run_count || 0,
+    }));
+
+  const apps = (await readApps()).filter((a) => a.user_id === req.user.id);
+
+  return res.json({
+    executionHistory,
+    successFailureStats: {
+      successful: successCount,
+      failed: failureCount,
+    },
+    mostActiveFlows,
+    recentActivity,
+    summary: {
+      totalWorkflows: workflows.length,
+      activeWorkflows: workflows.filter((w) => w.status === "active").length,
+      totalExecutions: workflows.reduce((sum, w) => sum + (w.run_count || 0), 0),
+      connectedApps: apps.length,
+    },
+  });
 app.get("/api/stats/public", async (_req, res) => {
   try {
     const stats = await computeGlobalStats();
