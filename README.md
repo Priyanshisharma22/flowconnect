@@ -44,53 +44,75 @@ Frontend (React + Vite) ↓ Express Server (Production Hosting) ↓ Local Auth B
 
 ---
 
-## ⚙️ Setup
+## 🚀 Quick Start
 
-### Requirements
+### Prerequisites
 
 - Node.js ≥ 20
 - npm ≥ 10
 
-### Installation
+### Step 1: Clone & Install
 
 ```bash
+git clone https://github.com/Priyanshisharma22/flowconnect.git
+cd flowconnect
 npm install
+```
 
+### Step 2: Setup Environment Variables
 
----
+```bash
+# Copy the example file
+cp .env.example .env
 
-🔐 Environment
+# Edit .env and add your API keys for services you want to use
+# See INTEGRATIONS.md for details on each service
+```
 
-Create a .env file in the root directory.
+**Required variables:**
+- `VITE_API_BASE_URL=http://localhost:5000`
+- `AUTH_SERVER_PORT=5000`
+- `JWT_SECRET=your_jwt_secret_key_here`
 
-Configure only the services you plan to use.
+**Optional:** Add API keys only for services you plan to use (Slack, Discord, Zoho, etc.)
 
-Local storage files (auto-generated):
+### Step 3: Start the Development Server
 
-flowconnect/auth-backend/users.local.json
-
-flowconnect/auth-backend/workflows.local.json
-
-flowconnect/auth-backend/apps.local.json
-
-
-
----
-
-▶️ Running the Project
-
-1. Start Frontend
-
+**Terminal 1 - Frontend:**
+```bash
 npm run dev
+# Opens http://localhost:5173
+```
 
-2. Start Local Auth Backend
-
+**Terminal 2 - Auth Backend:**
+```bash
 npm run auth:server
+# Runs on http://localhost:5000
+```
 
-3. Production Mode
+### Step 4: Access the Application
 
-npm run build
-npm start
+Open http://localhost:5173 in your browser.
+
+**Default test credentials:**
+- Email: `test@example.com`
+- Password: `password123`
+
+### Production Mode
+
+```bash
+npm run build    # Build frontend
+npm start        # Start Express server
+```
+
+---
+
+## 📚 Documentation
+
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - System design & data flows
+- **[INTEGRATIONS.md](./INTEGRATIONS.md)** - MCP services & setup guide
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - How to contribute & folder structure
+- **[.env.example](./.env.example)** - All environment variables
 
 
 ---
