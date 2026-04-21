@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import ProfilePage from './pages/ProfilePage'
+import DashboardPage from './pages/DashboardPage'
 import PricingPage from './pages/PricingPage'
 import HowItWorksPage from './pages/HowItWorksPage'
 import BuilderPage from './pages/BuilderPage'
@@ -15,7 +16,8 @@ import { onAuthError } from './api/httpClient'
 import './styles/App.css'
 import { Toaster } from 'react-hot-toast'
 import ErrorBoundary from './components/common/ErrorBoundary'
-import { ErrorTestComponent } from './components/common/ErrorBoundaryTest'
+import { ThemeProvider } from './context/ThemeContext'
+import { AuthProvider } from './context/AuthContext'
 
 // --- Route Protectors ---
 
@@ -49,7 +51,6 @@ function AppContent() {
     <>
       <Toaster position="top-right" reverseOrder={false} />
 
-    <Router>
       <div id="aria-live-announcer" aria-live="polite" aria-atomic="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }} />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -93,6 +94,14 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Open Routes (Anyone can see these) */}
         <Route path="/pricing" element={<PricingPage />} />
@@ -102,8 +111,6 @@ function AppContent() {
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
 
-        {/* Test Route for Error Boundary */}
-        <Route path="/test-error" element={<ErrorBoundary><ErrorTestComponent /></ErrorBoundary>} />
       </Routes>
     </>
   )
@@ -113,9 +120,13 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <ThemeProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </ThemeProvider>
+    </AuthProvider>
   )
 }
 
