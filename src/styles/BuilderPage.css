@@ -271,3 +271,23 @@
 }
 
 .auth-form__input:focus { border-color: #6366f1; }
+/* -- Drag and Drop Styles ----------------------------- */
+.node-item:active {
+    cursor: grabbing;
+}
+
+.canvas-node {
+    transition: all 0.2s ease;
+}
+
+.canvas-node:active {
+    cursor: grabbing;
+    opacity: 0.8;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3) !important;
+}
+
+.builder-canvas.drag-over {
+    background-color: rgba(99, 102, 241, 0.05);
+    border: 2px dashed #6366f1;
+}
+
