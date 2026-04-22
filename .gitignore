@@ -2,6 +2,7 @@
 .env
 *.env
 *.env.*
+!flowconnect/whatsapp-chatbot-mcp/.env.example
 **/*.env
 *.key
 *.pem

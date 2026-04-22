@@ -421,6 +421,8 @@ app.get("/api/dashboard/analytics", authMiddleware, async (req, res) => {
       connectedApps: apps.length,
     },
   });
+});
+
 app.get("/api/stats/public", async (_req, res) => {
   try {
     const stats = await computeGlobalStats();
@@ -435,6 +437,16 @@ app.get("/api/stats/public", async (_req, res) => {
       uptime_percentage: 99.9,
     });
   }
+});
+
+app.post("/api/webhooks/whatsapp", async (req, res) => {
+  const { intent, data, source } = req.body;
+  
+  return res.status(200).json({
+    ok: true,
+    message: `Workflow '${intent}' queued successfully`,
+    executionId: randomUUID()
+  });
 });
 
 app.listen(PORT, () => {
