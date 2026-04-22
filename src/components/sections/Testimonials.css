@@ -4,59 +4,56 @@
 
 .testimonials {
     position: relative;
-    background: var(--bg-secondary);
+    background:
+  radial-gradient(circle at 10% 10%, rgba(249,115,22,0.05), transparent 40%),
+  radial-gradient(circle at 90% 80%, rgba(99,102,241,0.05), transparent 50%),
+  var(--bg-secondary);
     padding: 100px 0;
 }
-
 /* HEADER */
 .testimonials__header {
     text-align: center;
     max-width: 700px;
     margin: 0 auto 60px;
 }
-
 /* =========================
    GRID
 ========================= */
-
 .testimonials__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
+    max-width: 900px;   /* controls width */
+    margin: 0 auto;     /* centers it */
 }
-
 @media (min-width: 768px) {
     .testimonials__grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 28px;
+        max-width: 1000px;  /* slightly wider for 2 columns */
+        margin: 0 auto;
     }
 }
-
 /* =========================
    CARD
 ========================= */
-
 .testimonials__card {
     position: relative;
     padding: 32px 28px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-
     background: white;
     border: 1px solid var(--border-default);
     border-radius: 20px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-
     transition: all 0.3s ease;
 }
-
 .testimonials__card:hover {
     transform: translateY(-6px) scale(1.01);
     border-color: var(--primary-300);
     box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
-
 /* =========================
    QUOTE ICON
 ========================= */
@@ -64,54 +61,42 @@
     position: absolute;
     top: 18px;
     right: 18px;
-
     width: 36px;
     height: 36px;
     border-radius: 10px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: var(--primary-50);
     color: var(--primary-600);
-
     box-shadow: 0 6px 16px rgba(249,115,22,0.15);
-
     opacity: 1;
     z-index: 2;
 }
-
 /* =========================
    STARS
 ========================= */
-
 .testimonials__stars {
     display: flex;
     gap: 4px;
 }
-
 /* =========================
    TEXT
 ========================= */
-
 .testimonials__text {
     font-size: 15px;
     color: var(--text-secondary);
     line-height: 1.75;
 }
-
 /* =========================
    AUTHOR
 ========================= */
-
 .testimonials__author {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-top: 10px;
 }
-
 .testimonials__avatar {
     width: 42px;
     height: 42px;
@@ -124,18 +109,15 @@
     font-size: 14px;
     font-weight: 700;
 }
-
 .testimonials__name {
     font-size: 14px;
     font-weight: 700;
     color: var(--gray-900);
 }
-
 .testimonials__role {
     font-size: 12px;
     color: var(--text-muted);
 }
-
 /* =========================
    DARK MODE
 ========================= */
@@ -157,7 +139,6 @@
         0 25px 60px rgba(0,0,0,0.7),
         0 0 20px rgba(249,115,22,0.2);
 }
-
 /* TEXT */
 [data-theme='dark'] .testimonials__text {
     color: #cbd5e1;
@@ -170,7 +151,6 @@
 [data-theme='dark'] .testimonials__role {
     color: #94a3b8;
 }
-
 /* QUOTE */
 [data-theme='dark'] .testimonials__quote-icon {
     background: rgba(249,115,22,0.15);
@@ -182,7 +162,6 @@
            color: #fb923c;
             opacity: 0.6;
 }
-
 /* STARS */
 [data-theme='dark'] .testimonials__stars svg {
     filter: drop-shadow(0 0 4px rgba(251,191,36,0.4));

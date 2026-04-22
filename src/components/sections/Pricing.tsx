@@ -74,7 +74,7 @@ export default function Pricing() {
                     <div className="section-badge" id="pricing-badge">
                         <Zap size={14} />
                         Pricing
-                    </div>
+                    </div><br></br>
                     <h2 className="section-title">
                         Simple, <span className="gradient-text">Affordable</span> Plans
                     </h2>

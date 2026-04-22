@@ -1,205 +1,111 @@
 /* =========================
    USE CASES SECTION
 ========================= */
-
 .use-cases {
-    padding: 100px 0;
-    position: relative;
+  padding: 100px 0;
+  position: relative;
+  background: var(--bg-primary);
 }
-
 .use-cases__header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px;
 }
-
 /* =========================
    GRID
 ========================= */
-
 .use-cases__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 }
-
+@media (max-width: 1024px) {
+  .use-cases__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .use-cases__grid {
+    grid-template-columns: 1fr;
+  }
+}
 /* =========================
    CARD
 ========================= */
-
 .use-cases__card {
-    position: relative;
-    background: white;
-    border: 1px solid var(--border-default);
-    border-radius: 20px;
-    padding: 28px;
-    transition: all 0.3s ease;
-    overflow: hidden;
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  padding: 28px;
+  transition: all var(--transition);
+  overflow: hidden;
 }
-
-/* subtle inner glow layer */
+/* centralized glow */
 .use-cases__card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    pointer-events: none;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  box-shadow: var(--card-inner-glow);
 }
-
 .use-cases__card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow:
-        0 20px 50px rgba(0,0,0,0.1);
-    border-color: var(--primary-300);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-hover);
 }
-
 /* =========================
    ICON
 ========================= */
-
 .use-cases__icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  transition: all var(--transition);
 }
-
-/* ICON HOVER = POP */
 .use-cases__card:hover .use-cases__icon {
-    transform: scale(1.08);
+  transform: scale(1.08);
+  box-shadow: var(--shadow-md);
 }
-
+/* reuse centralized tokens */
+.use-cases__icon--cyan { background: var(--cyan-soft); color: #06b6d4; }
+.use-cases__icon--violet { background: var(--violet-soft); color: #7c3aed; }
+.use-cases__icon--emerald { background: var(--emerald-soft); color: #10b981; }
+.use-cases__icon--rose { background: var(--rose-soft); color: #f43f5e; }
+.use-cases__icon--amber { background: var(--amber-soft); color: #f59e0b; }
+.use-cases__icon--blue { background: var(--blue-soft); color: #3b82f6; }
 /* =========================
    TEXT
 ========================= */
-
 .use-cases__title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: var(--gray-900);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
 }
-
 .use-cases__desc {
-    color: var(--text-secondary);
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 24px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }
-
 /* =========================
-   TAG (BETTER POSITIONING)
+   TAG
 ========================= */
-
 .use-cases__tag {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    padding: 5px 12px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    background: var(--gray-100);
-    color: var(--gray-600);
-    letter-spacing: 0.05em;
-}
-
-/* =========================
-   COLORS
-========================= */
-
-.use-cases__icon--cyan {
-    background: rgba(6,182,212,0.12);
-    color: #06b6d4;
-}
-
-.use-cases__icon--violet {
-    background: rgba(124,58,237,0.12);
-    color: #7c3aed;
-}
-
-.use-cases__icon--emerald {
-    background: rgba(5,150,105,0.12);
-    color: #059669;
-}
-
-.use-cases__icon--rose {
-    background: rgba(225,29,72,0.12);
-    color: #e11d48;
-}
-
-.use-cases__icon--amber {
-    background: rgba(217,119,6,0.12);
-    color: #d97706;
-}
-
-.use-cases__icon--blue {
-    background: rgba(37,99,235,0.12);
-    color: #2563eb;
-}
-
-/* =========================
-   DARK MODE
-========================= */
-
-[data-theme='dark'] .use-cases__card {
-    background: linear-gradient(180deg, #0f172a, #020617);
-    border: 1px solid rgba(148,163,184,0.18);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-[data-theme='dark'] .use-cases__card:hover {
-    box-shadow:
-        0 25px 60px rgba(0,0,0,0.7),
-        0 0 20px rgba(249,115,22,0.2);
-}
-
-[data-theme='dark'] .use-cases__title {
-    color: #f8fafc;
-}
-
-[data-theme='dark'] .use-cases__desc {
-    color: #cbd5e1;
-}
-
-[data-theme='dark'] .use-cases__tag {
-    background: rgba(30,41,59,0.8);
-    border: 1px solid rgba(148,163,184,0.2);
-    color: #cbd5e1;
-}
-
-/* ICON GLOW ON HOVER (DARK MODE) */
-[data-theme='dark'] .use-cases__card:hover .use-cases__icon--cyan {
-    box-shadow: 0 0 16px rgba(6,182,212,0.4);
-}
-
-[data-theme='dark'] .use-cases__card:hover .use-cases__icon--violet {
-    box-shadow: 0 0 16px rgba(124,58,237,0.4);
-}
-
-[data-theme='dark'] .use-cases__card:hover .use-cases__icon--emerald {
-    box-shadow: 0 0 16px rgba(5,150,105,0.4);
-}
-
-[data-theme='dark'] .use-cases__card:hover .use-cases__icon--rose {
-    box-shadow: 0 0 16px rgba(225,29,72,0.4);
-}
-
-[data-theme='dark'] .use-cases__card:hover .use-cases__icon--amber {
-    box-shadow: 0 0 16px rgba(217,119,6,0.4);
-}
-
-[data-theme='dark'] .use-cases__card:hover .use-cases__icon--blue {
-    box-shadow: 0 0 16px rgba(37,99,235,0.4);
-}
-[data-theme='dark'] .use-cases {
-    background:
-        radial-gradient(circle at 20% 20%, rgba(249,115,22,0.08), transparent 40%),
-        radial-gradient(circle at 80% 60%, rgba(96,165,250,0.08), transparent 40%),
-        #020617;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
 }

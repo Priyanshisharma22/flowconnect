@@ -36,7 +36,7 @@ const features = [
         icon: Smartphone,
         title: 'SMS & OTP Delivery',
         description: 'Fast and reliable SMS delivery for Indian numbers with local operator optimizations.',
-        color: 'orange',
+        color: 'rose',
     },
     {
         icon: Layers,

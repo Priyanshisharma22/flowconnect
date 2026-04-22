@@ -149,9 +149,9 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <div className="navbar__mobile-actions">
-                            <Link to="/profile" className="btn-secondary" style={{ width: '100%' }} onClick={() => setMobileOpen(false)}>Profile</Link>
-                            <Link to="/login" className="btn-secondary" style={{ width: '100%' }} onClick={() => setMobileOpen(false)}>Log In</Link>
-                            <Link to="/signup" className="btn-primary" style={{ width: '100%' }} onClick={() => setMobileOpen(false)}>
+                            <Link to="/profile" className="btn-secondary  navbar__full-width"  onClick={() => setMobileOpen(false)}>Profile</Link>
+                            <Link to="/login" className="btn-secondary  navbar__full-width"  onClick={() => setMobileOpen(false)}>Log In</Link>
+                            <Link to="/signup" className="btn-primary  navbar__full-width"  onClick={() => setMobileOpen(false)}>
                                 <Zap size={16} />
                                 Get Started
                             </Link>

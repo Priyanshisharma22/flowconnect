@@ -120,13 +120,11 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <ThemeProvider>
+  
         <Router>
           <AppContent />
         </Router>
-      </ThemeProvider>
-    </AuthProvider>
+     
   )
 }
 

@@ -1,7 +1,6 @@
 /* =========================
    PAGE BACKGROUND
 ========================= */
-
 .about-page {
     min-height: 100vh;
     background:
@@ -9,29 +8,24 @@
         radial-gradient(circle at top right, rgba(14,165,233,0.06), transparent 30%),
         var(--bg-primary);
 }
-
 /* =========================
    HERO
 ========================= */
-
 .about-hero {
     padding-top: 140px;
     padding-bottom: 80px;
 }
-
 .about-hero__inner {
     max-width: 760px;
     margin: 0 auto;
     text-align: center;
 }
-
 .about-hero__title {
     font-size: clamp(40px, 6vw, 64px);
     line-height: 1.05;
     letter-spacing: -0.03em;
     color: var(--text-primary);
 }
-
 .about-hero__subtitle {
     max-width: 620px;
     margin: 24px auto 0;
@@ -39,7 +33,6 @@
     line-height: 1.7;
     color: var(--text-secondary);
 }
-
 .about-hero__actions {
     display: flex;
     justify-content: center;
@@ -47,52 +40,43 @@
     gap: 14px;
     margin-top: 32px;
 }
-
 /* =========================
-   STORY GRID
+   GRID
 ========================= */
-
 .about-grid {
     display: grid;
     gap: 48px;
 }
-
 @media (min-width: 1024px) {
     .about-grid {
         grid-template-columns: 1fr 2fr;
     }
 }
-
 /* =========================
    CARDS
 ========================= */
-
 .about-cards {
     display: grid;
     gap: 24px;
 }
-
 @media (min-width: 768px) {
     .about-cards {
         grid-template-columns: repeat(3, 1fr);
     }
 }
-
 .about-card {
     padding: 28px;
     border-radius: 20px;
-    background: white;
+    background: var(--bg-card);
     border: 1px solid var(--border-default);
     box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
 }
-
 .about-card:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--primary-200);
+    border-color: var(--border-hover);
 }
-
 .about-card__icon {
     width: 48px;
     height: 48px;
@@ -104,45 +88,37 @@
     background: var(--primary-50);
     color: var(--primary-600);
 }
-
 .about-card h3 {
     font-size: 18px;
-    color: var(--gray-900);
+    color: var(--text-primary);
 }
-
 .about-card p {
     font-size: 14px;
     color: var(--text-secondary);
 }
-
 /* =========================
    BLOG
 ========================= */
-
 .about-blog__grid {
     display: grid;
     gap: 24px;
 }
-
 @media (min-width: 768px) {
     .about-blog__grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
-
 .about-post {
     padding: 24px;
     border-radius: 20px;
-    background: white;
+    background: var(--bg-card);
     border: 1px solid var(--border-default);
     transition: 0.3s ease;
 }
-
 .about-post:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
 }
-
 .about-post__tag {
     background: var(--primary-50);
     color: var(--primary-600);
@@ -152,140 +128,76 @@
     margin-bottom: 10px;
     display: inline-block;
 }
-
 .about-post__link {
     margin-top: 12px;
     color: var(--primary-600);
     font-weight: 600;
 }
-
 /* =========================
    RESOURCES
 ========================= */
-
 .about-resources__panel {
     padding: 32px;
     border-radius: 24px;
-    background: white;
+    background: var(--bg-card);
     border: 1px solid var(--border-default);
     box-shadow: var(--shadow-sm);
 }
-
 .about-resources__list {
     display: grid;
     gap: 16px;
     margin-top: 24px;
 }
-
 .about-resource {
     padding: 16px;
     border-radius: 12px;
     border: 1px solid var(--border-default);
     background: var(--bg-secondary);
+    transition: 0.25s ease;
 }
-
 .about-resource:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-sm);
 }
-
 /* =========================
    CONTACT
 ========================= */
-
 .about-contact__grid {
     display: grid;
     gap: 28px;
 }
-
 @media (min-width: 900px) {
     .about-contact__grid {
         grid-template-columns: 1fr 1fr;
     }
 }
-
 /* LEFT */
-
 .about-contact__card {
     padding: 28px;
     border-radius: 20px;
-    background: white;
+    background: var(--bg-card);
     border: 1px solid var(--border-default);
 }
-
 .about-contact__item {
     display: flex;
     gap: 12px;
     padding: 12px 0;
 }
-
 .about-contact__item + .about-contact__item {
     border-top: 1px solid var(--border-default);
 }
-
 .about-contact__item svg {
     color: var(--primary-600);
 }
-
 /* RIGHT CTA */
-
 .about-contact__cta {
     padding: 32px;
     border-radius: 20px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-default);
 }
-
 .about-contact__actions {
     margin-top: 20px;
     display: flex;
     gap: 12px;
-}
-
-/* =========================
-   DARK MODE
-========================= */
-
-[data-theme='dark'] .about-page {
-    background:
-        radial-gradient(circle at top left, rgba(99,102,241,0.12), transparent 30%),
-        radial-gradient(circle at top right, rgba(14,165,233,0.12), transparent 30%),
-        linear-gradient(180deg, #020617, #030b1f);
-}
-
-/* cards */
-
-[data-theme='dark'] .about-card,
-[data-theme='dark'] .about-post,
-[data-theme='dark'] .about-contact__card,
-[data-theme='dark'] .about-resources__panel {
-    background: linear-gradient(180deg, #0f172a, #020617);
-    border: 1px solid rgba(148,163,184,0.15);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-/* text */
-
-[data-theme='dark'] .about-card h3,
-[data-theme='dark'] .about-post h3 {
-    color: #f8fafc;
-}
-
-[data-theme='dark'] .about-card p,
-[data-theme='dark'] .about-post p,
-[data-theme='dark'] .about-resource p {
-    color: #cbd5e1;
-}
-
-/* CTA */
-
-[data-theme='dark'] .about-contact__cta {
-    background: linear-gradient(180deg, #0f172a, #020617);
-    border: 1px solid rgba(148,163,184,0.15);
-}
-
-/* resources */
-
-[data-theme='dark'] .about-resource {
-    background: rgba(30,41,59,0.6);
 }

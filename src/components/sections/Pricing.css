@@ -1,319 +1,254 @@
 /* =========================
    PRICING SECTION
 ========================= */
-
 .pricing {
-    position: relative;
-    background: #f8fafc;
-    padding: 100px 0;
+  position: relative;
+  background: var(--bg-secondary);
+  padding: 100px 0;
 }
-
 .pricing__header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top:40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
 .pricing .section-title {
-    font-size: 32px;   /* ↓ reduce from global ~40-48px */
-    line-height: 1.2;
+  font-size: 32px;
+  line-height: 1.2;
 }
 .pricing-hero__subtitle {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.7;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-size: 16px;
 }
-.pricing-hero__subtitle {
-    text-align: center;
-    max-width: 640px;   /* tighter = better alignment */
-    margin: 0 auto;     /* centers block */
-    line-height: 1.7;
-    font-size: 16px;
-}
-
 /* =========================
-   TOGGLE (NEW)
+   TOGGLE
 ========================= */
-
 .pricing__toggle {
-    position: relative;
-    display: inline-flex;
-    background: var(--gray-100);
-    border-radius: 999px;
-    padding: 4px;
-    margin-top: 32px;
+  position: relative;
+  display: inline-flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  padding: 4px;
+  margin-top: 32px;
+  box-shadow: var(--shadow-sm);
 }
-
 .pricing__toggle button {
-    position: relative;
-    z-index: 2;
-    padding: 10px 20px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    background: transparent;
-    color: var(--gray-600);
-    cursor: pointer;
-    transition: color 0.3s ease;
+  position: relative;
+  z-index: 2;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
-
 .pricing__toggle button.active {
-    color: white;
+  color: white;
 }
-
 .pricing__toggle-bg {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 50%;
-    height: calc(100% - 8px);
-    background: var(--gradient-primary);
-    border-radius: 999px;
-    transition: transform 0.3s ease;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 50%;
+  height: calc(100% - 8px);
+  background: var(--gradient-primary);
+  border-radius: 999px;
+  transition: transform 0.3s ease;
 }
-
 .pricing__toggle-bg.yearly {
-    transform: translateX(100%);
+  transform: translateX(100%);
 }
-
+/* FIXED (no hardcoded green) */
 .pricing__discount {
-    margin-left: 6px;
-    font-size: 11px;
-    background: #22c55e;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 6px;
+  margin-left: 6px;
+  font-size: 11px;
+  background: var(--success-500);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 6px;
 }
-
 /* =========================
    GRID
 ========================= */
-
 .pricing__grid {
-    display: grid;
-    gap: 32px;
-    margin-top: 50px;
-    grid-template-columns: repeat(1, 1fr);
+  display: grid;
+  gap: 32px;
+  margin-top: 50px;
+  grid-template-columns: repeat(1, 1fr);
 }
-
 @media (min-width: 1024px) {
-    .pricing__grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .pricing__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-
 /* =========================
    CARD
 ========================= */
-
 .pricing__card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 40px 32px;
-    background: white;
-    border: 1px solid var(--border-default);
-    border-radius: 20px;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.04);
-    transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
 }
-
 .pricing__card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: var(--primary-300);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg);
 }
-
-/* POPULAR */
 .pricing__card--popular {
-    border: 2px solid var(--primary-500);
-    box-shadow: 0 15px 50px rgba(249,115,22,0.2);
+  border: 2px solid var(--primary-500);
+  box-shadow: 0 15px 50px rgba(249,115,22,0.2);
 }
-
-/* BADGE FIXED */
 .pricing__popular-badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gradient-primary);
-    color: white;
-    padding: 6px 18px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gradient-primary);
+  color: white;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 }
-
-/* ICON */
+/* =========================
+   ICON (FIXED)
+========================= */
 .pricing__card-icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 16px;
-    margin: 0 auto 24px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  margin: 0 auto 24px;
 }
-
-/* COLORS */
+/* USE GLOBAL TOKENS */
 .pricing__card-icon--cyan {
-    background: #ecfeff;
-    color: #0891b2;
+  background: var(--cyan-soft);
+  color: #0891b2;
 }
 .pricing__card-icon--violet {
-    background: #f5f3ff;
-    color: #7c3aed;
+  background: var(--violet-soft);
+  color: #7c3aed;
 }
 .pricing__card-icon--emerald {
-    background: #ecfdf5;
-    color: #059669;
+  background: var(--emerald-soft);
+  color: #059669;
 }
-
-/* TEXT */
+/* =========================
+   TEXT
+========================= */
 .pricing__card-name {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--gray-900);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
 }
-
 .pricing__card-desc {
-    color: var(--text-secondary);
-    font-size: 15px;
-    margin: 12px 0 28px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin: 12px 0 28px;
 }
-
-/* PRICE */
 .pricing__card-price {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    margin-bottom: 32px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 32px;
 }
 
 .pricing__card-currency {
-    font-size: 22px;
-    color: var(--gray-500);
+  font-size: 22px;
+  color: var(--text-muted);
 }
-
 .pricing__card-amount {
-    font-size: 48px;
-    font-weight: 900;
-    color: var(--gray-900);
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--text-primary);
 }
-
 .pricing__card-period {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-left: 6px;
-}
-
-/* FEATURES */
-.pricing__card-features {
-    width: 100%;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 40px;
-}
-
-.pricing__card-feature {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    color: var(--gray-700);
-}
-
-.pricing__check-icon {
-    color: var(--success-500);
-}
-
-/* BUTTON */
-.pricing__card-btn {
-    width: 100%;
-    padding: 16px;
-    font-size: 16px;
-    margin-top: auto;
-}
-
-/* NOTE */
-.pricing__crypto-note {
-    margin-top: 60px;
-    text-align: center;
-    padding: 16px 24px;
-    background: white;
-    border-radius: 999px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: var(--shadow-sm);
-    color: var(--gray-600);
-}
-
-.pricing__crypto-note strong {
-    color: var(--primary-600);
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-left: 6px;
 }
 
 /* =========================
-   DARK MODE
+   FEATURES
 ========================= */
 
-[data-theme='dark'] .pricing {
-    background: #020617;
+.pricing__card-features {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
 }
+.pricing__card-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-/* TOGGLE */
-[data-theme='dark'] .pricing__toggle {
-    background: rgba(30,41,59,0.6);
+  font-size: 15px;
+  color: var(--text-secondary);
 }
-
-[data-theme='dark'] .pricing__toggle button {
-    color: #94a3b8;
+.pricing__check-icon {
+  color: var(--success-500);
 }
-
-[data-theme='dark'] .pricing__toggle button.active {
-    color: white;
+/* =========================
+   BUTTON
+========================= */
+.pricing__card-btn {
+  width: auto;
+  min-width: 180px;
+  padding: 16px 24px;
+  font-size: 16px;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-/* CARD */
-[data-theme='dark'] .pricing__card {
-    background: linear-gradient(180deg,#0f172a,#020617);
-    border: 1px solid rgba(148,163,184,0.18);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+/* =========================
+   NOTE
+========================= */
+.pricing__crypto-note {
+  margin-top: 60px;
+  text-align: center;
+  padding: 16px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+  color: var(--text-secondary);
 }
-
+.pricing__crypto-note strong {
+  color: var(--primary-600);
+}
+/* =========================
+   DARK POLISH
+========================= */
 [data-theme='dark'] .pricing__card:hover {
-    box-shadow:
-        0 25px 60px rgba(0,0,0,0.7),
-        0 0 20px rgba(249,115,22,0.25);
-}
-
-[data-theme='dark'] .pricing__card-name {
-    color: #f8fafc;
-}
-
-[data-theme='dark'] .pricing__card-desc {
-    color: #cbd5e1;
-}
-
-[data-theme='dark'] .pricing__card-amount {
-    color: #f8fafc;
-}
-
-[data-theme='dark'] .pricing__card-feature {
-    color: #cbd5e1;
-}
-
-/* NOTE */
-[data-theme='dark'] .pricing__crypto-note {
-    background: rgba(15,23,42,0.8);
-    border: 1px solid rgba(148,163,184,0.2);
-    color: #cbd5e1;
+  box-shadow:
+    var(--shadow-lg),
+    0 0 20px rgba(249,115,22,0.18);
 }
