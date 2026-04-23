@@ -1,141 +1,149 @@
+/* =========================
+   SECTION
+========================= */
 .how-it-works {
-    position: relative;
-    background: var(--bg-secondary);
-    /* Off-white */
-    padding: 100px 0;
+  position: relative;
+  padding: 100px 0;
+  background: var(--bg-secondary);
 }
-
+/* =========================
+   HEADER
+========================= */
 .how-it-works__header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
+/* =========================
+   STEPS
+========================= */
 .how-it-works__steps {
-    max-width: 800px;
-    margin: 80px auto 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
-
+/* =========================
+   STEP CARD
+========================= */
 .how-it-works__step {
-    display: flex;
-    align-items: flex-start;
-    gap: 24px;
-    padding: 32px;
-    background: white;
-    border: 1px solid var(--border-default);
-    border-radius: 20px;
-    position: relative;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 32px;
+  background: var(--step-bg);
+  border: 1px solid var(--step-border);
+  border-radius: 22px;
+  box-shadow: var(--step-shadow);
+  transition: all var(--transition);
 }
-
 .how-it-works__step:hover {
-    border-color: var(--primary-300);
-    transform: translateX(10px);
-    box-shadow: var(--shadow-lg);
+  transform: translateY(-6px) scale(1.01);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg);
 }
-
+/* =========================
+   STEP NUMBER
+========================= */
 .how-it-works__step-number {
-    position: absolute;
-    top: -16px;
-    left: 24px;
-    font-size: 13px;
-    font-weight: 800;
-    font-family: var(--font-mono);
-    padding: 6px 14px;
-    border-radius: 100px;
-    letter-spacing: 0.05em;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  background: var(--step-number-bg);
+  border: 1px solid var(--step-number-border);
+  box-shadow: var(--shadow-sm);
 }
-
-.how-it-works__step-number--cyan {
-    color: #0891b2;
-    border: 1px solid #ecfeff;
-}
-
-.how-it-works__step-number--violet {
-    color: #7c3aed;
-    border: 1px solid #f5f3ff;
-}
-
-.how-it-works__step-number--emerald {
-    color: #059669;
-    border: 1px solid #ecfdf5;
-}
-
-.how-it-works__step-number--amber {
-    color: #d97706;
-    border: 1px solid #fffbeb;
-}
-
+/* COLORS (reuse existing system) */
+.how-it-works__step-number--cyan { color: #06b6d4; border-color: var(--cyan-soft); }
+.how-it-works__step-number--violet { color: #8b5cf6; border-color: var(--violet-soft); }
+.how-it-works__step-number--emerald { color: #10b981; border-color: var(--emerald-soft); }
+.how-it-works__step-number--amber { color: #f59e0b; border-color: var(--amber-soft); }
+/* =========================
+   ICON
+========================= */
 .how-it-works__step-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition);
 }
-
-.how-it-works__step-icon--cyan {
-    background: #ecfeff;
-    color: #0891b2;
+.how-it-works__step:hover .how-it-works__step-icon {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-md);
 }
-
-.how-it-works__step-icon--violet {
-    background: #f5f3ff;
-    color: #7c3aed;
-}
-
-.how-it-works__step-icon--emerald {
-    background: #ecfdf5;
-    color: #059669;
-}
-
-.how-it-works__step-icon--amber {
-    background: #fffbeb;
-    color: #d97706;
-}
-
-.how-it-works__step-content {
-    flex: 1;
-}
-
+/* reuse same tokens as Features */
+.how-it-works__step-icon--cyan { background: var(--cyan-soft); color: #06b6d4; }
+.how-it-works__step-icon--violet { background: var(--violet-soft); color: #8b5cf6; }
+.how-it-works__step-icon--emerald { background: var(--emerald-soft); color: #10b981; }
+.how-it-works__step-icon--amber { background: var(--amber-soft); color: #f59e0b; }
+/* =========================
+   TEXT
+========================= */
 .how-it-works__step-title {
-    font-size: 19px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    color: var(--gray-900);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--step-title);
+  margin-bottom: 8px;
 }
-
 .how-it-works__step-desc {
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
 }
-
+/* =========================
+   CONNECTOR
+========================= */
 .how-it-works__connector {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 48px;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
 }
-
 .how-it-works__connector-line {
-    width: 2px;
-    height: 100%;
-    background: var(--gray-200);
+  width: 2px;
+  height: 100%;
+  background: var(--connector-line);
 }
-
 .how-it-works__connector-arrow {
-    color: var(--gray-400);
-    margin-top: -8px;
-    background: var(--bg-secondary);
+  margin-top: -8px;
+  color: var(--connector-arrow);
+  background: transparent;
+}
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .how-it-works {
+    padding: 80px 0;
+  }
+  .how-it-works__header {
+    margin-bottom: 48px;
+  }
+  .how-it-works__step {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+  .how-it-works__step-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .how-it-works__step-title {
+    font-size: 17px;
+  }
+  .how-it-works__step-desc {
+    font-size: 14px;
+  }
 }

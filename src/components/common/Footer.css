@@ -1,160 +1,155 @@
+/* =========================
+   FOOTER BASE
+========================= */
 .footer {
-    padding: 100px 0 40px;
-    background: white;
-    border-top: 1px solid var(--border-default);
+  padding: 100px 0 40px;
+  background: var(--footer-bg);
+  border-top: 1px solid var(--footer-border);
 }
-
+/* =========================
+   LAYOUT
+========================= */
 .footer__top {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
 }
-
 @media (min-width: 768px) {
-    .footer__top {
-        grid-template-columns: 2fr repeat(4, 1fr);
-        gap: 60px;
-    }
+  .footer__top {
+    grid-template-columns: 2fr repeat(4, 1fr);
+    gap: 60px;
+  }
 }
-
+/* =========================
+   BRAND
+========================= */
 .footer__brand {
-    max-width: 320px;
+  max-width: 320px;
 }
-
 .footer__logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
 }
-
 .footer__logo-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: var(--gradient-primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--logo-glow);
 }
-
 .footer__logo-text {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--gray-900);
-    letter-spacing: -0.02em;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
-
 .footer__brand-desc {
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 24px;
-    font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 14.5px;
+  margin-bottom: 24px;
 }
-
+/* =========================
+   SOCIALS
+========================= */
 .footer__socials {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
-
 .footer__social {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--gray-200);
-    color: var(--gray-500);
-    transition: all 0.2s ease;
-    background: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--footer-social-border);
+  color: var(--footer-social-text);
+  background: var(--footer-social-bg);
+  transition: all var(--transition);
 }
-
 .footer__social:hover {
-    border-color: var(--primary-400);
-    background: var(--primary-50);
-    color: var(--primary-600);
-    transform: translateY(-2px);
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+  color: var(--primary-600);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
-
+/* =========================
+   COLUMNS
+========================= */
 .footer__col-title {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gray-900);
-    margin-bottom: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--footer-title);
+  margin-bottom: 16px;
 }
-
 .footer__col-links {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-
 .footer__link {
-    font-size: 15px;
-    color: var(--text-secondary);
-    transition: color 0.2s ease;
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: all var(--transition);
 }
-
 .footer__link:hover {
-    color: var(--primary-600);
+  color: var(--primary-600);
+  transform: translateX(3px);
 }
-
+/* =========================
+   BOTTOM
+========================= */
 .footer__bottom {
-    margin-top: 80px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border-default);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+  margin-top: 70px;
+  padding-top: 28px;
+  border-top: 1px solid var(--footer-border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
-
 .footer__copyright {
-    color: var(--text-muted);
-    font-size: 14px;
+  color: var(--text-muted);
+  font-size: 13px;
 }
-
+/* =========================
+   BADGE
+========================= */
 .footer__chain-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
-    border-radius: 100px;
-    font-size: 12px;
-    font-family: var(--font-mono);
-    color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--footer-badge-bg);
+  border: 1px solid var(--footer-badge-border);
+  border-radius: 999px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--footer-badge-text);
 }
-
+/* DOT */
 .footer__chain-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #10b981;
-    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
-    animation: pulse-green 2s infinite;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--footer-dot);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--footer-dot) 25%, transparent);
+  animation: pulse-green 2s infinite;
 }
-
+/* animation stays same */
 @keyframes pulse-green {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
-    }
-
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
-    }
-
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-    }
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--footer-dot) 40%, transparent); }
+  70% { box-shadow: 0 0 0 6px rgba(0,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
 }

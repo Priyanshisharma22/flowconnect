@@ -1,169 +1,176 @@
+/* =========================
+   SECTION BASE
+========================= */
 .integrations {
-    position: relative;
-    background: white;
+  position: relative;
+  background: var(--bg-primary);
 }
-
+/* =========================
+   HEADER
+========================= */
 .integrations__header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
+/* =========================
+   CONTENT
+========================= */
 .integrations__content {
-    margin-top: 80px;
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }
-
+/* =========================
+   SECTION TITLE
+========================= */
 .integrations__section-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 24px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
 }
-
+/* =========================
+   DOTS (CENTRALIZED)
+========================= */
 .integrations__section-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
-
-.integrations__section-dot--cyan {
-    background: #06b6d4;
-}
-
-.integrations__section-dot--violet {
-    background: #8b5cf6;
-}
-
-.integrations__section-dot--emerald {
-    background: #10b981;
-}
-
-.integrations__section-dot--amber {
-    background: #f59e0b;
-}
-
-/* Chain Cards - Light Mode */
+.integrations__section-dot--orange { background: var(--dot-orange); }
+.integrations__section-dot--violet { background: var(--dot-violet); }
+.integrations__section-dot--emerald { background: var(--dot-emerald); }
+/* =========================
+   CHAINS GRID
+========================= */
 .integrations__chains {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
-
 @media (min-width: 640px) {
-    .integrations__chains {
-        grid-template-columns: repeat(4, 1fr);
-    }
+  .integrations__chains {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
-
 @media (min-width: 1024px) {
-    .integrations__chains {
-        grid-template-columns: repeat(8, 1fr);
-    }
+  .integrations__chains {
+    grid-template-columns: repeat(8, 1fr);
+  }
 }
-
+/* =========================
+   CARD
+========================= */
 .integrations__chain-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 24px 16px;
-    text-align: center;
-    background: white;
-    border: 1px solid var(--border-default);
-    border-radius: 16px;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
 }
-
 .integrations__chain-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-300);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
 }
-
+/* =========================
+   AVATAR
+========================= */
 .integrations__chain-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 800;
-    font-family: var(--font-mono);
-    /* Colors handled dynamicall in component, but lighter bg now */
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  transition: all var(--transition);
 }
-
+.integrations__chain-card:hover .integrations__chain-avatar {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+  filter: saturate(1.1);
+}
+/* =========================
+   TEXT
+========================= */
 .integrations__chain-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--gray-900);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
-
 .integrations__chain-symbol {
-    font-size: 11px;
-    color: var(--gray-500);
-    font-family: var(--font-mono);
-    font-weight: 600;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-weight: 600;
 }
-
-/* Tags - Pill Style */
+/* =========================
+   TAGS
+========================= */
 .integrations__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
-
 .integrations__tag {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 20px;
-    background: white;
-    border: 1px solid var(--gray-200);
-    border-radius: 100px;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 100px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
 }
-
 .integrations__tag:hover {
-    border-color: var(--primary-400);
-    background: #fff7ed;
-    /* Orange-50 */
-    transform: translateY(-2px);
-    color: var(--primary-700);
+  transform: translateY(-3px);
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
+  box-shadow: var(--shadow-md);
 }
-
+/* =========================
+   TAG TEXT
+========================= */
 .integrations__tag-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gray-700);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color var(--transition);
 }
-
 .integrations__tag:hover .integrations__tag-name {
-    color: var(--primary-900);
+  color: var(--text-primary);
 }
-
 .integrations__tag-cat {
-    font-size: 11px;
-    color: var(--gray-400);
-    font-family: var(--font-mono);
-    padding: 2px 8px;
-    background: var(--gray-50);
-    border-radius: 100px;
-    text-transform: uppercase;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: var(--bg-secondary);
+  text-transform: uppercase;
+  transition: all var(--transition);
 }
-
 .integrations__tag:hover .integrations__tag-cat {
-    background: white;
-    color: var(--primary-600);
+  background: var(--bg-card);
+  color: var(--primary-600);
 }

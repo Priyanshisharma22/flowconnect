@@ -46,6 +46,9 @@ export default function FAQ() {
                     <h2 className="section-title">
                         Common <span className="gradient-text">Questions</span>
                     </h2>
+                      <p className="section-subtitle">
+                       Everything you need to know before getting started with Pravah.
+                     </p>
                 </motion.div>
 
                 <div className="faq__grid">
