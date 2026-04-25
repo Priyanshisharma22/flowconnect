@@ -1,177 +1,254 @@
+/* =========================
+   PRICING SECTION
+========================= */
 .pricing {
-    position: relative;
-    background: var(--bg-secondary);
-    padding: 100px 0;
+  position: relative;
+  background: var(--bg-secondary);
+  padding: 100px 0;
 }
-
 .pricing__header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
-
+.pricing .section-title {
+  font-size: 32px;
+  line-height: 1.2;
+}
+.pricing-hero__subtitle {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-size: 16px;
+}
+/* =========================
+   TOGGLE
+========================= */
+.pricing__toggle {
+  position: relative;
+  display: inline-flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  padding: 4px;
+  margin-top: 32px;
+  box-shadow: var(--shadow-sm);
+}
+.pricing__toggle button {
+  position: relative;
+  z-index: 2;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.pricing__toggle button.active {
+  color: white;
+}
+.pricing__toggle-bg {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 50%;
+  height: calc(100% - 8px);
+  background: var(--gradient-primary);
+  border-radius: 999px;
+  transition: transform 0.3s ease;
+}
+.pricing__toggle-bg.yearly {
+  transform: translateX(100%);
+}
+/* FIXED (no hardcoded green) */
+.pricing__discount {
+  margin-left: 6px;
+  font-size: 11px;
+  background: var(--success-500);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+/* =========================
+   GRID
+========================= */
 .pricing__grid {
-    display: grid;
-    gap: 32px;
-    margin-top: 80px;
-    grid-template-columns: repeat(1, 1fr);
+  display: grid;
+  gap: 32px;
+  margin-top: 50px;
+  grid-template-columns: repeat(1, 1fr);
 }
-
 @media (min-width: 1024px) {
-    .pricing__grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .pricing__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-
+/* =========================
+   CARD
+========================= */
 .pricing__card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 40px 32px;
-    background: white;
-    border: 1px solid var(--border-default);
-    border-radius: 20px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
 }
-
 .pricing__card:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary-300);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg);
 }
-
 .pricing__card--popular {
-    border: 2px solid var(--primary-500);
-    box-shadow: 0 10px 40px -10px rgba(249, 115, 22, 0.15);
+  border: 2px solid var(--primary-500);
+  box-shadow: 0 15px 50px rgba(249,115,22,0.2);
 }
-
 .pricing__popular-badge {
-    position: absolute;
-    top: -16px;
-    left: 50%;
-    transform: translateX(-60%);
-    background: var(--gradient-primary);
-    color: white;
-    padding: 6px 20px;
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gradient-primary);
+  color: white;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 }
-
+/* =========================
+   ICON (FIXED)
+========================= */
 .pricing__card-icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 16px;
-    margin-bottom: 24px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  margin: 0 auto 24px;
 }
-
+/* USE GLOBAL TOKENS */
 .pricing__card-icon--cyan {
-    background: #ecfeff;
-    color: #0891b2;
+  background: var(--cyan-soft);
+  color: #0891b2;
 }
-
 .pricing__card-icon--violet {
-    background: #f5f3ff;
-    color: #7c3aed;
+  background: var(--violet-soft);
+  color: #7c3aed;
 }
-
 .pricing__card-icon--emerald {
-    background: #ecfdf5;
-    color: #059669;
+  background: var(--emerald-soft);
+  color: #059669;
 }
-
+/* =========================
+   TEXT
+========================= */
 .pricing__card-name {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--gray-900);
-    margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
 }
-
 .pricing__card-desc {
-    color: var(--text-secondary);
-    font-size: 15px;
-    margin-bottom: 32px;
-    line-height: 1.6;
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin: 12px 0 28px;
 }
-
 .pricing__card-price {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: 32px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 32px;
 }
 
 .pricing__card-currency {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--gray-500);
-    margin-right: 4px;
+  font-size: 22px;
+  color: var(--text-muted);
 }
-
 .pricing__card-amount {
-    font-size: 48px;
-    font-weight: 900;
-    color: var(--gray-900);
-    line-height: 1;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--text-primary);
+}
+.pricing__card-period {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-left: 6px;
 }
 
-.pricing__card-period {
-    font-size: 16px;
-    color: var(--text-muted);
-    font-weight: 500;
-    margin-left: 4px;
-}
+/* =========================
+   FEATURES
+========================= */
 
 .pricing__card-features {
-    flex: 1;
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
 }
-
 .pricing__card-feature {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 15px;
-    color: var(--gray-700);
-}
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
+  font-size: 15px;
+  color: var(--text-secondary);
+}
 .pricing__check-icon {
-    color: var(--success-500);
-    flex-shrink: 0;
+  color: var(--success-500);
 }
-
+/* =========================
+   BUTTON
+========================= */
 .pricing__card-btn {
-    width: 100%;
-    margin-top: auto;
-    font-size: 16px;
-    padding: 16px;
+  width: auto;
+  min-width: 180px;
+  padding: 16px 24px;
+  font-size: 16px;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+/* =========================
+   NOTE
+========================= */
 .pricing__crypto-note {
-    margin-top: 60px;
-    text-align: center;
-    padding: 20px;
-    background: white;
-    border: 1px solid var(--border-default);
-    border-radius: 100px;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: var(--shadow-sm);
-    color: var(--gray-600);
+  margin-top: 60px;
+  text-align: center;
+  padding: 16px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+  color: var(--text-secondary);
 }
-
 .pricing__crypto-note strong {
-    color: var(--primary-600);
-    font-family: var(--font-mono);
+  color: var(--primary-600);
+}
+/* =========================
+   DARK POLISH
+========================= */
+[data-theme='dark'] .pricing__card:hover {
+  box-shadow:
+    var(--shadow-lg),
+    0 0 20px rgba(249,115,22,0.18);
 }

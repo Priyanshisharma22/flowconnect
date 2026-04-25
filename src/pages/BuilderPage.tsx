@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import "../styles/BuilderPage.css";
 import ReactFlow, {
   Background,
   Controls,
@@ -61,8 +62,6 @@ import {
   ChevronDown,
   ChevronRight,
   Trash2,
-  Copy,
-  Settings,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiCall, getToken } from "../api/client";
@@ -759,92 +758,45 @@ const TriggerNode = ({
 
   return (
     <div
+      className={`trigger-node ${selected ? 'selected' : ''}`}
       style={{
-        background: "#fff",
         border: `2px solid ${selected ? colors.bg : colors.border}`,
-        borderRadius: 16,
-        minWidth: 220,
-        boxShadow: selected
-          ? `0 0 0 4px ${colors.bg}30, 0 8px 32px rgba(0,0,0,0.15)`
-          : "0 4px 16px rgba(0,0,0,0.10)",
-        transition: "all 0.18s cubic-bezier(0.4,0,0.2,1)",
-        overflow: "hidden",
-        cursor: "grab",
       }}
     >
-      {/* Header */}
       <div
+        className="trigger-node-header"
         style={{
           background: `linear-gradient(135deg, ${colors.bg}, ${colors.border})`,
-          padding: "10px 14px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
         }}
       >
-        <div
-          style={{
-            width: 28,
-            height: 28,
-            borderRadius: 8,
-            background: "rgba(255,255,255,0.25)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-          }}
-        >
-          <Icon size={15} color="#fff" />
+        <div className="trigger-node-icon-container">
+          <Icon size={15} />
         </div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div
-            style={{
-              fontSize: 9,
-              fontWeight: 700,
-              color: "rgba(255,255,255,0.8)",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-            }}
-          >
+        <div className="trigger-node-content">
+          <div className="trigger-node-label-type">
             TRIGGER
           </div>
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 700,
-              color: "#fff",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
+          <div className="trigger-node-label">
             {data.label}
           </div>
         </div>
         <Zap size={14} color="rgba(255,255,255,0.7)" />
       </div>
-      {/* Body */}
       <div
+        className="trigger-node-desc"
         style={{
-          padding: "10px 14px",
-          fontSize: 12,
-          color: "#6b7280",
           background: colors.light,
         }}
       >
         {data.desc}
       </div>
-      {/* Output handle */}
       <Handle
         type="source"
         position={Position.Bottom}
+        className="trigger-node-handle"
         style={{
           background: colors.bg,
-          width: 14,
-          height: 14,
-          border: `2px solid #fff`,
           boxShadow: `0 0 0 2px ${colors.bg}`,
-          bottom: -7,
         }}
       />
     </div>
@@ -865,119 +817,67 @@ const ActionNode = ({
 
   return (
     <div
+      className={`action-node ${selected ? 'selected' : ''}`}
       style={{
-        background: "#fff",
         border: `2px solid ${selected ? colors.bg : "#e5e7eb"}`,
-        borderRadius: 14,
-        minWidth: 210,
-        boxShadow: selected
-          ? `0 0 0 4px ${colors.bg}25, 0 8px 24px rgba(0,0,0,0.12)`
-          : "0 2px 12px rgba(0,0,0,0.08)",
-        transition: "all 0.18s cubic-bezier(0.4,0,0.2,1)",
-        overflow: "hidden",
-        cursor: "grab",
       }}
     >
-      {/* Handle in */}
       <Handle
         type="target"
         position={Position.Top}
+        className="action-node-handle action-node-handle-top"
         style={{
           background: colors.bg,
-          width: 14,
-          height: 14,
-          border: `2px solid #fff`,
           boxShadow: `0 0 0 2px ${colors.bg}`,
-          top: -7,
         }}
       />
-      {/* Header */}
       <div
+        className="action-node-header"
         style={{
-          padding: "10px 14px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
           borderBottom: `1px solid ${colors.light}`,
         }}
       >
         <div
+          className="action-node-icon-container"
           style={{
-            width: 30,
-            height: 30,
-            borderRadius: 8,
             background: colors.light,
             border: `1.5px solid ${colors.border}30`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
           }}
         >
-          <Icon size={15} color={colors.bg} />
+          <Icon size={15} />
         </div>
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div className="action-node-content">
           <div
+            className="action-node-label-type"
             style={{
-              fontSize: 9,
-              fontWeight: 700,
               color: colors.text,
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              opacity: 0.7,
             }}
           >
             ACTION
           </div>
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: 700,
-              color: "#1f2937",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
+          <div className="action-node-label">
             {data.label}
           </div>
         </div>
         <button
           onClick={() => data.onRemove?.(id)}
           onMouseDown={(e) => e.stopPropagation()}
-          style={{
-            width: 22,
-            height: 22,
-            borderRadius: 6,
-            background: "#fee2e2",
-            border: "none",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-            transition: "background 0.15s",
-          }}
+          className="action-node-remove-btn"
           title="Remove node"
         >
           <Trash2 size={12} color="#ef4444" />
         </button>
       </div>
-      {/* Body */}
-      <div style={{ padding: "8px 14px 10px", fontSize: 12, color: "#9ca3af" }}>
+      <div className="action-node-desc">
         {data.desc}
       </div>
-      {/* Output handle */}
       <Handle
         type="source"
         position={Position.Bottom}
+        className="action-node-handle"
         style={{
           background: colors.bg,
-          width: 12,
-          height: 12,
-          border: `2px solid #fff`,
           boxShadow: `0 0 0 2px ${colors.bg}`,
-          bottom: -6,
         }}
       />
     </div>
@@ -1267,7 +1167,7 @@ const SidebarItem = ({
 // ── Main Builder (inner, needs ReactFlowProvider context) ─────────────────────
 function BuilderInner() {
   const navigate = useNavigate();
-  const { fitView, zoomIn, zoomOut, setCenter } = useReactFlow();
+  const { fitView, zoomIn, zoomOut } = useReactFlow();
 
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -1287,13 +1187,9 @@ function BuilderInner() {
     msg: string;
     type: "success" | "error";
   } | null>(null);
-  const [workflows, setWorkflows] = useState<any[]>([]);
   const [isAuthed, setIsAuthed] = useState(!!getToken());
   const [showMinimap, setShowMinimap] = useState(true);
   const [snapToGrid, setSnapToGrid] = useState(true);
-  const [activePanel, setActivePanel] = useState<"config" | "workflows">(
-    "config",
-  );
 
   // Configs
   const [messageTemplate, setMessageTemplate] = useState(
@@ -1379,7 +1275,7 @@ function BuilderInner() {
     a.action_key.startsWith("zoho_"),
   );
 
-  // Remove node handler (memoized to pass into node data)
+  // Remove node handler
   const handleRemoveNode = useCallback(
     (nodeId: string) => {
       setNodes((nds) => nds.filter((n) => n.id !== nodeId));
@@ -1393,7 +1289,6 @@ function BuilderInner() {
   // Initialize with trigger node
   useEffect(() => {
     const initialTrigger = triggers[0];
-    const colors = COLORS[initialTrigger.color];
     setNodes([
       {
         id: "trigger-0",
@@ -1415,15 +1310,7 @@ function BuilderInner() {
   useEffect(() => {
     const token = getToken();
     setIsAuthed(!!token);
-    if (token) loadWorkflows();
   }, []);
-
-  async function loadWorkflows() {
-    try {
-      const data = await apiCall("/workflows/");
-      setWorkflows(data);
-    } catch {}
-  }
 
   function showToast(msg: string, type: "success" | "error") {
     setToast({ msg, type });
@@ -1448,7 +1335,16 @@ function BuilderInner() {
     [setEdges],
   );
 
-  // Drag from sidebar onto canvas
+  // ── NEW: Handle edge deletion ─────────────────────────────────────────────
+  const onEdgesDelete = useCallback(
+    (deletedEdges: Edge[]) => {
+      setEdges((eds) =>
+        eds.filter((e) => !deletedEdges.find((d) => d.id === e.id)),
+      );
+    },
+    [setEdges],
+  );
+
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
@@ -1473,7 +1369,6 @@ function BuilderInner() {
       };
 
       if (type === "trigger") {
-        // Replace existing trigger
         setNodes((nds) => {
           const filtered = nds.filter((n) => n.type !== "trigger");
           return [
@@ -1494,7 +1389,6 @@ function BuilderInner() {
           ];
         });
       } else {
-        // Add action node
         const newId = `action-${nodeIdCounter.current++}`;
         const newNode: Node = {
           id: newId,
@@ -1510,12 +1404,9 @@ function BuilderInner() {
             onRemove: handleRemoveNode,
           },
         };
-        setNodes((nds) => [...nds, newNode]);
-
-        // Auto-connect from last node
         setNodes((nds) => {
-          const allNodes = [...nds];
-          const lastNode = allNodes[allNodes.length - 2]; // before newly added
+          const allNodes = [...nds, newNode];
+          const lastNode = nds[nds.length - 1];
           if (lastNode) {
             setEdges((eds) =>
               addEdge(
@@ -1539,7 +1430,6 @@ function BuilderInner() {
     [setNodes, setEdges, handleRemoveNode],
   );
 
-  // Click sidebar item
   function handleSidebarClick(
     item: (typeof triggers)[0] | (typeof actions)[0],
     type: "trigger" | "action",
@@ -1567,7 +1457,6 @@ function BuilderInner() {
         ];
       });
     } else {
-      // Check not already added
       if (actionNodes.some((n) => n.data.itemId === item.id)) return;
       const lastAction = actionNodes[actionNodes.length - 1];
       const yOffset = lastAction ? lastAction.position.y + 160 : 240;
@@ -1634,10 +1523,7 @@ function BuilderInner() {
   }
 
   async function handleSave() {
-    if (!isAuthed) {
-      navigate("/login");
-      return;
-    }
+    if (!isAuthed) { navigate("/login"); return; }
     setSaving(true);
     try {
       await apiCall("/workflows/", {
@@ -1645,7 +1531,6 @@ function BuilderInner() {
         body: JSON.stringify(buildPayload()),
       });
       showToast("Workflow saved! ✅", "success");
-      loadWorkflows();
     } catch (err: any) {
       showToast(err.message || "Save failed", "error");
     } finally {
@@ -1654,10 +1539,7 @@ function BuilderInner() {
   }
 
   async function handleDeploy() {
-    if (!isAuthed) {
-      navigate("/login");
-      return;
-    }
+    if (!isAuthed) { navigate("/login"); return; }
     setDeploying(true);
     try {
       const wf = await apiCall("/workflows/", {
@@ -1672,7 +1554,6 @@ function BuilderInner() {
       if (hasTgAction) await runTelegramActions();
       if (hasZohoAction) await runZohoActions();
       showToast("Workflow deployed & active! 🚀", "success");
-      loadWorkflows();
     } catch (err: any) {
       showToast(err.message || "Deploy failed", "error");
     } finally {
@@ -1697,9 +1578,7 @@ function BuilderInner() {
               phone: zohoConfig.lead_phone || undefined,
               company: zohoConfig.lead_company || undefined,
               lead_source: zohoConfig.lead_source || "Web",
-              amount: zohoConfig.lead_amount
-                ? Number(zohoConfig.lead_amount)
-                : undefined,
+              amount: zohoConfig.lead_amount ? Number(zohoConfig.lead_amount) : undefined,
               description: zohoConfig.lead_description || undefined,
             });
             break;
@@ -1716,9 +1595,7 @@ function BuilderInner() {
           case "zoho_create_deal":
             results[action.label] = await callZohoBridge("create_deal", {
               deal_name: zohoConfig.deal_name,
-              amount: zohoConfig.deal_amount
-                ? Number(zohoConfig.deal_amount)
-                : undefined,
+              amount: zohoConfig.deal_amount ? Number(zohoConfig.deal_amount) : undefined,
               stage: zohoConfig.deal_stage || "Qualification",
               contact_name: zohoConfig.deal_contact_name || undefined,
               account_name: zohoConfig.deal_account_name || undefined,
@@ -1769,19 +1646,9 @@ function BuilderInner() {
       if (!action.action_key.startsWith("telegram_")) continue;
       try {
         if (action.action_key === "telegram_send_message")
-          results[action.label] = await sendTelegramMessage(
-            tgConfig.chat_id,
-            tgConfig.message,
-            tgConfig.parse_mode || "Markdown",
-          );
+          results[action.label] = await sendTelegramMessage(tgConfig.chat_id, tgConfig.message, tgConfig.parse_mode || "Markdown");
         if (action.action_key === "telegram_payment_alert")
-          results[action.label] = await sendTelegramPaymentAlert(
-            tgConfig.chat_id,
-            parseFloat(tgConfig.amount) || 0,
-            tgConfig.customer_name,
-            tgConfig.plan || undefined,
-            tgConfig.payment_id || undefined,
-          );
+          results[action.label] = await sendTelegramPaymentAlert(tgConfig.chat_id, parseFloat(tgConfig.amount) || 0, tgConfig.customer_name, tgConfig.plan || undefined, tgConfig.payment_id || undefined);
         if (action.action_key === "telegram_bot_info")
           results[action.label] = await getBotInfo();
         if (action.action_key === "telegram_get_updates")
@@ -1802,13 +1669,9 @@ function BuilderInner() {
       if (!action.action_key.startsWith("instamojo_")) continue;
       try {
         if (action.action_key === "instamojo_notify_complete")
-          results[action.label] = await notifyInstamojoPaymentComplete(
-            instaConfig.payment_id,
-          );
+          results[action.label] = await notifyInstamojoPaymentComplete(instaConfig.payment_id);
         if (action.action_key === "instamojo_summary_whatsapp")
-          results[action.label] = await sendInstamojoDailySummaryWhatsApp(
-            instaConfig.whatsapp_phone,
-          );
+          results[action.label] = await sendInstamojoDailySummaryWhatsApp(instaConfig.whatsapp_phone);
         if (action.action_key === "instamojo_create_link")
           results[action.label] = await createInstamojoLink({
             purpose: instaConfig.link_purpose,
@@ -1883,18 +1746,11 @@ function BuilderInner() {
         if (action.action_key === "razorpay_todays_payments")
           results[action.label] = await getRazorpayTodaysPayments();
         if (action.action_key === "razorpay_payments_range")
-          results[action.label] = await getRazorpayPaymentsByRange(
-            rzpConfig.from_date,
-            rzpConfig.to_date,
-          );
+          results[action.label] = await getRazorpayPaymentsByRange(rzpConfig.from_date, rzpConfig.to_date);
         if (action.action_key === "razorpay_payment_detail")
-          results[action.label] = await getRazorpayPaymentDetails(
-            rzpConfig.payment_id.trim(),
-          );
+          results[action.label] = await getRazorpayPaymentDetails(rzpConfig.payment_id.trim());
         if (action.action_key === "razorpay_payment_summary")
-          results[action.label] = await getRazorpayPaymentSummary(
-            rzpConfig.days,
-          );
+          results[action.label] = await getRazorpayPaymentSummary(rzpConfig.days);
       } catch (e: any) {
         results[action.label] = { error: e.message };
       }
@@ -1912,53 +1768,33 @@ function BuilderInner() {
       try {
         switch (action.action_key) {
           case "sub_list_all":
-            results[action.label] = await getAllSubscriptions(
-              subConfig.list_count,
-              subConfig.list_status || undefined,
-            );
+            results[action.label] = await getAllSubscriptions(subConfig.list_count, subConfig.list_status || undefined);
             break;
           case "sub_lookup":
-            results[action.label] = await getSubscriptionById(
-              subConfig.subscription_id.trim(),
-            );
+            results[action.label] = await getSubscriptionById(subConfig.subscription_id.trim());
             break;
           case "sub_cancel":
-            results[action.label] = await cancelSubscription(
-              subConfig.subscription_id.trim(),
-              subConfig.cancel_at_cycle_end,
-            );
+            results[action.label] = await cancelSubscription(subConfig.subscription_id.trim(), subConfig.cancel_at_cycle_end);
             break;
           case "sub_pause":
-            results[action.label] = await pauseSubscription(
-              subConfig.subscription_id.trim(),
-              subConfig.pause_at,
-            );
+            results[action.label] = await pauseSubscription(subConfig.subscription_id.trim(), subConfig.pause_at);
             break;
           case "sub_resume":
-            results[action.label] = await resumeSubscription(
-              subConfig.subscription_id.trim(),
-            );
+            results[action.label] = await resumeSubscription(subConfig.subscription_id.trim());
             break;
           case "sub_summary":
-            results[action.label] = await getSubscriptionSummary(
-              subConfig.list_count,
-            );
+            results[action.label] = await getSubscriptionSummary(subConfig.list_count);
             break;
           case "sub_expiring":
-            results[action.label] = await getExpiringSubscriptions(
-              subConfig.expiring_days,
-            );
+            results[action.label] = await getExpiringSubscriptions(subConfig.expiring_days);
             break;
           case "sub_failed":
-            results[action.label] = await getFailedSubscriptions(
-              subConfig.failed_count,
-            );
+            results[action.label] = await getFailedSubscriptions(subConfig.failed_count);
             break;
           case "sub_create": {
             const notes: Record<string, string> = {};
             if (subConfig.note_name) notes.customer_name = subConfig.note_name;
-            if (subConfig.note_email)
-              notes.customer_email = subConfig.note_email;
+            if (subConfig.note_email) notes.customer_email = subConfig.note_email;
             results[action.label] = await createSubscription({
               plan_id: subConfig.plan_id.trim(),
               total_count: subConfig.total_count,
@@ -2006,16 +1842,9 @@ function BuilderInner() {
     );
   }, [searchQuery]);
 
-  const groupedTriggers = useMemo(
-    () => groupItems(filteredTriggers),
-    [filteredTriggers],
-  );
-  const groupedActions = useMemo(
-    () => groupItems(filteredActions),
-    [filteredActions],
-  );
-  const currentGroups =
-    selectedTab === "triggers" ? groupedTriggers : groupedActions;
+  const groupedTriggers = useMemo(() => groupItems(filteredTriggers), [filteredTriggers]);
+  const groupedActions = useMemo(() => groupItems(filteredActions), [filteredActions]);
+  const currentGroups = selectedTab === "triggers" ? groupedTriggers : groupedActions;
 
   const toggleGroup = (group: string) => {
     setCollapsedGroups((prev) => {
@@ -2026,7 +1855,6 @@ function BuilderInner() {
     });
   };
 
-  // Input helpers
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "8px 10px",
@@ -2049,78 +1877,23 @@ function BuilderInner() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        background: "#f8fafc",
-        fontFamily: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      }}
-    >
+    <div className="builder-container">
       {/* ── Toast ── */}
       {toast && (
-        <div
-          style={{
-            position: "fixed",
-            top: 20,
-            right: 20,
-            zIndex: 9999,
-            background: toast.type === "success" ? "#dcfce7" : "#fee2e2",
-            color: toast.type === "success" ? "#16a34a" : "#dc2626",
-            padding: "12px 20px",
-            borderRadius: 12,
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            fontSize: 13,
-            fontWeight: 600,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
-            animation: "slideIn 0.2s ease",
-          }}
-        >
-          {toast.type === "success" ? (
-            <CheckCircle size={16} />
-          ) : (
-            <AlertCircle size={16} />
-          )}
+        <div className={`toast ${toast.type}`}>
+          {toast.type === "success" ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
           {toast.msg}
         </div>
       )}
 
       {/* ── Auth Banner ── */}
       {!isAuthed && (
-        <div
-          style={{
-            background: "#fef3c7",
-            borderBottom: "1px solid #f59e0b",
-            padding: "10px 20px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 12,
-            fontSize: 13,
-            color: "#92400e",
-            fontWeight: 500,
-          }}
-        >
+        <div className="auth-banner">
           <AlertCircle size={15} />
           You are not logged in. Saving workflows requires an account.
           <button
             onClick={() => navigate("/login")}
-            style={{
-              background: "#f59e0b",
-              color: "#fff",
-              border: "none",
-              padding: "5px 14px",
-              borderRadius: 7,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              fontWeight: 700,
-              fontSize: 12,
-            }}
+            className="auth-banner-login-btn"
           >
             <LogIn size={13} /> Login
           </button>
@@ -2128,201 +1901,65 @@ function BuilderInner() {
       )}
 
       {/* ── Header ── */}
-      <header
-        style={{
-          background: "#fff",
-          borderBottom: "1px solid #e5e7eb",
-          padding: "0 20px",
-          height: 56,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexShrink: 0,
-          zIndex: 10,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+      <header className="builder-header">
+        <div className="header-left">
           <Link
             to="/"
-            style={{
-              width: 34,
-              height: 34,
-              borderRadius: 9,
-              border: "1.5px solid #e5e7eb",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#6b7280",
-              textDecoration: "none",
-              flexShrink: 0,
-              transition: "all 0.15s",
-            }}
+            className="back-btn"
           >
             <ArrowLeft size={17} />
           </Link>
-          <div style={{ width: 1, height: 24, background: "#e5e7eb" }} />
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div
-              style={{
-                width: 28,
-                height: 28,
-                borderRadius: 8,
-                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+          <div className="header-divider" />
+          <div className="workflow-name-section">
+            <div className="workflow-icon">
               <Zap size={14} color="#fff" />
             </div>
             <input
               value={workflowName}
               onChange={(e) => setWorkflowName(e.target.value)}
-              style={{
-                background: "transparent",
-                border: "none",
-                outline: "none",
-                fontSize: 15,
-                fontWeight: 700,
-                color: "#111827",
-                minWidth: 180,
-                cursor: "text",
-              }}
+              className="workflow-name-input"
+              placeholder="Untitled Workflow"
               aria-label="Workflow name"
             />
           </div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div className="header-actions">
           {/* Canvas controls */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              background: "#f3f4f6",
-              borderRadius: 9,
-              padding: "4px 6px",
-            }}
-          >
+          <div className="zoom-controls">
             <button
               onClick={() => zoomOut()}
               title="Zoom out"
-              style={{
-                width: 28,
-                height: 28,
-                borderRadius: 6,
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#6b7280",
-                transition: "background 0.15s",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "#e5e7eb")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "transparent")
-              }
+              className="zoom-btn"
             >
               <ZoomOut size={14} />
             </button>
             <button
               onClick={() => zoomIn()}
               title="Zoom in"
-              style={{
-                width: 28,
-                height: 28,
-                borderRadius: 6,
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#6b7280",
-                transition: "background 0.15s",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "#e5e7eb")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "transparent")
-              }
+              className="zoom-btn"
             >
               <ZoomIn size={14} />
             </button>
             <button
               onClick={() => fitView({ padding: 0.2, duration: 400 })}
               title="Fit view"
-              style={{
-                width: 28,
-                height: 28,
-                borderRadius: 6,
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#6b7280",
-                transition: "background 0.15s",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "#e5e7eb")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "transparent")
-              }
+              className="zoom-btn"
             >
               <Maximize2 size={14} />
             </button>
-            <div
-              style={{
-                width: 1,
-                height: 16,
-                background: "#d1d5db",
-                margin: "0 2px",
-              }}
-            />
+            <div className="toolbar-divider" />
             <button
               onClick={() => setSnapToGrid((v) => !v)}
               title="Toggle grid snap"
-              style={{
-                width: 28,
-                height: 28,
-                borderRadius: 6,
-                border: "none",
-                background: snapToGrid ? "#e0e7ff" : "transparent",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: snapToGrid ? "#6366f1" : "#6b7280",
-                transition: "all 0.15s",
-              }}
+              className={`zoom-btn ${snapToGrid ? 'active' : ''}`}
             >
               <Grid size={14} />
             </button>
             <button
               onClick={() => setShowMinimap((v) => !v)}
               title="Toggle minimap"
-              style={{
-                width: 28,
-                height: 28,
-                borderRadius: 6,
-                border: "none",
-                background: showMinimap ? "#e0e7ff" : "transparent",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: showMinimap ? "#6366f1" : "#6b7280",
-                transition: "all 0.15s",
-              }}
+              className={`zoom-btn ${showMinimap ? 'active' : ''}`}
             >
               <Layers size={14} />
             </button>
@@ -2333,67 +1970,17 @@ function BuilderInner() {
           <button
             onClick={handleSave}
             disabled={saving}
-            style={{
-              padding: "8px 16px",
-              borderRadius: 9,
-              border: "1.5px solid #e5e7eb",
-              background: "#fff",
-              cursor: saving ? "not-allowed" : "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: 13,
-              fontWeight: 600,
-              color: "#374151",
-              transition: "all 0.15s",
-              opacity: saving ? 0.6 : 1,
-            }}
-            onMouseEnter={(e) => {
-              if (!saving) e.currentTarget.style.borderColor = "#6366f1";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "#e5e7eb";
-            }}
+            className="save-btn"
           >
-            {saving ? (
-              <Loader
-                size={14}
-                style={{ animation: "spin 1s linear infinite" }}
-              />
-            ) : (
-              <Save size={14} />
-            )}
+            {saving ? <Loader size={14} style={{ animation: "spin 1s linear infinite" }} /> : <Save size={14} />}
             Save
           </button>
           <button
             onClick={handleDeploy}
             disabled={deploying}
-            style={{
-              padding: "8px 18px",
-              borderRadius: 9,
-              border: "none",
-              background: deploying
-                ? "#a5b4fc"
-                : "linear-gradient(135deg, #6366f1, #8b5cf6)",
-              cursor: deploying ? "not-allowed" : "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: 13,
-              fontWeight: 700,
-              color: "#fff",
-              boxShadow: "0 2px 8px rgba(99,102,241,0.35)",
-              transition: "all 0.15s",
-            }}
+            className="deploy-btn"
           >
-            {deploying ? (
-              <Loader
-                size={14}
-                style={{ animation: "spin 1s linear infinite" }}
-              />
-            ) : (
-              <Play size={14} />
-            )}
+            {deploying ? <Loader size={14} style={{ animation: "spin 1s linear infinite" }} /> : <Play size={14} />}
             Deploy
           </button>
         </div>
@@ -2442,16 +2029,7 @@ function BuilderInner() {
           {/* Search */}
           <div style={{ padding: "10px 12px 8px" }}>
             <div style={{ position: "relative" }}>
-              <Search
-                size={13}
-                style={{
-                  position: "absolute",
-                  left: 9,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  color: "#9ca3af",
-                }}
-              />
+              <Search size={13} style={{ position: "absolute", left: 9, top: "50%", transform: "translateY(-50%)", color: "#9ca3af" }} />
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -2497,11 +2075,7 @@ function BuilderInner() {
                     letterSpacing: "0.07em",
                   }}
                 >
-                  {collapsedGroups.has(group) ? (
-                    <ChevronRight size={12} />
-                  ) : (
-                    <ChevronDown size={12} />
-                  )}
+                  {collapsedGroups.has(group) ? <ChevronRight size={12} /> : <ChevronDown size={12} />}
                   {group}
                   <span
                     style={{
@@ -2518,7 +2092,7 @@ function BuilderInner() {
                   </span>
                 </button>
                 {!collapsedGroups.has(group) &&
-                  items.map((item) => (
+                  items.map((item: any) => (
                     <SidebarItem
                       key={item.id}
                       item={item}
@@ -2531,8 +2105,7 @@ function BuilderInner() {
                         e.dataTransfer.setData(
                           "application/reactflow",
                           JSON.stringify({
-                            type:
-                              selectedTab === "triggers" ? "trigger" : "action",
+                            type: selectedTab === "triggers" ? "trigger" : "action",
                             itemId: item.id,
                           }),
                         );
@@ -2549,18 +2122,8 @@ function BuilderInner() {
               </div>
             ))}
             {Object.keys(currentGroups).length === 0 && (
-              <div
-                style={{
-                  textAlign: "center",
-                  padding: "40px 20px",
-                  color: "#9ca3af",
-                  fontSize: 13,
-                }}
-              >
-                <Search
-                  size={24}
-                  style={{ margin: "0 auto 8px", opacity: 0.4 }}
-                />
+              <div style={{ textAlign: "center", padding: "40px 20px", color: "#9ca3af", fontSize: 13 }}>
+                <Search size={24} style={{ margin: "0 auto 8px", opacity: 0.4 }} />
                 <div>No {selectedTab} found</div>
               </div>
             )}
@@ -2591,9 +2154,11 @@ function BuilderInner() {
             onConnect={onConnect}
             onDrop={onDrop}
             onDragOver={onDragOver}
+            onEdgesDelete={onEdgesDelete}
             nodeTypes={nodeTypes}
             snapToGrid={snapToGrid}
             snapGrid={[16, 16]}
+            deleteKeyCode={["Backspace", "Delete"]}
             defaultEdgeOptions={{
               type: "smoothstep",
               animated: true,
@@ -2604,19 +2169,10 @@ function BuilderInner() {
             proOptions={{ hideAttribution: true }}
             style={{ background: "#f8fafc" }}
           >
-            <Background
-              variant={BackgroundVariant.Dots}
-              gap={16}
-              size={1}
-              color="#e2e8f0"
-            />
+            <Background variant={BackgroundVariant.Dots} gap={16} size={1} color="#e2e8f0" />
             {showMinimap && (
               <MiniMap
-                style={{
-                  background: "#fff",
-                  border: "1px solid #e5e7eb",
-                  borderRadius: 12,
-                }}
+                style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12 }}
                 nodeColor={(node) => {
                   const color = node.data?.color as ColorKey;
                   return color ? COLORS[color]?.bg : "#6366f1";
@@ -2625,16 +2181,61 @@ function BuilderInner() {
               />
             )}
             <Controls
-              style={{
-                background: "#fff",
-                border: "1px solid #e5e7eb",
-                borderRadius: 12,
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-              }}
+              style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
               showInteractive={false}
             />
 
-            {/* Canvas empty state */}
+            {/* Edge delete hint tooltip */}
+            {/* <Panel position="bottom-center">
+              <div
+                style={{
+                  background: "rgba(17,24,39,0.75)",
+                  backdropFilter: "blur(6px)",
+                  color: "#fff",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  padding: "6px 14px",
+                  borderRadius: 20,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  marginBottom: 8,
+                  pointerEvents: "none",
+                  userSelect: "none",
+                }}
+              >
+                <span style={{ opacity: 0.7 }}>Click a connection line to select it, then press</span>
+                <kbd
+                  style={{
+                    background: "rgba(255,255,255,0.15)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    borderRadius: 4,
+                    padding: "1px 6px",
+                    fontSize: 10,
+                    fontFamily: "monospace",
+                    fontWeight: 700,
+                  }}
+                >
+                  Delete
+                </kbd>
+                <span style={{ opacity: 0.7 }}>or</span>
+                <kbd
+                  style={{
+                    background: "rgba(255,255,255,0.15)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    borderRadius: 4,
+                    padding: "1px 6px",
+                    fontSize: 10,
+                    fontFamily: "monospace",
+                    fontWeight: 700,
+                  }}
+                >
+                  Backspace
+                </kbd>
+                <span style={{ opacity: 0.7 }}>to remove it</span>
+              </div>
+            </Panel> */}
+
             {nodes.length === 0 && (
               <Panel position="top-center">
                 <div
@@ -2647,19 +2248,8 @@ function BuilderInner() {
                     marginTop: 80,
                   }}
                 >
-                  <Layers
-                    size={32}
-                    color="#9ca3af"
-                    style={{ margin: "0 auto 12px" }}
-                  />
-                  <div
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 700,
-                      color: "#374151",
-                      marginBottom: 6,
-                    }}
-                  >
+                  <Layers size={32} color="#9ca3af" style={{ margin: "0 auto 12px" }} />
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#374151", marginBottom: 6 }}>
                     Start Building
                   </div>
                   <div style={{ fontSize: 13, color: "#9ca3af" }}>
@@ -2671,7 +2261,7 @@ function BuilderInner() {
           </ReactFlow>
         </div>
 
-        {/* ── Right Panel (Config) ── */}
+        {/* ── Right Panel (Config only) ── */}
         <aside
           style={{
             width: 300,
@@ -2683,601 +2273,222 @@ function BuilderInner() {
             overflow: "hidden",
           }}
         >
-          {/* Panel tabs */}
+          {/* Header */}
           <div
             style={{
-              display: "flex",
-              padding: "12px 12px 0",
-              gap: 4,
+              padding: "14px 16px 13px",
               borderBottom: "1px solid #f3f4f6",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
             }}
           >
-            {(["config", "workflows"] as const).map((panel) => (
-              <button
-                key={panel}
-                onClick={() => setActivePanel(panel)}
-                style={{
-                  flex: 1,
-                  padding: "8px 4px 10px",
-                  borderRadius: 0,
-                  border: "none",
-                  borderBottom:
-                    activePanel === panel
-                      ? "2px solid #6366f1"
-                      : "2px solid transparent",
-                  background: "transparent",
-                  color: activePanel === panel ? "#6366f1" : "#6b7280",
-                  fontSize: 12,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  textTransform: "capitalize",
-                  transition: "all 0.15s",
-                  letterSpacing: "0.02em",
-                }}
-              >
-                {panel === "config"
-                  ? "⚙️ Config"
-                  : `📋 Saved (${workflows.length})`}
-              </button>
-            ))}
+            <div
+              style={{
+                width: 24,
+                height: 24,
+                borderRadius: 7,
+                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Zap size={12} color="#fff" />
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 700, color: "#111827" }}>
+              Configuration
+            </span>
           </div>
 
           <div style={{ flex: 1, overflowY: "auto", padding: "16px 14px" }}>
-            {activePanel === "config" && (
-              <div>
-                {/* Workflow name */}
-                <div style={{ marginBottom: 14 }}>
-                  <label style={labelStyle}>Workflow Name</label>
-                  <input
-                    type="text"
-                    value={workflowName}
-                    onChange={(e) => setWorkflowName(e.target.value)}
-                    style={inputStyle}
-                    onFocus={(e) =>
-                      (e.currentTarget.style.borderColor = "#6366f1")
-                    }
-                    onBlur={(e) =>
-                      (e.currentTarget.style.borderColor = "#e5e7eb")
-                    }
-                  />
-                </div>
+            {/* Workflow name */}
+            <div style={{ marginBottom: 14 }}>
+              <label style={labelStyle}>Workflow Name</label>
+              <input
+                type="text"
+                value={workflowName}
+                onChange={(e) => setWorkflowName(e.target.value)}
+                style={inputStyle}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#6366f1")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "#e5e7eb")}
+              />
+            </div>
 
-                {/* Status */}
+            {/* Status */}
+            <div
+              style={{
+                padding: "12px",
+                background: "#f9fafb",
+                borderRadius: 10,
+                marginBottom: 14,
+                border: "1px solid #f3f4f6",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: "#6b7280",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.07em",
+                  marginBottom: 8,
+                }}
+              >
+                Workflow Status
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
                 <div
                   style={{
-                    padding: "12px",
-                    background: "#f9fafb",
-                    borderRadius: 10,
-                    marginBottom: 14,
-                    border: "1px solid #f3f4f6",
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: selectedTrigger ? "#10b981" : "#d1d5db",
                   }}
-                >
-                  <div
-                    style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      color: "#6b7280",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.07em",
-                      marginBottom: 8,
-                    }}
-                  >
-                    Workflow Status
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      marginBottom: 5,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: "50%",
-                        background: selectedTrigger ? "#10b981" : "#d1d5db",
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontSize: 12,
-                        color: "#374151",
-                        fontWeight: 500,
-                      }}
-                    >
-                      Trigger:{" "}
-                      <strong>{selectedTrigger?.label || "None"}</strong>
-                    </span>
-                  </div>
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>
-                    {selectedActions.length === 0
-                      ? "No actions added"
-                      : `${selectedActions.length} action${selectedActions.length > 1 ? "s" : ""}: ${selectedActions.map((a) => a.label).join(", ")}`}
-                  </div>
-                </div>
-
-                {/* SMS/WhatsApp */}
-                <div style={{ marginBottom: 14 }}>
-                  <label style={labelStyle}>WhatsApp / SMS Number</label>
-                  <input
-                    type="text"
-                    placeholder="+919876543210"
-                    value={toNumber}
-                    onChange={(e) => setToNumber(e.target.value)}
-                    style={inputStyle}
-                    onFocus={(e) =>
-                      (e.currentTarget.style.borderColor = "#6366f1")
-                    }
-                    onBlur={(e) =>
-                      (e.currentTarget.style.borderColor = "#e5e7eb")
-                    }
-                  />
-                </div>
-
-                {/* Message Template */}
-                <div style={{ marginBottom: 14 }}>
-                  <label style={labelStyle}>Message Template</label>
-                  <textarea
-                    value={messageTemplate}
-                    onChange={(e) => setMessageTemplate(e.target.value)}
-                    rows={4}
-                    style={{
-                      ...inputStyle,
-                      resize: "vertical",
-                      fontFamily: "monospace",
-                      fontSize: 11,
-                      lineHeight: 1.5,
-                    }}
-                    onFocus={(e) =>
-                      (e.currentTarget.style.borderColor = "#6366f1")
-                    }
-                    onBlur={(e) =>
-                      (e.currentTarget.style.borderColor = "#e5e7eb")
-                    }
-                  />
-                  <div style={{ fontSize: 10, color: "#9ca3af", marginTop: 4 }}>
-                    Variables: {"{name}"} {"{amount}"} {"{payment_id}"}{" "}
-                    {"{phone}"}
-                  </div>
-                </div>
-
-                {/* Zoho Config */}
-                {hasZohoAction && (
-                  <ConfigSection
-                    title="Zoho CRM Config"
-                    color="#16a34a"
-                    bg="#f0fdf4"
-                    border="#86efac"
-                  >
-                    <ConfigField
-                      label="Last Name *"
-                      value={zohoConfig.lead_last_name}
-                      onChange={(v) =>
-                        setZohoConfig((p) => ({ ...p, lead_last_name: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Email *"
-                      value={zohoConfig.lead_email}
-                      onChange={(v) =>
-                        setZohoConfig((p) => ({ ...p, lead_email: v }))
-                      }
-                      type="email"
-                    />
-                    <ConfigField
-                      label="Phone"
-                      value={zohoConfig.lead_phone}
-                      onChange={(v) =>
-                        setZohoConfig((p) => ({ ...p, lead_phone: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Company"
-                      value={zohoConfig.lead_company}
-                      onChange={(v) =>
-                        setZohoConfig((p) => ({ ...p, lead_company: v }))
-                      }
-                    />
-                    <ActionButton
-                      loading={zohoLoading}
-                      onClick={runZohoActions}
-                      icon={<Users size={13} />}
-                      label="Test Zoho Actions"
-                      color="#16a34a"
-                    />
-                    {zohoResult && (
-                      <ResultDisplay
-                        results={zohoResult}
-                        successColor="#dcfce7"
-                        successText="#15803d"
-                      />
-                    )}
-                  </ConfigSection>
-                )}
-
-                {/* Telegram Config */}
-                {hasTgAction && (
-                  <ConfigSection
-                    title="Telegram Config"
-                    color="#0088cc"
-                    bg="#e7f5ff"
-                    border="#90cdf4"
-                  >
-                    <ConfigField
-                      label="Chat ID *"
-                      placeholder="-1001234567890"
-                      value={tgConfig.chat_id}
-                      onChange={(v) =>
-                        setTgConfig((p) => ({ ...p, chat_id: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Message *"
-                      value={tgConfig.message}
-                      onChange={(v) =>
-                        setTgConfig((p) => ({ ...p, message: v }))
-                      }
-                      multiline
-                    />
-                    <ActionButton
-                      loading={tgLoading}
-                      onClick={runTelegramActions}
-                      icon={<Bot size={13} />}
-                      label="Test Telegram Actions"
-                      color="#0088cc"
-                    />
-                    {tgResult && (
-                      <ResultDisplay
-                        results={tgResult}
-                        successColor="#dbeafe"
-                        successText="#1e40af"
-                      />
-                    )}
-                  </ConfigSection>
-                )}
-
-                {/* Instamojo Config */}
-                {hasInstaAction && (
-                  <ConfigSection
-                    title="Instamojo Config"
-                    color="#4f46e5"
-                    bg="#eef2ff"
-                    border="#c7d2fe"
-                  >
-                    <ConfigField
-                      label="Payment ID"
-                      value={instaConfig.payment_id}
-                      onChange={(v) =>
-                        setInstaConfig((p) => ({ ...p, payment_id: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="WhatsApp Phone"
-                      value={instaConfig.whatsapp_phone}
-                      onChange={(v) =>
-                        setInstaConfig((p) => ({ ...p, whatsapp_phone: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Link Purpose"
-                      value={instaConfig.link_purpose}
-                      onChange={(v) =>
-                        setInstaConfig((p) => ({ ...p, link_purpose: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Amount (₹)"
-                      value={instaConfig.link_amount}
-                      onChange={(v) =>
-                        setInstaConfig((p) => ({ ...p, link_amount: v }))
-                      }
-                      type="number"
-                    />
-                    <ActionButton
-                      loading={instaLoading}
-                      onClick={runInstamojoActions}
-                      icon={<CreditCard size={13} />}
-                      label="Test Instamojo Actions"
-                      color="#4f46e5"
-                    />
-                    {instaResult && (
-                      <ResultDisplay
-                        results={instaResult}
-                        successColor="#dcfce7"
-                        successText="#16a34a"
-                      />
-                    )}
-                  </ConfigSection>
-                )}
-
-                {/* Invoice Config */}
-                {hasInvoiceAction && (
-                  <ConfigSection
-                    title="Invoice Config"
-                    color="#ea580c"
-                    bg="#fff7ed"
-                    border="#fed7aa"
-                  >
-                    <ConfigField
-                      label="Payment ID *"
-                      value={invoiceConfig.payment_id}
-                      onChange={(v) =>
-                        setInvoiceConfig((p) => ({ ...p, payment_id: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Amount ₹ *"
-                      value={invoiceConfig.amount}
-                      onChange={(v) =>
-                        setInvoiceConfig((p) => ({ ...p, amount: v }))
-                      }
-                      type="number"
-                    />
-                    <ConfigField
-                      label="Customer Name *"
-                      value={invoiceConfig.customer_name}
-                      onChange={(v) =>
-                        setInvoiceConfig((p) => ({ ...p, customer_name: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Customer Email *"
-                      value={invoiceConfig.customer_email}
-                      onChange={(v) =>
-                        setInvoiceConfig((p) => ({ ...p, customer_email: v }))
-                      }
-                      type="email"
-                    />
-                    <ConfigField
-                      label="Customer Phone *"
-                      value={invoiceConfig.customer_phone}
-                      onChange={(v) =>
-                        setInvoiceConfig((p) => ({ ...p, customer_phone: v }))
-                      }
-                    />
-                    <ActionButton
-                      loading={invoiceLoading}
-                      onClick={runInvoiceActions}
-                      icon={<FileText size={13} />}
-                      label="Test Invoice Actions"
-                      color="#ea580c"
-                    />
-                    {invoiceResult && (
-                      <ResultDisplay
-                        results={invoiceResult}
-                        successColor="#dcfce7"
-                        successText="#15803d"
-                      />
-                    )}
-                  </ConfigSection>
-                )}
-
-                {/* Razorpay Config */}
-                {hasRzpAction && (
-                  <ConfigSection
-                    title="Razorpay Config"
-                    color="#2B6CB0"
-                    bg="#eff6ff"
-                    border="#bfdbfe"
-                  >
-                    <ConfigField
-                      label="Payment ID"
-                      value={rzpConfig.payment_id}
-                      onChange={(v) =>
-                        setRzpConfig((p) => ({ ...p, payment_id: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="From Date"
-                      value={rzpConfig.from_date}
-                      onChange={(v) =>
-                        setRzpConfig((p) => ({ ...p, from_date: v }))
-                      }
-                      type="date"
-                    />
-                    <ConfigField
-                      label="To Date"
-                      value={rzpConfig.to_date}
-                      onChange={(v) =>
-                        setRzpConfig((p) => ({ ...p, to_date: v }))
-                      }
-                      type="date"
-                    />
-                    <ConfigField
-                      label="Last N Days"
-                      value={String(rzpConfig.days)}
-                      onChange={(v) =>
-                        setRzpConfig((p) => ({ ...p, days: parseInt(v) || 7 }))
-                      }
-                      type="number"
-                    />
-                    <ActionButton
-                      loading={rzpLoading}
-                      onClick={runRazorpayActions}
-                      icon={<IndianRupee size={13} />}
-                      label="Test Razorpay Actions"
-                      color="#2B6CB0"
-                    />
-                    {rzpResult && (
-                      <ResultDisplay
-                        results={rzpResult}
-                        successColor="#dbeafe"
-                        successText="#1e40af"
-                      />
-                    )}
-                  </ConfigSection>
-                )}
-
-                {/* Subscription Config */}
-                {hasSubAction && (
-                  <ConfigSection
-                    title="Subscription Config"
-                    color="#0e7490"
-                    bg="#ecfeff"
-                    border="#a5f3fc"
-                  >
-                    <ConfigField
-                      label="Subscription ID"
-                      value={subConfig.subscription_id}
-                      onChange={(v) =>
-                        setSubConfig((p) => ({ ...p, subscription_id: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Plan ID"
-                      value={subConfig.plan_id}
-                      onChange={(v) =>
-                        setSubConfig((p) => ({ ...p, plan_id: v }))
-                      }
-                    />
-                    <ConfigField
-                      label="Count"
-                      value={String(subConfig.list_count)}
-                      onChange={(v) =>
-                        setSubConfig((p) => ({
-                          ...p,
-                          list_count: parseInt(v) || 10,
-                        }))
-                      }
-                      type="number"
-                    />
-                    <ActionButton
-                      loading={subLoading}
-                      onClick={runSubscriptionActions}
-                      icon={<Repeat size={13} />}
-                      label="Test Subscription Actions"
-                      color="#0e7490"
-                    />
-                    {subResult && (
-                      <ResultDisplay
-                        results={subResult}
-                        successColor="#cffafe"
-                        successText="#0e7490"
-                      />
-                    )}
-                  </ConfigSection>
-                )}
-
-                {/* Deploy button */}
-                <button
-                  onClick={handleDeploy}
-                  disabled={deploying}
-                  style={{
-                    width: "100%",
-                    marginTop: 8,
-                    padding: "12px",
-                    borderRadius: 10,
-                    border: "none",
-                    background: deploying
-                      ? "#a5b4fc"
-                      : "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                    cursor: deploying ? "not-allowed" : "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 8,
-                    fontSize: 13,
-                    fontWeight: 700,
-                    color: "#fff",
-                    boxShadow: "0 3px 12px rgba(99,102,241,0.35)",
-                    transition: "all 0.15s",
-                  }}
-                >
-                  {deploying ? (
-                    <Loader
-                      size={15}
-                      style={{ animation: "spin 1s linear infinite" }}
-                    />
-                  ) : (
-                    <Play size={15} />
-                  )}
-                  Save & Deploy Workflow
-                </button>
+                />
+                <span style={{ fontSize: 12, color: "#374151", fontWeight: 500 }}>
+                  Trigger: <strong>{selectedTrigger?.label || "None"}</strong>
+                </span>
               </div>
+              <div style={{ fontSize: 12, color: "#6b7280" }}>
+                {selectedActions.length === 0
+                  ? "No actions added"
+                  : `${selectedActions.length} action${selectedActions.length > 1 ? "s" : ""}: ${selectedActions.map((a) => a.label).join(", ")}`}
+              </div>
+            </div>
+
+            {/* SMS/WhatsApp */}
+            <div style={{ marginBottom: 14 }}>
+              <label style={labelStyle}>WhatsApp / SMS Number</label>
+              <input
+                type="text"
+                placeholder="+919876543210"
+                value={toNumber}
+                onChange={(e) => setToNumber(e.target.value)}
+                style={inputStyle}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#6366f1")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "#e5e7eb")}
+              />
+            </div>
+
+            {/* Message Template */}
+            <div style={{ marginBottom: 14 }}>
+              <label style={labelStyle}>Message Template</label>
+              <textarea
+                value={messageTemplate}
+                onChange={(e) => setMessageTemplate(e.target.value)}
+                rows={4}
+                style={{
+                  ...inputStyle,
+                  resize: "vertical",
+                  fontFamily: "monospace",
+                  fontSize: 11,
+                  lineHeight: 1.5,
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#6366f1")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "#e5e7eb")}
+              />
+              <div style={{ fontSize: 10, color: "#9ca3af", marginTop: 4 }}>
+                Variables: {"{name}"} {"{amount}"} {"{payment_id}"} {"{phone}"}
+              </div>
+            </div>
+
+            {/* Zoho Config */}
+            {hasZohoAction && (
+              <ConfigSection title="Zoho CRM Config" color="#16a34a" bg="#f0fdf4" border="#86efac">
+                <ConfigField label="Last Name *" value={zohoConfig.lead_last_name} onChange={(v) => setZohoConfig((p) => ({ ...p, lead_last_name: v }))} />
+                <ConfigField label="Email *" value={zohoConfig.lead_email} onChange={(v) => setZohoConfig((p) => ({ ...p, lead_email: v }))} type="email" />
+                <ConfigField label="Phone" value={zohoConfig.lead_phone} onChange={(v) => setZohoConfig((p) => ({ ...p, lead_phone: v }))} />
+                <ConfigField label="Company" value={zohoConfig.lead_company} onChange={(v) => setZohoConfig((p) => ({ ...p, lead_company: v }))} />
+                <ActionButton loading={zohoLoading} onClick={runZohoActions} icon={<Users size={13} />} label="Test Zoho Actions" color="#16a34a" />
+                {zohoResult && <ResultDisplay results={zohoResult} successColor="#dcfce7" successText="#15803d" />}
+              </ConfigSection>
             )}
 
-            {activePanel === "workflows" && (
-              <div>
-                {workflows.length === 0 ? (
-                  <div
-                    style={{
-                      textAlign: "center",
-                      padding: "40px 20px",
-                      color: "#9ca3af",
-                    }}
-                  >
-                    <FileText
-                      size={28}
-                      style={{ margin: "0 auto 10px", opacity: 0.4 }}
-                    />
-                    <div style={{ fontSize: 13, fontWeight: 600 }}>
-                      No saved workflows
-                    </div>
-                    <div style={{ fontSize: 12, marginTop: 4 }}>
-                      Deploy your first workflow to see it here
-                    </div>
-                  </div>
-                ) : (
-                  workflows.map((wf) => (
-                    <div
-                      key={wf.id}
-                      style={{
-                        padding: "12px",
-                        borderRadius: 10,
-                        border: "1px solid #f3f4f6",
-                        marginBottom: 8,
-                        background: "#fafafa",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          justifyContent: "space-between",
-                          gap: 8,
-                        }}
-                      >
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div
-                            style={{
-                              fontSize: 13,
-                              fontWeight: 700,
-                              color: "#1f2937",
-                              marginBottom: 2,
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                          >
-                            {wf.name}
-                          </div>
-                          <div style={{ fontSize: 11, color: "#9ca3af" }}>
-                            {wf.trigger}
-                          </div>
-                        </div>
-                        <div
-                          style={{
-                            padding: "3px 8px",
-                            borderRadius: 6,
-                            background:
-                              wf.status === "active" ? "#dcfce7" : "#f3f4f6",
-                            color:
-                              wf.status === "active" ? "#16a34a" : "#9ca3af",
-                            fontSize: 11,
-                            fontWeight: 700,
-                            flexShrink: 0,
-                          }}
-                        >
-                          {wf.status}
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
+            {/* Telegram Config */}
+            {hasTgAction && (
+              <ConfigSection title="Telegram Config" color="#0088cc" bg="#e7f5ff" border="#90cdf4">
+                <ConfigField label="Chat ID *" placeholder="-1001234567890" value={tgConfig.chat_id} onChange={(v) => setTgConfig((p) => ({ ...p, chat_id: v }))} />
+                <ConfigField label="Message *" value={tgConfig.message} onChange={(v) => setTgConfig((p) => ({ ...p, message: v }))} multiline />
+                <ActionButton loading={tgLoading} onClick={runTelegramActions} icon={<Bot size={13} />} label="Test Telegram Actions" color="#0088cc" />
+                {tgResult && <ResultDisplay results={tgResult} successColor="#dbeafe" successText="#1e40af" />}
+              </ConfigSection>
             )}
+
+            {/* Instamojo Config */}
+            {hasInstaAction && (
+              <ConfigSection title="Instamojo Config" color="#4f46e5" bg="#eef2ff" border="#c7d2fe">
+                <ConfigField label="Payment ID" value={instaConfig.payment_id} onChange={(v) => setInstaConfig((p) => ({ ...p, payment_id: v }))} />
+                <ConfigField label="WhatsApp Phone" value={instaConfig.whatsapp_phone} onChange={(v) => setInstaConfig((p) => ({ ...p, whatsapp_phone: v }))} />
+                <ConfigField label="Link Purpose" value={instaConfig.link_purpose} onChange={(v) => setInstaConfig((p) => ({ ...p, link_purpose: v }))} />
+                <ConfigField label="Amount (₹)" value={instaConfig.link_amount} onChange={(v) => setInstaConfig((p) => ({ ...p, link_amount: v }))} type="number" />
+                <ActionButton loading={instaLoading} onClick={runInstamojoActions} icon={<CreditCard size={13} />} label="Test Instamojo Actions" color="#4f46e5" />
+                {instaResult && <ResultDisplay results={instaResult} successColor="#dcfce7" successText="#16a34a" />}
+              </ConfigSection>
+            )}
+
+            {/* Invoice Config */}
+            {hasInvoiceAction && (
+              <ConfigSection title="Invoice Config" color="#ea580c" bg="#fff7ed" border="#fed7aa">
+                <ConfigField label="Payment ID *" value={invoiceConfig.payment_id} onChange={(v) => setInvoiceConfig((p) => ({ ...p, payment_id: v }))} />
+                <ConfigField label="Amount ₹ *" value={invoiceConfig.amount} onChange={(v) => setInvoiceConfig((p) => ({ ...p, amount: v }))} type="number" />
+                <ConfigField label="Customer Name *" value={invoiceConfig.customer_name} onChange={(v) => setInvoiceConfig((p) => ({ ...p, customer_name: v }))} />
+                <ConfigField label="Customer Email *" value={invoiceConfig.customer_email} onChange={(v) => setInvoiceConfig((p) => ({ ...p, customer_email: v }))} type="email" />
+                <ConfigField label="Customer Phone *" value={invoiceConfig.customer_phone} onChange={(v) => setInvoiceConfig((p) => ({ ...p, customer_phone: v }))} />
+                <ActionButton loading={invoiceLoading} onClick={runInvoiceActions} icon={<FileText size={13} />} label="Test Invoice Actions" color="#ea580c" />
+                {invoiceResult && <ResultDisplay results={invoiceResult} successColor="#dcfce7" successText="#15803d" />}
+              </ConfigSection>
+            )}
+
+            {/* Razorpay Config */}
+            {hasRzpAction && (
+              <ConfigSection title="Razorpay Config" color="#2B6CB0" bg="#eff6ff" border="#bfdbfe">
+                <ConfigField label="Payment ID" value={rzpConfig.payment_id} onChange={(v) => setRzpConfig((p) => ({ ...p, payment_id: v }))} />
+                <ConfigField label="From Date" value={rzpConfig.from_date} onChange={(v) => setRzpConfig((p) => ({ ...p, from_date: v }))} type="date" />
+                <ConfigField label="To Date" value={rzpConfig.to_date} onChange={(v) => setRzpConfig((p) => ({ ...p, to_date: v }))} type="date" />
+                <ConfigField label="Last N Days" value={String(rzpConfig.days)} onChange={(v) => setRzpConfig((p) => ({ ...p, days: parseInt(v) || 7 }))} type="number" />
+                <ActionButton loading={rzpLoading} onClick={runRazorpayActions} icon={<IndianRupee size={13} />} label="Test Razorpay Actions" color="#2B6CB0" />
+                {rzpResult && <ResultDisplay results={rzpResult} successColor="#dbeafe" successText="#1e40af" />}
+              </ConfigSection>
+            )}
+
+            {/* Subscription Config */}
+            {hasSubAction && (
+              <ConfigSection title="Subscription Config" color="#0e7490" bg="#ecfeff" border="#a5f3fc">
+                <ConfigField label="Subscription ID" value={subConfig.subscription_id} onChange={(v) => setSubConfig((p) => ({ ...p, subscription_id: v }))} />
+                <ConfigField label="Plan ID" value={subConfig.plan_id} onChange={(v) => setSubConfig((p) => ({ ...p, plan_id: v }))} />
+                <ConfigField label="Count" value={String(subConfig.list_count)} onChange={(v) => setSubConfig((p) => ({ ...p, list_count: parseInt(v) || 10 }))} type="number" />
+                <ActionButton loading={subLoading} onClick={runSubscriptionActions} icon={<Repeat size={13} />} label="Test Subscription Actions" color="#0e7490" />
+                {subResult && <ResultDisplay results={subResult} successColor="#cffafe" successText="#0e7490" />}
+              </ConfigSection>
+            )}
+
+            {/* Deploy button */}
+            <button
+              onClick={handleDeploy}
+              disabled={deploying}
+              style={{
+                width: "100%",
+                marginTop: 8,
+                padding: "12px",
+                borderRadius: 10,
+                border: "none",
+                background: deploying ? "#a5b4fc" : "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                cursor: deploying ? "not-allowed" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                fontSize: 13,
+                fontWeight: 700,
+                color: "#fff",
+                boxShadow: "0 3px 12px rgba(99,102,241,0.35)",
+                transition: "all 0.15s",
+              }}
+            >
+              {deploying ? <Loader size={15} style={{ animation: "spin 1s linear infinite" }} /> : <Play size={15} />}
+              Save & Deploy Workflow
+            </button>
           </div>
         </aside>
       </div>
@@ -3288,7 +2499,10 @@ function BuilderInner() {
         @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .react-flow__node { filter: drop-shadow(0 2px 8px rgba(0,0,0,0.08)); }
         .react-flow__node.selected { filter: drop-shadow(0 4px 16px rgba(99,102,241,0.2)); }
-        .react-flow__edge-path { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1)); }
+        .react-flow__edge-path { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1)); transition: stroke 0.15s, stroke-width 0.15s; }
+        .react-flow__edge:hover .react-flow__edge-path { stroke: #f87171 !important; stroke-width: 3px !important; cursor: pointer; }
+        .react-flow__edge.selected .react-flow__edge-path { stroke: #ef4444 !important; stroke-width: 3px !important; }
+        .react-flow__edge.selected .react-flow__arrowhead { fill: #ef4444 !important; }
         .react-flow__controls button { background: #fff !important; border: 1px solid #e5e7eb !important; color: #374151 !important; }
         .react-flow__controls button:hover { background: #f9fafb !important; }
         ::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -3372,15 +2586,7 @@ function ConfigField({
   };
   return (
     <div>
-      <label
-        style={{
-          fontSize: 11,
-          fontWeight: 600,
-          color: "#374151",
-          marginBottom: 3,
-          display: "block",
-        }}
-      >
+      <label style={{ fontSize: 11, fontWeight: 600, color: "#374151", marginBottom: 3, display: "block" }}>
         {label}
       </label>
       {multiline ? (
@@ -3389,11 +2595,7 @@ function ConfigField({
           onChange={(e) => onChange(e.target.value)}
           rows={3}
           placeholder={placeholder}
-          style={{
-            ...baseStyle,
-            resize: "vertical" as const,
-            fontFamily: "monospace",
-          }}
+          style={{ ...baseStyle, resize: "vertical" as const, fontFamily: "monospace" }}
           onFocus={(e) => (e.currentTarget.style.borderColor = "#6366f1")}
           onBlur={(e) => (e.currentTarget.style.borderColor = "#e5e7eb")}
         />
@@ -3447,11 +2649,7 @@ function ActionButton({
         marginTop: 4,
       }}
     >
-      {loading ? (
-        <Loader size={13} style={{ animation: "spin 1s linear infinite" }} />
-      ) : (
-        icon
-      )}
+      {loading ? <Loader size={13} style={{ animation: "spin 1s linear infinite" }} /> : icon}
       {label}
     </button>
   );
@@ -3488,7 +2686,7 @@ function ResultDisplay({
   );
 }
 
-// ── Exported Component (wrapped in ReactFlowProvider) ─────────────────────────
+// ── Exported Component ────────────────────────────────────────────────────────
 export default function BuilderPage() {
   return (
     <ReactFlowProvider>

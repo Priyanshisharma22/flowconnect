@@ -439,6 +439,16 @@ app.get("/api/stats/public", async (_req, res) => {
   }
 });
 
+app.post("/api/webhooks/whatsapp", async (req, res) => {
+  const { intent, data, source } = req.body;
+  
+  return res.status(200).json({
+    ok: true,
+    message: `Workflow '${intent}' queued successfully`,
+    executionId: randomUUID()
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Auth server running on http://localhost:${PORT}`);
 });

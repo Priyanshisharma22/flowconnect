@@ -40,8 +40,37 @@ Frontend (React + Vite) ↓ Express Server (Production Hosting) ↓ Local Auth B
 
 ## 📁 Project Structure
 
-. ├── src/                     # Frontend application ├── public/                  # Static assets ├── flowconnect/             # Integrations + local backends │   ├── auth-backend/        # Local auth & storage │   ├── slack-mcp/ │   ├── invoice-mcp/ │   └── ... ├── index.js                 # Express production server ├── index.html               # App shell
-
+├── .github/ 
+├── flowconnect/ 
+├── public/ 
+│
+├── src/ 
+│ ├── api/
+│ ├── assets/
+│ ├── components/
+│ ├── context/
+│ ├── pages/
+│ ├── styles/
+│ ├── utils/
+│ ├── App.tsx
+│ └── main.tsx
+│
+├── .gitignore
+├── index.html 
+├── index.js 
+│
+├── package.json
+├── package-lock.json
+├── eslint.config.js
+├── postcss.config.js
+│
+├── README.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── ACCESSIBILITY.md
+├── ARCHITECTURE.md
+├── INTEGRATIONS.md
+├── LICENSE
 ---
 
 ## 🚀 Quick Start

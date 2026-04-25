@@ -18,13 +18,20 @@ export default function PricingPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
-                            style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}
+                            style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}
                         >
                             <div className="section-badge" style={{ margin: '0 auto 20px' }}>
                                 <Blocks size={14} />
                                 Plans & Pricing
                             </div>
-                            <h1 className="hero__title" style={{ fontSize: '48px', marginBottom: '20px' }}>
+                           <h1 
+                               className="hero__title" 
+                               style={{ 
+                                        fontSize: '48px', 
+                                        marginBottom: '20px', 
+                                        textAlign: 'center' 
+                                    }}>
+
                                 Start Free, <span className="gradient-text">Scale Securely</span>
                             </h1>
                             <p className="section-subtitle">

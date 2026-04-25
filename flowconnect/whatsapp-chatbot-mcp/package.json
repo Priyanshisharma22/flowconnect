@@ -1,0 +1,17 @@
+{
+  "name": "whatsapp-chatbot-mcp",
+  "version": "1.0.0",
+  "description": "WhatsApp AI Chatbot Integration with FlowConnect using MCP",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "webhook": "node webhook.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "axios": "^1.6.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.0"
+  }
+}

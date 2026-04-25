@@ -70,7 +70,7 @@ export default function Integrations() {
                         transition={{ duration: 0.5 }}
                     >
                         <h3 className="integrations__section-title">
-                            <span className="integrations__section-dot" style={{ background: '#f97316' }} />
+                           <span className="integrations__section-dot integrations__section-dot--orange" />
                             Popular Indian Apps
                         </h3>
                         <div className="integrations__chains">

@@ -1,123 +1,120 @@
+/* =========================
+   SECTION BASE
+========================= */
 .features {
-    position: relative;
-    background: white;
+  position: relative;
+  background: var(--bg-primary);
 }
-
+/* =========================
+   HEADER
+========================= */
 .features__header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
+/* =========================
+   GRID
+========================= */
 .features__grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 32px;
-    margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 32px;
+  margin-top: 80px;
 }
-
 @media (min-width: 640px) {
-    .features__grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 1024px) {
-    .features__grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .features__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-
+/* =========================
+   CARD
+========================= */
 .features__card {
-    position: relative;
-    padding: 32px;
-    background: white;
-    border: 1px solid var(--gray-200);
-    border-radius: 20px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
+  position: relative;
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all var(--transition);
 }
-
 .features__card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--primary-300);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-hover);
+  background: var(--bg-hover);
 }
-
+/* =========================
+   ICON
+========================= */
 .features__card-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    margin-bottom: 24px;
-    transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  transition: all var(--transition);
 }
+/* ONLY using variables now */
+.features__card-icon--cyan { background: var(--cyan-soft); color: #06b6d4; }
+.features__card-icon--violet { background: var(--violet-soft); color: #7c3aed; }
+.features__card-icon--emerald { background: var(--emerald-soft); color: #10b981; }
+.features__card-icon--amber { background: var(--amber-soft); color: #f59e0b; }
+.features__card-icon--orange { background: var(--primary-50); color: var(--primary-600); }
+.features__card-icon--blue { background: var(--blue-soft); color: #3b82f6; }
+.features__card-icon--rose { background: var(--rose-soft); color: #f43f5e; }
 
-/* Light Mode Card Icons - Vibrant Backgrounds */
-.features__card-icon--cyan {
-    background: #ecfeff;
-    color: #0891b2;
+.features__card:hover .features__card-icon {
+  transform: scale(1.12);
+  box-shadow: var(--shadow-md);
 }
-
-.features__card-icon--violet {
-    background: #f5f3ff;
-    color: #7c3aed;
-}
-
-.features__card-icon--emerald {
-    background: #ecfdf5;
-    color: #059669;
-}
-
-.features__card-icon--amber {
-    background: #fffbeb;
-    color: #d97706;
-}
-
-.features__card-icon--rose {
-    background: #fff1f2;
-    color: #e11d48;
-}
-
-.features__card:hover .features__card-icon--cyan {
-    background: #cfFAfe;
-}
-
-.features__card:hover .features__card-icon--violet {
-    background: #ddd6fe;
-}
-
+/* =========================
+   TEXT
+========================= */
 .features__card-title {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 12px;
-    color: var(--gray-900);
-    letter-spacing: -0.02em;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--text-primary);
 }
-
 .features__card-desc {
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.6;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+/* =========================
+   GLOW
+========================= */
+.features__card-glow {
+  position: absolute;
+  top: -30%;
+  right: -30%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
 }
 
-/* Subtle Glow behind cards instead of inside */
-.features__card-glow {
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
+.features__card-glow--emerald { background: var(--glow-emerald); }
+.features__card-glow--blue { background: var(--glow-blue); }
+.features__card-glow--violet { background: var(--glow-violet); }
+.features__card-glow--orange { background: var(--glow-orange); }
+.features__card-glow--cyan { background: var(--glow-cyan); }
+.features__card-glow--rose { background: var(--glow-rose); }
 
 .features__card:hover .features__card-glow {
-    opacity: 1;
+  opacity: 1;
 }
