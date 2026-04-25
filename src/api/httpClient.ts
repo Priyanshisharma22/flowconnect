@@ -67,6 +67,13 @@ export const http = {
       body: body ? JSON.stringify(body) : undefined,
     }),
 
+  patch: <T = any>(url: string, body?: any, options?: RequestInit & { skipAuth?: boolean }) =>
+    httpFetch<T>(url, {
+      ...options,
+      method: 'PATCH',
+      body: body ? JSON.stringify(body) : undefined,
+    }),
+
   delete: <T = any>(url: string, options?: RequestInit & { skipAuth?: boolean }) =>
     httpFetch<T>(url, { ...options, method: 'DELETE' }),
 }

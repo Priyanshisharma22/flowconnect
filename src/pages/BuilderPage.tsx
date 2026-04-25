@@ -370,7 +370,7 @@ export default function BuilderPage() {
 
     function showToast(msg: string, type: 'success' | 'error') {
         setToast({ msg, type })
-        setTimeout(() => setToast(null), 3500)
+        setTimeout(() => setToast(null), 6000)
     }
 
     function addAction(action: typeof actions[0]) {
@@ -807,7 +807,12 @@ export default function BuilderPage() {
         if (!toNumber) return
         try {
             const cleaned = toNumber.replace('+91', '').replace(/\s/g, '').trim()
-            if (cleaned.length !== 10) return
+            if (cleaned.length !== 10) {
+                const msg = `Invalid SMS number: ${cleaned || 'empty'}`
+                console.warn('[SMS] Invalid phone number:', cleaned)
+                showToast(msg, 'error')
+                return
+            }
             const smsText = status === 'Success'
                 ? messageTemplate
                     .replace('{name}', 'Customer')
@@ -815,8 +820,14 @@ export default function BuilderPage() {
                     .replace('{payment_id}', workflowId)
                     .replace('{phone}', cleaned)
                 : `Pravah: Workflow "${workflowName}" failed to deploy.`
-            await sendSMS({ numbers: cleaned, message: smsText })
-        } catch {}
+
+            const result = await sendSMS({ numbers: cleaned, message: smsText })
+            console.log('[SMS] Sent successfully:', result)
+        } catch (err: any) {
+            const message = err?.message || 'SMS failed'
+            console.error('[SMS] Failed to send:', message)
+            showToast(`SMS failed: ${message}`, 'error')
+        }
     }
 
     // ── Save ──────────────────────────────────────────────────────────────────

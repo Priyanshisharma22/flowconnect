@@ -30,5 +30,14 @@ export async function getMe() {
 
 export async function apiCall(endpoint: string, options: RequestInit & { skipAuth?: boolean } = {}) {
     const url = `${AUTH_BASE}/api${endpoint}`
-    return http.post(url, options.body ? JSON.parse(options.body as string) : {}, options)
+    const method = (options.method || 'POST').toUpperCase()
+    const body = options.body ? JSON.parse(options.body as string) : undefined
+
+    if (method === 'GET') return http.get(url, options)
+    if (method === 'POST') return http.post(url, body, options)
+    if (method === 'PUT') return http.put(url, body, options)
+    if (method === 'PATCH') return http.patch(url, body, options)
+    if (method === 'DELETE') return http.delete(url, options)
+
+    throw new Error(`Unsupported method: ${method}`)
 }
