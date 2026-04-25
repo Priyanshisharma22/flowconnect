@@ -13,5 +13,13 @@
     "password_hash": "$2b$10$bayZAsZ601y420hD9C5hEuxbF7ghgqJDov.QXozOR3snwjJepxkjW",
     "created_at": "2026-04-12T20:09:59.172Z",
     "plan": "free"
+  },
+  {
+    "id": "ab13cca7-cd09-40ff-ab9a-29f46c03fe23",
+    "full_name": "ask",
+    "email": "markella.smyers@inboxorigin.com",
+    "password_hash": "$2b$10$7L9kqpL4jeV8WvCjcHMooeS5Z6RFm3e92CpN.1lXr1dLHqVNGnIam",
+    "created_at": "2026-04-21T11:56:09.236Z",
+    "plan": "free"
   }
 ]
