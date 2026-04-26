@@ -102,8 +102,14 @@
 .about-blog__grid {
     display: grid;
     gap: 24px;
+    grid-template-columns: 1fr;
 }
-@media (min-width: 768px) {
+@media (min-width: 640px) {
+    .about-blog__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 1024px) {
     .about-blog__grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -119,19 +125,85 @@
     transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
 }
+.about-post__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
 .about-post__tag {
     background: var(--primary-50);
     color: var(--primary-600);
     font-size: 11px;
     padding: 4px 10px;
     border-radius: 999px;
-    margin-bottom: 10px;
     display: inline-block;
 }
+.about-post__meta {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+.about-post__date,
+.about-post__read-time {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+.about-post h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+.about-post p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
 .about-post__link {
-    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     color: var(--primary-600);
     font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.about-post__link:hover {
+    gap: 8px;
+    color: var(--primary-700);
+}
+/* Mobile styles */
+@media (max-width: 480px) {
+    .about-blog__grid {
+        gap: 16px;
+    }
+    .about-post {
+        padding: 20px;
+    }
+    .about-post__header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    .about-post__meta {
+        gap: 8px;
+        font-size: 11px;
+    }
+    .about-post h3 {
+        font-size: 16px;
+    }
+    .about-post p {
+        font-size: 13px;
+        margin-bottom: 14px;
+    }
+    .about-post__link {
+        font-size: 13px;
+    }
 }
 /* =========================
    RESOURCES

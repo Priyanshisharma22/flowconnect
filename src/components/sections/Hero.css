@@ -204,6 +204,136 @@
     border: 1px solid #e2e8f0;
 }
 /* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 80px;
+        padding-bottom: 40px;
+        min-height: auto;
+    }
+    .hero__orb--1 {
+        width: 400px;
+        height: 400px;
+        top: -100px;
+        left: 5%;
+    }
+    .hero__orb--2 {
+        width: 350px;
+        height: 350px;
+        top: 30%;
+        right: -5%;
+    }
+    .hero__orb--3 {
+        width: 200px;
+        height: 200px;
+        bottom: 10%;
+        left: 10%;
+    }
+    .hero__title {
+        font-size: clamp(32px, 10vw, 56px);
+        margin-top: 20px;
+    }
+    .hero__subtitle {
+        font-size: clamp(16px, 4vw, 20px);
+        margin-top: 20px;
+        max-width: 600px;
+    }
+    .hero__cta {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 32px;
+    }
+    .hero__stats {
+        margin-top: 40px;
+        padding: 20px;
+    }
+    .hero__stat {
+        padding: 12px;
+    }
+    .hero__stat-value {
+        font-size: 24px;
+    }
+    .hero__stat-label {
+        font-size: 12px;
+    }
+    .hero__workflow-card {
+        max-width: 100%;
+        margin: 40px auto 0;
+    }
+    .hero__wf-node {
+        padding: 16px;
+    }
+    .hero__wf-node-title {
+        font-size: 14px;
+    }
+    .hero__wf-node-desc {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding-top: 60px;
+        padding-bottom: 30px;
+    }
+    .hero__orb--1 {
+        width: 300px;
+        height: 300px;
+        top: -50px;
+    }
+    .hero__orb--2 {
+        width: 250px;
+        height: 250px;
+    }
+    .hero__orb--3 {
+        width: 150px;
+        height: 150px;
+    }
+    .hero__title {
+        font-size: clamp(28px, 12vw, 48px);
+    }
+    .hero__subtitle {
+        font-size: clamp(14px, 5vw, 18px);
+    }
+    .hero__stats {
+        margin-top: 30px;
+        padding: 16px;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .hero__stat {
+        padding: 10px;
+        text-align: center;
+    }
+    .hero__stat-value {
+        font-size: 20px;
+    }
+    .hero__stat-label {
+        font-size: 11px;
+    }
+    .hero__workflow-card {
+        margin: 30px auto 0;
+    }
+    .hero__wf-node {
+        padding: 12px;
+    }
+    .hero__wf-node-title {
+        font-size: 13px;
+    }
+    .hero__wf-node-desc {
+        font-size: 11px;
+    }
+    .hero__wf-chain-badges {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .hero__wf-chain {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+}
+/* =========================
    DARK MODE
 ========================= */
 [data-theme='dark'] .hero {
