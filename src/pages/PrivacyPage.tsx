@@ -1,10 +1,49 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Shield, Zap } from 'lucide-react'
+import { Shield, Zap, Database, Users, Lock, Eye } from 'lucide-react'
 import Navbar from '../components/common/Navbar'
 import '../styles/AuthPages.css'
 
 export default function PrivacyPage() {
+    const sections = [
+        {
+            icon: Database,
+            title: 'Data Collection',
+            content: [
+                'We collect basic account information including name, email, and password hash.',
+                'Workflow data includes operational details from connected integrations.',
+                'Usage analytics may be collected to improve service quality.'
+            ]
+        },
+        {
+            icon: Users,
+            title: 'Data Usage',
+            content: [
+                'Account data is used to authenticate users and provide personalized services.',
+                'Integration data enables workflow automation and data synchronization.',
+                'Analytics help us understand usage patterns and improve features.'
+            ]
+        },
+        {
+            icon: Lock,
+            title: 'Data Security',
+            content: [
+                'All data is encrypted in transit and at rest using industry-standard protocols.',
+                'Passwords are hashed using secure algorithms and never stored in plain text.',
+                'Access to user data is strictly controlled and monitored.'
+            ]
+        },
+        {
+            icon: Eye,
+            title: 'Data Sharing',
+            content: [
+                'We do not sell or rent personal data to third parties.',
+                'Data may be shared with integrated services as required for functionality.',
+                'Legal requests for data will be handled in accordance with applicable laws.'
+            ]
+        }
+    ]
+
     return (
         <div className="auth-page grid-pattern">
             <Navbar />
@@ -33,34 +72,44 @@ export default function PrivacyPage() {
                     <Shield size={14} />
                     Privacy Policy
                 </div>
-                <h1 className="auth-card__title auth-legal__title">Privacy Overview</h1>
+                <h1 className="auth-card__title auth-legal__title">Privacy Policy</h1>
                 <p className="auth-card__subtitle auth-legal__subtitle">
-                    This page explains the data used by the local auth flow and by optional third-party
-                    integrations configured by the operator.
+                    Your privacy is important to us. This policy explains how we collect, use, and protect your data.
                 </p>
 
                 <div className="auth-legal__content">
-                    <section>
-                        <h2>Account data</h2>
+                    {sections.map((section, index) => {
+                        const Icon = section.icon
+                        return (
+                            <motion.section
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                style={{ marginBottom: '2rem' }}
+                            >
+                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+                                    <Icon size={20} style={{ marginRight: '0.5rem', color: 'var(--accent-primary)' }} />
+                                    <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: '600' }}>{section.title}</h2>
+                                </div>
+                                <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
+                                    {section.content.map((item, i) => (
+                                        <li key={i} style={{ marginBottom: '0.5rem', lineHeight: '1.6' }}>{item}</li>
+                                    ))}
+                                </ul>
+                            </motion.section>
+                        )
+                    })}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: sections.length * 0.1 }}
+                    >
+                        <h2>Contact Us</h2>
                         <p>
-                            The local auth server stores basic account records such as name, email,
-                            password hash, and creation timestamp.
+                            If you have any questions about this Privacy Policy, please contact us through our support channels.
                         </p>
-                    </section>
-                    <section>
-                        <h2>Integration data</h2>
-                        <p>
-                            Workflow runs may send customer and operational data to external services
-                            that you explicitly connect, such as messaging, CRM, payment, and form tools.
-                        </p>
-                    </section>
-                    <section>
-                        <h2>Operator responsibility</h2>
-                        <p>
-                            If you deploy this project yourself, you are responsible for setting secrets
-                            safely and complying with the privacy requirements of your users and vendors.
-                        </p>
-                    </section>
+                    </motion.section>
                 </div>
 
                 <div className="auth-card__footer">
