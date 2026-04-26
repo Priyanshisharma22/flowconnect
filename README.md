@@ -39,7 +39,7 @@ Frontend (React + Vite) ↓ Express Server (Production Hosting) ↓ Local Auth B
 ---
 
 ## 📁 Project Structure
-
+```
 ├── .github/ 
 ├── flowconnect/ 
 ├── public/ 
@@ -71,6 +71,7 @@ Frontend (React + Vite) ↓ Express Server (Production Hosting) ↓ Local Auth B
 ├── ARCHITECTURE.md
 ├── INTEGRATIONS.md
 ├── LICENSE
+```
 ---
 
 ## 🚀 Quick Start
