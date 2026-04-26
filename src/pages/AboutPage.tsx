@@ -42,16 +42,49 @@ const blogPosts = [
         category: 'Product',
         title: 'How Pravah reduces manual follow-ups across payments and CRM',
         blurb: 'A practical walkthrough of connecting collections, notifications, and lead updates into one automated stream.',
+        date: '2024-03-15',
+        readTime: '5 min read',
+        link: '/blog/pravah-manual-follow-ups'
     },
     {
         category: 'Automation',
         title: '5 workflow patterns Indian SMB teams can launch in a day',
         blurb: 'Ideas for support, finance, onboarding, and sales operations that save time without adding process overhead.',
+        date: '2024-03-08',
+        readTime: '7 min read',
+        link: '/blog/workflow-patterns-smb'
     },
     {
         category: 'Engineering',
         title: 'Building an extensible integration layer for modern operations',
         blurb: 'A look at how we think about connectors, reliability, and keeping workflows understandable as they scale.',
+        date: '2024-02-28',
+        readTime: '6 min read',
+        link: '/blog/extensible-integration-layer'
+    },
+    {
+        category: 'Updates',
+        title: 'New integrations: WhatsApp Business API and Google Forms',
+        blurb: 'Expanding our connector ecosystem with two popular tools for Indian businesses and educational institutions.',
+        date: '2024-02-20',
+        readTime: '3 min read',
+        link: '/blog/whatsapp-google-forms-integration'
+    },
+    {
+        category: 'Case Study',
+        title: 'How a fintech startup automated 80% of their customer onboarding',
+        blurb: 'A real-world example of using Pravah to streamline KYC processes, document collection, and initial communications.',
+        date: '2024-02-12',
+        readTime: '8 min read',
+        link: '/blog/fintech-onboarding-automation'
+    },
+    {
+        category: 'Product',
+        title: 'Introducing workflow templates for common business scenarios',
+        blurb: 'Pre-built templates for invoice processing, lead nurturing, and support ticket management to get started faster.',
+        date: '2024-02-05',
+        readTime: '4 min read',
+        link: '/blog/workflow-templates-launch'
     },
 ]
 
@@ -180,10 +213,16 @@ export default function AboutPage() {
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.45 }}
                                 >
-                                    <span className="about-post__tag">{post.category}</span>
+                                    <div className="about-post__header">
+                                        <span className="about-post__tag">{post.category}</span>
+                                        <div className="about-post__meta">
+                                            <span className="about-post__date">{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                                            <span className="about-post__read-time">{post.readTime}</span>
+                                        </div>
+                                    </div>
                                     <h3>{post.title}</h3>
                                     <p>{post.blurb}</p>
-                                    <Link to="/how-it-works" className="about-post__link">
+                                    <Link to={post.link} className="about-post__link">
                                         Read more
                                         <ArrowRight size={16} />
                                     </Link>
