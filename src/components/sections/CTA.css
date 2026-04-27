@@ -117,7 +117,102 @@
     background: var(--success-500);
     border-radius: 50%;
 }
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 768px) {
+    .cta {
+        padding: 60px 0;
+    }
+    .cta__card {
+        padding: 60px 30px;
+        border-radius: 24px;
+    }
+    .cta__bg-orb--1 {
+        width: 300px;
+        height: 300px;
+        top: -100px;
+        left: -50px;
+    }
+    .cta__bg-orb--2 {
+        width: 200px;
+        height: 200px;
+        bottom: -50px;
+        right: -25px;
+    }
+    .cta__icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 24px;
+    }
+    .cta__title {
+        font-size: clamp(28px, 6vw, 40px);
+        margin-bottom: 20px;
+    }
+    .cta__subtitle {
+        font-size: 16px;
+        margin-bottom: 32px;
+    }
+    .cta__actions {
+        gap: 12px;
+    }
+    .cta__trust {
+        gap: 24px;
+        margin-top: 32px;
+        padding-top: 24px;
+    }
+    .cta__trust-item {
+        font-size: 13px;
+    }
+}
 
+@media (max-width: 480px) {
+    .cta {
+        padding: 40px 0;
+    }
+    .cta__card {
+        padding: 40px 20px;
+        border-radius: 20px;
+    }
+    .cta__bg-orb--1 {
+        width: 250px;
+        height: 250px;
+        top: -75px;
+        left: -40px;
+    }
+    .cta__bg-orb--2 {
+        width: 150px;
+        height: 150px;
+        bottom: -40px;
+        right: -20px;
+    }
+    .cta__icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 20px;
+    }
+    .cta__title {
+        font-size: clamp(24px, 7vw, 32px);
+        margin-bottom: 16px;
+    }
+    .cta__subtitle {
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+    .cta__actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .cta__trust {
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 24px;
+        padding-top: 20px;
+    }
+    .cta__trust-item {
+        font-size: 12px;
+    }
+}
 /* Optional subtle dark-mode polish only */
 [data-theme='dark'] .cta__card:hover {
     box-shadow:

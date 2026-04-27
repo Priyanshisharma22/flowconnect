@@ -245,6 +245,78 @@
   color: var(--primary-600);
 }
 /* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 768px) {
+  .pricing__grid {
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .pricing__card {
+    padding: 32px 24px;
+  }
+  .pricing__card-name {
+    font-size: 20px;
+  }
+  .pricing__card-desc {
+    font-size: 14px;
+    margin: 10px 0 24px;
+  }
+  .pricing__card-price {
+    margin-bottom: 24px;
+  }
+  .pricing__card-amount {
+    font-size: 36px;
+  }
+  .pricing__card-currency {
+    font-size: 18px;
+  }
+  .pricing__card-period {
+    font-size: 12px;
+  }
+  .pricing__card-features {
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .pricing__card-feature {
+    font-size: 14px;
+  }
+  .pricing__card-btn {
+    min-width: 160px;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+  .pricing__crypto-note {
+    margin-top: 40px;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing__card {
+    padding: 24px 20px;
+  }
+  .pricing__card-name {
+    font-size: 18px;
+  }
+  .pricing__card-amount {
+    font-size: 28px;
+  }
+  .pricing__card-currency {
+    font-size: 16px;
+  }
+  .pricing__card-btn {
+    min-width: 140px;
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+  .pricing__crypto-note {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+/* =========================
    DARK POLISH
 ========================= */
 [data-theme='dark'] .pricing__card:hover {
