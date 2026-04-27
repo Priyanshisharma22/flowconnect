@@ -18,6 +18,8 @@ import { Toaster } from 'react-hot-toast'
 import ErrorBoundary from './components/common/ErrorBoundary'
 import { ThemeProvider } from './context/ThemeContext'
 import { AuthProvider } from './context/AuthContext'
+import { ScrollButtons } from "./components/common/ScrollButtons";
+
 
 // --- Route Protectors ---
 
@@ -112,6 +114,7 @@ function AppContent() {
         <Route path="/privacy" element={<PrivacyPage />} />
 
       </Routes>
+       <ScrollButtons />{/* Scroll navigation buttons */}
     </>
   )
 }
