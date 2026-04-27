@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Coins, Image, Vote, Bell, Repeat, Code2 } from 'lucide-react'
+import { Coins, Image, Vote, Bell, Repeat, Code2, MessageSquare, FileText, CreditCard, Users, BarChart3, Zap } from 'lucide-react'
 import './UseCases.css'
 
 const cases = [
@@ -44,6 +44,48 @@ const cases = [
         icon: Code2,
         color: 'blue',
         tag: 'Dev Tools',
+    },
+    {
+        title: 'WhatsApp Notifications',
+        desc: 'Send automated WhatsApp messages for order confirmations, delivery updates, or customer alerts.',
+        icon: MessageSquare,
+        color: 'green',
+        tag: 'Communication',
+    },
+    {
+        title: 'Invoice Generation',
+        desc: 'Automatically create and send invoices via email or WhatsApp when payments are received.',
+        icon: FileText,
+        color: 'indigo',
+        tag: 'Finance',
+    },
+    {
+        title: 'Subscription Management',
+        desc: 'Handle recurring payments, renewals, and cancellations seamlessly with Razorpay integrations.',
+        icon: CreditCard,
+        color: 'purple',
+        tag: 'Finance',
+    },
+    {
+        title: 'CRM Updates',
+        desc: 'Sync customer data between forms, payments, and Zoho CRM for unified customer management.',
+        icon: Users,
+        color: 'teal',
+        tag: 'CRM',
+    },
+    {
+        title: 'Accounting Automation',
+        desc: 'Push transaction data to Tally for real-time bookkeeping and financial reporting.',
+        icon: BarChart3,
+        color: 'orange',
+        tag: 'Accounting',
+    },
+    {
+        title: 'Form Data Processing',
+        desc: 'Process submissions from Google Forms or Typeform, validate data, and trigger follow-up actions.',
+        icon: Zap,
+        color: 'red',
+        tag: 'Data',
     },
 ]
 
