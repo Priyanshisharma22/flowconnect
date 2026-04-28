@@ -1,0 +1,1 @@
+/* Notion API wrapper (optional, for cleaner code) */
