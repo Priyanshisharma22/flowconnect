@@ -355,3 +355,52 @@ a {
   display: flex;
   justify-content: center;
 }
+.scroll-buttons {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  z-index: 1000;
+}
+
+.scroll-buttons button {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  background: var(--bg-card);
+  color: var(--text-primary);
+
+  /* 👇 THIS is what you were missing */
+  border: 1px solid var(--border-default);
+  outline: 1px solid rgba(0, 0, 0, 0.06); /* works in light mode */
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.15),
+    0 0 8px rgba(249, 115, 22, 0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+/* hover = visible glow */
+.scroll-buttons button:hover {
+  background: var(--bg-secondary);
+  transform: translateY(-2px);
+
+ box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.2),
+    0 0 16px rgba(249, 115, 22, 0.35),
+    0 0 28px rgba(249, 115, 22, 0.25);
+}
+/* active */
+.scroll-buttons button:active {
+  transform: scale(0.92);
+}
