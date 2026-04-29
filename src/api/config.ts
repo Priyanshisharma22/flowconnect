@@ -15,4 +15,7 @@ export const api = {
 
   // Webhook
   webhook: `${API_BASE}/webhook/razorpay`,
+  // Notion (if needed)
+  notion_api: 'https://api.notion.com/v1',
+}
 }

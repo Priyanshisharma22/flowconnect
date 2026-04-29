@@ -3,6 +3,7 @@
 *.env
 *.env.*
 !flowconnect/whatsapp-chatbot-mcp/.env.example
+!flowconnect/notion-mcp/.env.example
 **/*.env
 *.key
 *.pem
