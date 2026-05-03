@@ -41,6 +41,8 @@ export default function Integrations() {
     return (
         <section className="integrations section" id="integrations">
             <div className="container">
+
+                {/* Header */}
                 <motion.div
                     className="integrations__header"
                     initial={{ opacity: 0, y: 30 }}
@@ -48,20 +50,23 @@ export default function Integrations() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="section-badge" id="integrations-badge">
+                    <div className="section-badge">
                         <Zap size={14} />
                         Integrations
                     </div>
+
                     <h2 className="section-title">
                         Connect Your Entire <span className="gradient-text">Business Stack</span>
                     </h2>
+
                     <p className="section-subtitle">
-                        From Indian payment gateways to global CRM tools — 
+                        From Indian payment gateways to global CRM tools —
                         Pravah bridges the gap between your favorite apps.
                     </p>
                 </motion.div>
 
                 <div className="integrations__content" ref={ref}>
+
                     {/* Indian Apps */}
                     <motion.div
                         className="integrations__section"
@@ -70,9 +75,10 @@ export default function Integrations() {
                         transition={{ duration: 0.5 }}
                     >
                         <h3 className="integrations__section-title">
-                           <span className="integrations__section-dot integrations__section-dot--orange" />
+                            <span className="integrations__section-dot integrations__section-dot--orange" />
                             Popular Indian Apps
                         </h3>
+
                         <div className="integrations__chains">
                             {indianApps.map((app, i) => (
                                 <motion.div
@@ -81,15 +87,36 @@ export default function Integrations() {
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
                                     transition={{ duration: 0.4, delay: i * 0.06 }}
+                                    whileHover={{
+                                        y: -8,
+                                        scale: 1.05,
+                                    }}
                                 >
-                                    <div
+                                    {/* Avatar */}
+                                    <motion.div
                                         className="integrations__chain-avatar"
-                                        style={{ background: `${app.color}22`, color: app.color }}
+                                        style={{
+                                            background: `${app.color}22`,
+                                            color: app.color,
+                                        }}
+                                        whileHover={{ rotate: 8, scale: 1.1 }}
                                     >
                                         {app.name.charAt(0)}
+                                    </motion.div>
+
+                                    <div className="integrations__chain-name">
+                                        {app.name}
                                     </div>
-                                    <div className="integrations__chain-name">{app.name}</div>
-                                    <div className="integrations__chain-symbol">{app.category}</div>
+
+                                    <div className="integrations__chain-symbol">
+                                        {app.category}
+                                    </div>
+
+                                    {/* Glow */}
+                                    <div
+                                        className="integrations__card-glow"
+                                        style={{ background: app.color }}
+                                    />
                                 </motion.div>
                             ))}
                         </div>
@@ -103,9 +130,13 @@ export default function Integrations() {
                         transition={{ duration: 0.5, delay: 0.15 }}
                     >
                         <h3 className="integrations__section-title">
-                            <span className="integrations__section-dot" style={{ background: '#6366f1' }} />
+                            <span
+                                className="integrations__section-dot"
+                                style={{ background: '#6366f1' }}
+                            />
                             Global Productivity
                         </h3>
+
                         <div className="integrations__tags">
                             {globalApps.map((p, i) => (
                                 <motion.div
@@ -114,6 +145,7 @@ export default function Integrations() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                                     transition={{ duration: 0.3, delay: 0.2 + i * 0.04 }}
+                                    whileHover={{ scale: 1.05, y: -4 }}
                                 >
                                     <span className="integrations__tag-name">{p.name}</span>
                                     <span className="integrations__tag-cat">{p.category}</span>
@@ -130,9 +162,13 @@ export default function Integrations() {
                         transition={{ duration: 0.5, delay: 0.3 }}
                     >
                         <h3 className="integrations__section-title">
-                            <span className="integrations__section-dot" style={{ background: '#10b981' }} />
+                            <span
+                                className="integrations__section-dot"
+                                style={{ background: '#10b981' }}
+                            />
                             Developer Utilities
                         </h3>
+
                         <div className="integrations__tags">
                             {developerTools.map((t, i) => (
                                 <motion.div
@@ -141,6 +177,7 @@ export default function Integrations() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                                     transition={{ duration: 0.3, delay: 0.35 + i * 0.04 }}
+                                    whileHover={{ scale: 1.05, y: -4 }}
                                 >
                                     <span className="integrations__tag-name">{t.name}</span>
                                     <span className="integrations__tag-cat">{t.category}</span>
@@ -148,6 +185,7 @@ export default function Integrations() {
                             ))}
                         </div>
                     </motion.div>
+
                 </div>
             </div>
         </section>

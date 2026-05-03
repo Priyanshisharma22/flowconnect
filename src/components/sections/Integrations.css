@@ -174,3 +174,46 @@
   background: var(--bg-card);
   color: var(--primary-600);
 }
+
+.integrations__chain-card {
+    position: relative;
+    padding: 18px;
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.integrations__chain-card:hover {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Avatar */
+.integrations__chain-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-weight: 600;
+}
+
+/* Glow */
+.integrations__card-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.integrations__chain-card:hover .integrations__card-glow {
+    opacity: 0.15;
+}
+
+/* Tags hover */
+.integrations__tag {
+    transition: all 0.25s ease;
+}
