@@ -48,6 +48,8 @@ coverage/
 flowconnect/auth-backend/users.local.json
 flowconnect/auth-backend/workflows.local.json
 flowconnect/auth-backend/apps.local.json
+flowconnect/auth-backend/google-oauth.local.json
+flowconnect/auth-backend/google-trigger-state.local.json
 flowconnect/invoice-mcp/invoices/
 !flowconnect/invoice-mcp/invoices/.gitkeep
 

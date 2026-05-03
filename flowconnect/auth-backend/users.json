@@ -29,5 +29,13 @@
     "password_hash": "$2b$10$2Xok8zf827XiNK/SMFGNXOPiihyHrlBIStxHL2mzVq9.0ebhw1CeO",
     "created_at": "2026-04-22T11:21:23.872Z",
     "plan": "free"
+  },
+  {
+    "id": "0f2cc264-616f-4872-b325-33993a620546",
+    "full_name": "Anonymus",
+    "email": "someone@gmail.com",
+    "password_hash": "$2b$10$meLK47WVqwCr1ZFike8nH.s9ApLSeh5cGJODwUU0RolDspz2nZyHu",
+    "created_at": "2026-05-03T06:28:32.602Z",
+    "plan": "free"
   }
 ]
