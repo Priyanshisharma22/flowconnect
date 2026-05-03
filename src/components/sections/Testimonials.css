@@ -166,3 +166,60 @@
 [data-theme='dark'] .testimonials__stars svg {
     filter: drop-shadow(0 0 4px rgba(251,191,36,0.4));
 }
+
+.testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.8rem;
+}
+
+.testimonials__card {
+    position: relative;
+    padding: 1.8rem;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+}
+
+.testimonials__card:hover {
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Featured card */
+.testimonials__card.featured {
+    border: 1px solid var(--primary-400);
+    transform: scale(1.03);
+}
+
+/* Quote icon */
+.testimonials__quote-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    opacity: 0.2;
+}
+
+/* Text */
+.testimonials__text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+    color: var(--text-secondary);
+}
+
+/* Avatar variations */
+.avatar-0 { background: #6366f1; }
+.avatar-1 { background: #ec4899; }
+.avatar-2 { background: #10b981; }
+.avatar-3 { background: #f59e0b; }
+
+.testimonials__avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+}
