@@ -199,11 +199,11 @@ const triggers = [
   },
   {
     id: "t3",
-    label: "Form Submit",
-    desc: "Typeform / Google Forms",
+    label: "Google Forms Submission",
+    desc: "Trigger when a Google Form is submitted",
     icon: TrendingUp,
     color: "emerald" as ColorKey,
-    trigger_key: "form.submit",
+    trigger_key: "googleforms.submission",
     group: "General",
   },
   {
@@ -975,6 +975,12 @@ interface ZohoConfig {
   update_fields: string;
   get_leads_count: number;
 }
+interface GoogleFormsTriggerConfig {
+  form_id: string;
+  mode: "polling" | "webhook";
+  poll_interval_sec: number;
+  field_mapping_text: string;
+}
 
 const defaultInvoiceConfig: InvoiceConfig = {
   payment_id: "",
@@ -1053,6 +1059,12 @@ const defaultZohoConfig: ZohoConfig = {
   update_lead_id: "",
   update_fields: "{}",
   get_leads_count: 10,
+};
+const defaultGoogleFormsTriggerConfig: GoogleFormsTriggerConfig = {
+  form_id: "",
+  mode: "polling",
+  poll_interval_sec: 60,
+  field_mapping_text: "lead_name=Full Name\nlead_email=Email\nlead_phone=Phone Number",
 };
 
 // ── Sidebar group helper ──────────────────────────────────────────────────────
@@ -1215,6 +1227,13 @@ function BuilderInner() {
     defaultTelegramConfig,
   );
   const [zohoConfig, setZohoConfig] = useState<ZohoConfig>(defaultZohoConfig);
+  const [googleTriggerConfig, setGoogleTriggerConfig] =
+    useState<GoogleFormsTriggerConfig>(defaultGoogleFormsTriggerConfig);
+  const [googleOauthConnected, setGoogleOauthConnected] = useState(false);
+  const [googleOauthLoading, setGoogleOauthLoading] = useState(false);
+  const [googleTriggerTesting, setGoogleTriggerTesting] = useState(false);
+  const [googleTriggerTestResult, setGoogleTriggerTestResult] =
+    useState<any>(null);
 
   // Result states
   const [instaResult, setInstaResult] = useState<any>(null);
@@ -1312,9 +1331,105 @@ function BuilderInner() {
     setIsAuthed(!!token);
   }, []);
 
+  useEffect(() => {
+    if (!isAuthed) return;
+    if (selectedTrigger?.trigger_key !== "googleforms.submission") return;
+    loadGoogleOauthStatus();
+  }, [isAuthed, selectedTrigger?.trigger_key]);
+
   function showToast(msg: string, type: "success" | "error") {
     setToast({ msg, type });
     setTimeout(() => setToast(null), 3500);
+  }
+
+  function parseGoogleFieldMapping(text: string) {
+    const lines = text
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    const mapping: Record<string, string> = {};
+    for (const line of lines) {
+      const [rawVariable, ...rest] = line.split("=");
+      const variable = (rawVariable || "").trim();
+      const sourceField = rest.join("=").trim();
+      if (!variable || !sourceField) continue;
+      mapping[variable] = sourceField;
+    }
+
+    return mapping;
+  }
+
+  function buildGoogleTriggerConfigPayload() {
+    return {
+      form_id: googleTriggerConfig.form_id.trim(),
+      mode: googleTriggerConfig.mode,
+      poll_interval_sec: Math.max(15, Number(googleTriggerConfig.poll_interval_sec) || 60),
+      field_mapping: parseGoogleFieldMapping(googleTriggerConfig.field_mapping_text),
+    };
+  }
+
+  async function loadGoogleOauthStatus() {
+    if (!isAuthed) return;
+    setGoogleOauthLoading(true);
+    try {
+      const status = await apiCall("/googleforms/oauth/status", { method: "GET" });
+      setGoogleOauthConnected(!!status.connected);
+    } catch {
+      setGoogleOauthConnected(false);
+    } finally {
+      setGoogleOauthLoading(false);
+    }
+  }
+
+  async function startGoogleOauth() {
+    if (!isAuthed) {
+      navigate("/login");
+      return;
+    }
+
+    setGoogleOauthLoading(true);
+    try {
+      const result = await apiCall("/googleforms/oauth/start", { method: "GET" });
+      if (!result?.url) throw new Error("OAuth URL not received");
+      window.open(result.url, "_blank", "noopener,noreferrer");
+      showToast("Google OAuth started in a new tab", "success");
+    } catch (error: any) {
+      showToast(error.message || "Unable to start Google OAuth", "error");
+    } finally {
+      setGoogleOauthLoading(false);
+    }
+  }
+
+  async function testGoogleTrigger() {
+    const payload = buildGoogleTriggerConfigPayload();
+    if (!payload.form_id) {
+      showToast("Form ID is required to test trigger", "error");
+      return;
+    }
+
+    setGoogleTriggerTesting(true);
+    setGoogleTriggerTestResult(null);
+    try {
+      const result = await apiCall("/triggers/googleforms/test", {
+        method: "POST",
+        body: JSON.stringify({
+          form_id: payload.form_id,
+          field_mapping: payload.field_mapping,
+        }),
+      });
+      setGoogleTriggerTestResult(result);
+      if (result?.has_response) {
+        const mappedCount = Object.keys(result?.response?.mapped || {}).length;
+        showToast(`Trigger test passed (${mappedCount} mapped variables)`, "success");
+      } else {
+        showToast("Trigger test ran: no responses found yet", "success");
+      }
+    } catch (error: any) {
+      showToast(error.message || "Trigger test failed", "error");
+    } finally {
+      setGoogleTriggerTesting(false);
+    }
   }
 
   const onConnect = useCallback(
@@ -1499,9 +1614,15 @@ function BuilderInner() {
   }
 
   function buildPayload() {
+    const triggerConfig: Record<string, any> = {};
+    if (selectedTrigger?.trigger_key === "googleforms.submission") {
+      triggerConfig.googleforms = buildGoogleTriggerConfigPayload();
+    }
+
     return {
       name: workflowName,
       trigger: selectedTrigger.trigger_key,
+      trigger_config: triggerConfig,
       actions: selectedActions.map((a) => ({
         type: a.action_key,
         message_template: messageTemplate,
@@ -2392,6 +2513,135 @@ function BuilderInner() {
                 Variables: {"{name}"} {"{amount}"} {"{payment_id}"} {"{phone}"}
               </div>
             </div>
+
+            {/* Google Forms Trigger Config */}
+            {selectedTrigger?.trigger_key === "googleforms.submission" && (
+              <ConfigSection title="Google Forms Trigger" color="#16a34a" bg="#f0fdf4" border="#86efac">
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 10,
+                    gap: 8,
+                  }}
+                >
+                  <span style={{ fontSize: 12, color: "#166534", fontWeight: 600 }}>
+                    OAuth: {googleOauthConnected ? "Connected" : "Not connected"}
+                  </span>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <button
+                      onClick={startGoogleOauth}
+                      disabled={googleOauthLoading}
+                      style={{
+                        border: "1px solid #86efac",
+                        background: "#ffffff",
+                        borderRadius: 8,
+                        padding: "6px 10px",
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: "#166534",
+                        cursor: googleOauthLoading ? "not-allowed" : "pointer",
+                      }}
+                    >
+                      Connect
+                    </button>
+                    <button
+                      onClick={loadGoogleOauthStatus}
+                      disabled={googleOauthLoading}
+                      style={{
+                        border: "1px solid #86efac",
+                        background: "#ffffff",
+                        borderRadius: 8,
+                        padding: "6px 10px",
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: "#166534",
+                        cursor: googleOauthLoading ? "not-allowed" : "pointer",
+                      }}
+                    >
+                      Refresh
+                    </button>
+                  </div>
+                </div>
+
+                <ConfigField
+                  label="Google Form ID *"
+                  value={googleTriggerConfig.form_id}
+                  onChange={(value) =>
+                    setGoogleTriggerConfig((prev) => ({ ...prev, form_id: value }))
+                  }
+                  placeholder="1abcDEFghIJkLmnOPqR..."
+                />
+
+                <div style={{ marginBottom: 10 }}>
+                  <label style={labelStyle}>Trigger Mode</label>
+                  <select
+                    value={googleTriggerConfig.mode}
+                    onChange={(event) =>
+                      setGoogleTriggerConfig((prev) => ({
+                        ...prev,
+                        mode: event.target.value as "polling" | "webhook",
+                      }))
+                    }
+                    style={inputStyle}
+                  >
+                    <option value="polling">Polling</option>
+                    <option value="webhook">Webhook</option>
+                  </select>
+                </div>
+
+                {googleTriggerConfig.mode === "polling" && (
+                  <ConfigField
+                    label="Polling Interval (seconds)"
+                    value={String(googleTriggerConfig.poll_interval_sec)}
+                    onChange={(value) =>
+                      setGoogleTriggerConfig((prev) => ({
+                        ...prev,
+                        poll_interval_sec: parseInt(value, 10) || 60,
+                      }))
+                    }
+                    type="number"
+                  />
+                )}
+
+                <div style={{ marginBottom: 8 }}>
+                  <label style={labelStyle}>Field Mapping (variable=question title)</label>
+                  <textarea
+                    value={googleTriggerConfig.field_mapping_text}
+                    onChange={(event) =>
+                      setGoogleTriggerConfig((prev) => ({
+                        ...prev,
+                        field_mapping_text: event.target.value,
+                      }))
+                    }
+                    rows={4}
+                    style={{
+                      ...inputStyle,
+                      resize: "vertical",
+                      fontFamily: "monospace",
+                      fontSize: 11,
+                    }}
+                  />
+                </div>
+
+                <ActionButton
+                  loading={googleTriggerTesting}
+                  onClick={testGoogleTrigger}
+                  icon={<PlayCircle size={13} />}
+                  label="Test Trigger"
+                  color="#16a34a"
+                />
+
+                {googleTriggerTestResult && (
+                  <ResultDisplay
+                    results={googleTriggerTestResult}
+                    successColor="#dcfce7"
+                    successText="#15803d"
+                  />
+                )}
+              </ConfigSection>
+            )}
 
             {/* Zoho Config */}
             {hasZohoAction && (
