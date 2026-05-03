@@ -80,8 +80,13 @@ const containerVariants = {
 }
 
 const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.5, ease: 'easeOut' },
+    },
 }
 
 export default function Features() {
@@ -91,6 +96,8 @@ export default function Features() {
     return (
         <section className="features section" id="features">
             <div className="container">
+
+                {/* Header */}
                 <motion.div
                     className="features__header"
                     initial={{ opacity: 0, y: 30 }}
@@ -102,15 +109,18 @@ export default function Features() {
                         <Zap size={14} />
                         Features
                     </div>
+
                     <h2 className="section-title">
                         Everything needed for <span className="gradient-text">Indian Automation</span>
                     </h2>
+
                     <p className="section-subtitle">
-                        Connect your favorite Indian apps and services to create powerful, 
+                        Connect your favorite Indian apps and services to create powerful,
                         automated business systems in minutes.
                     </p>
                 </motion.div>
 
+                {/* Grid */}
                 <motion.div
                     className="features__grid"
                     ref={ref}
@@ -120,23 +130,45 @@ export default function Features() {
                 >
                     {features.map((feature, i) => {
                         const Icon = feature.icon
+
                         return (
                             <motion.div
                                 key={i}
                                 className="features__card glass-card"
                                 variants={itemVariants}
                                 id={`feature-card-${i}`}
+                                whileHover={{
+                                    y: -10,
+                                    scale: 1.04,
+                                }}
+                                transition={{ type: 'spring', stiffness: 200, damping: 15 }}
                             >
-                                <div className={`features__card-icon features__card-icon--${feature.color}`}>
+                                {/* Icon */}
+                                <motion.div
+                                    className={`features__card-icon features__card-icon--${feature.color}`}
+                                    whileHover={{ rotate: 8, scale: 1.1 }}
+                                    transition={{ type: 'spring', stiffness: 250 }}
+                                >
                                     <Icon size={22} />
-                                </div>
-                                <h3 className="features__card-title">{feature.title}</h3>
-                                <p className="features__card-desc">{feature.description}</p>
+                                </motion.div>
+
+                                {/* Title */}
+                                <h3 className="features__card-title">
+                                    {feature.title}
+                                </h3>
+
+                                {/* Description */}
+                                <p className="features__card-desc">
+                                    {feature.description}
+                                </p>
+
+                                {/* Glow Effect */}
                                 <div className={`features__card-glow features__card-glow--${feature.color}`} />
                             </motion.div>
                         )
                     })}
                 </motion.div>
+
             </div>
         </section>
     )
