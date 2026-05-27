@@ -1,15 +1,15 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { 
-    User, CreditCard, Shield, Wallet, LogOut, Zap, TrendingUp, Clock, 
-    Plus, Trash2, RefreshCw, Database, FileText, Search, Send, 
-    MessageSquare, AlertCircle, CheckCircle, ExternalLink, BarChart2, 
-    IndianRupee, Repeat, PauseCircle, PlayCircle, XCircle, Bot, Layout 
+import {
+    User, CreditCard, Shield, Wallet, LogOut, Zap, TrendingUp, Clock,
+    Plus, Trash2, RefreshCw, Database, FileText, Search, Send,
+    MessageSquare, AlertCircle, CheckCircle, ExternalLink, BarChart2,
+    IndianRupee, Repeat, PauseCircle, PlayCircle, XCircle, Bot, Layout
 } from 'lucide-react'
 
 import Navbar from '../components/common/Navbar'
 import Footer from '../components/common/Footer'
-import EmptyState from '../EmptyState' 
+import EmptyState from '../EmptyState'
 import { apiCall, logout, getToken } from '../api/client'
 import { getPayments } from '../api/airtable'
 import {
@@ -62,20 +62,6 @@ interface GeneratedInvoice {
     whatsapp_status?: 'sent' | 'failed' | 'skipped'
     email_status?: 'sent' | 'failed' | 'skipped'
     created_at: string
-}
-
-// ── Status color helpers ───────────────────────────────────────────────────────
-const subStatusColor = (status: string) => {
-    switch (status) {
-        case 'active':        return { bg: '#dcfce7', text: '#16a34a' }
-        case 'paused':        return { bg: '#fef3c7', text: '#d97706' }
-        case 'halted':        return { bg: '#fee2e2', text: '#dc2626' }
-        case 'cancelled':     return { bg: '#f3f4f6', text: '#6b7280' }
-        case 'completed':     return { bg: '#eff6ff', text: '#2563eb' }
-        case 'authenticated': return { bg: '#f5f3ff', text: '#7c3aed' }
-        case 'created':       return { bg: '#fef9c3', text: '#ca8a04' }
-        default:              return { bg: '#f3f4f6', text: '#6b7280' }
-    }
 }
 
 export default function ProfilePage() {
@@ -312,9 +298,9 @@ export default function ProfilePage() {
     }
 
     const handleDisconnect = async (appName: string) => {
-        try { 
+        try {
             await apiCall(`/apps/${appName}`, { method: 'DELETE' })
-            setApps(apps.filter(a => a.app_name !== appName)) 
+            setApps(apps.filter(a => a.app_name !== appName))
         } catch {}
     }
 
@@ -367,8 +353,8 @@ export default function ProfilePage() {
     ]
 
     if (loading) return (
-        <div className="profile-page flex items-center justify-center min-h-screen">
-            <div className="animate-pulse text-zinc-400 font-light">Loading profile details...</div>
+        <div className="profile-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+            <div style={{ color: 'var(--text-muted)', fontWeight: 300 }}>Loading profile details...</div>
         </div>
     )
 
@@ -391,11 +377,11 @@ export default function ProfilePage() {
                             <button key={id} className={`profile-nav-btn ${activeTab === id ? 'active' : ''}`} onClick={() => setActiveTab(id)}>
                                 <Icon className="profile-nav-icon" />
                                 {label}
-                                {badge && <span className="nav-badge" style={{ background: badge.color, color: '#fff', fontSize: 9, padding: '2px 5px', borderRadius: 4, marginLeft: 'auto' }}>{badge.text}</span>}
+                                {badge && <span className="nav-badge" style={{ background: badge.color }}>{badge.text}</span>}
                             </button>
                         ))}
-                        <div style={{ height: 1, background: '#f3f4f6', margin: '8px 0' }} />
-                        <button className="profile-nav-btn text-red-500" onClick={() => { logout(); window.location.href = '/login' }}>
+                        <div className="profile-nav-separator" />
+                        <button className="profile-nav-btn logout-btn" onClick={() => { logout(); window.location.href = '/login' }}>
                             <LogOut className="profile-nav-icon" /> Log Out
                         </button>
                     </nav>
@@ -407,32 +393,37 @@ export default function ProfilePage() {
                     {activeTab === 'overview' && (
                         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
                             <h1 className="profile-section-title">Overview</h1>
-                            <div className="profile-stats grid grid-cols-2 gap-4 mb-6">
-                                <div className="stat-card p-6 bg-white border border-zinc-100 rounded-2xl">
-                                    <span className="text-zinc-400 text-sm">Total Workflows</span>
-                                    <div className="text-2xl font-semibold mt-1">{dashboard?.total_workflows || 0}</div>
+                            <div className="profile-stats">
+                                <div className="stat-card">
+                                    <span className="stat-label">Total Workflows</span>
+                                    <div className="stat-value">{dashboard?.total_workflows || 0}</div>
                                 </div>
-                                <div className="stat-card p-6 bg-white border border-zinc-100 rounded-2xl">
-                                    <span className="text-zinc-400 text-sm">Total Executions</span>
-                                    <div className="text-2xl font-semibold mt-1">{dashboard?.total_executions || 0}</div>
+                                <div className="stat-card">
+                                    <span className="stat-label">Total Executions</span>
+                                    <div className="stat-value">{dashboard?.total_executions || 0}</div>
                                 </div>
                             </div>
-                            <div className="profile-card p-8 bg-white border border-zinc-100 rounded-3xl">
-                                <h3 className="text-lg font-medium mb-6">Account Details</h3>
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div className="flex flex-col">
-                                        <span className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Name</span>
-                                        <input className="text-sm font-medium bg-zinc-50 p-2 rounded-lg border-none" value={name} onChange={e => setName(e.target.value)} disabled={!isEditing} />
+                            <div className="profile-card profile-account-card">
+                                <h3 className="profile-account-title">Account Details</h3>
+                                <div className="profile-form-grid">
+                                    <div className="form-group">
+                                        <span className="profile-field-label">Name</span>
+                                        <input
+                                            className="profile-field-input"
+                                            value={name}
+                                            onChange={e => setName(e.target.value)}
+                                            disabled={!isEditing}
+                                        />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Email</span>
-                                        <div className="text-sm font-medium p-2">{user?.email}</div>
+                                    <div className="form-group">
+                                        <span className="profile-field-label">Email</span>
+                                        <div className="profile-field-value">{user?.email}</div>
                                     </div>
                                 </div>
-                                <button className="mt-8 px-6 py-2 bg-black text-white rounded-full text-xs" onClick={() => isEditing ? handleSave() : setIsEditing(true)}>
+                                <button className="profile-action-btn" onClick={() => isEditing ? handleSave() : setIsEditing(true)}>
                                     {isEditing ? 'Save Changes' : 'Edit Profile'}
                                 </button>
-                                {saveMsg && <p className="text-green-500 text-xs mt-2">{saveMsg}</p>}
+                                {saveMsg && <p className="profile-save-msg">{saveMsg}</p>}
                             </div>
                         </motion.div>
                     )}
@@ -440,27 +431,30 @@ export default function ProfilePage() {
                     {/* ── WORKFLOWS ── */}
                     {activeTab === 'workflows' && (
                         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                            <div className="flex justify-between items-center mb-6">
-                                <h1 className="profile-section-title m-0">My Workflows</h1>
-                                <button className="px-4 py-2 bg-black text-white rounded-full text-xs flex items-center gap-2" onClick={() => window.location.href = '/builder'}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                                <h1 className="profile-section-title" style={{ marginBottom: 0 }}>My Workflows</h1>
+                                <button className="profile-new-btn" onClick={() => window.location.href = '/builder'}>
                                     <Plus size={14} /> New Workflow
                                 </button>
                             </div>
                             {workflows.length === 0 ? (
-                                <EmptyState 
-                                    title="Your canvas is empty" 
-                                    desc="Start by creating a simple automation to connect your tools." 
-                                    onAction={() => window.location.href = '/builder'} 
+                                <EmptyState
+                                    title="Your canvas is empty"
+                                    desc="Start by creating a simple automation to connect your tools."
+                                    onAction={() => window.location.href = '/builder'}
                                 />
                             ) : (
-                                <div className="grid gap-4">
+                                <div style={{ display: 'grid', gap: 12 }}>
                                     {workflows.map(wf => (
-                                        <div key={wf.id} className="p-4 border border-zinc-100 rounded-2xl flex justify-between items-center bg-white">
+                                        <div key={wf.id} className="profile-row">
                                             <div>
-                                                <div className="font-medium text-sm">{wf.name}</div>
-                                                <div className="text-xs text-zinc-400 mt-1">Runs: {wf.run_count}</div>
+                                                <div className="profile-row-name">{wf.name}</div>
+                                                <div className="profile-row-meta">Runs: {wf.run_count}</div>
                                             </div>
-                                            <button onClick={() => handleToggleWorkflow(wf.id)} className={`px-4 py-1 rounded-full text-xs ${wf.status === 'active' ? 'bg-green-50 text-green-600' : 'bg-zinc-50 text-zinc-400'}`}>
+                                            <button
+                                                onClick={() => handleToggleWorkflow(wf.id)}
+                                                className={`status-pill ${wf.status === 'active' ? 'status-pill-active' : 'status-pill-paused'}`}
+                                            >
                                                 {wf.status === 'active' ? 'Active' : 'Paused'}
                                             </button>
                                         </div>
@@ -474,7 +468,7 @@ export default function ProfilePage() {
                     {activeTab === 'history' && (
                         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
                             <h1 className="profile-section-title">Execution History</h1>
-                            <EmptyState 
+                            <EmptyState
                                 title="Quiet for now"
                                 desc="Your execution logs will appear here once your workflows start running."
                             />
@@ -484,21 +478,21 @@ export default function ProfilePage() {
                     {/* ── APPS ── */}
                     {activeTab === 'apps' && (
                         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                            <div className="flex justify-between items-center mb-6">
-                                <h1 className="profile-section-title m-0">Connected Apps</h1>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                                <h1 className="profile-section-title" style={{ marginBottom: 0 }}>Connected Apps</h1>
                             </div>
                             {apps.length === 0 ? (
-                                <EmptyState 
-                                    title="No apps connected yet" 
-                                    desc="Connect your first tool like Razorpay or Telegram to build automated flows." 
-                                    onAction={() => window.location.href = '/builder'} 
+                                <EmptyState
+                                    title="No apps connected yet"
+                                    desc="Connect your first tool like Razorpay or Telegram to build automated flows."
+                                    onAction={() => window.location.href = '/builder'}
                                 />
                             ) : (
-                                <div className="grid gap-4">
+                                <div style={{ display: 'grid', gap: 12 }}>
                                     {apps.map(app => (
-                                        <div key={app.id} className="p-4 border border-zinc-100 rounded-2xl flex justify-between items-center bg-white">
-                                            <div className="font-medium text-sm">{app.app_name}</div>
-                                            <button onClick={() => handleDisconnect(app.app_name)} className="text-zinc-400 hover:text-red-500">
+                                        <div key={app.id} className="profile-row">
+                                            <div className="profile-row-name">{app.app_name}</div>
+                                            <button onClick={() => handleDisconnect(app.app_name)} className="action-btn">
                                                 <Trash2 size={16} />
                                             </button>
                                         </div>
@@ -515,7 +509,7 @@ export default function ProfilePage() {
                             {payments.length === 0 ? (
                                 <EmptyState title="No payments found" desc="Your processing history from Airtable will appear here." />
                             ) : (
-                                <div className="bg-white border border-zinc-100 rounded-2xl overflow-hidden">
+                                <div className="profile-data-card">
                                     <SkeletonRow count={3} columns={4} />
                                 </div>
                             )}
@@ -527,9 +521,9 @@ export default function ProfilePage() {
                         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
                             <h1 className="profile-section-title">Razorpay MCP</h1>
                             {rzpToday ? (
-                                <div className="bg-white p-6 border border-zinc-100 rounded-2xl">
-                                    <div className="text-zinc-400 text-xs uppercase mb-2">Today's Revenue</div>
-                                    <div className="text-xl font-bold">{rzpToday.total_amount}</div>
+                                <div className="profile-data-card">
+                                    <div className="profile-data-card-label">Today's Revenue</div>
+                                    <div className="profile-data-card-value">{rzpToday.total_amount}</div>
                                 </div>
                             ) : (
                                 <EmptyState title="No transactions today" desc="Sync your Razorpay account to see real-time revenue stats." />
@@ -544,9 +538,9 @@ export default function ProfilePage() {
                             {!subSummary ? (
                                 <EmptyState title="No active plans" desc="Manage your recurring customer billing through the Razorpay MCP." />
                             ) : (
-                                <div className="stat-card bg-white p-6 rounded-2xl border border-zinc-100">
-                                    <div className="text-sm text-zinc-500">Active Subscriptions</div>
-                                    <div className="text-2xl font-bold">{subSummary.active}</div>
+                                <div className="stat-card">
+                                    <span className="stat-label">Active Subscriptions</span>
+                                    <div className="stat-value">{subSummary.active}</div>
                                 </div>
                             )}
                         </motion.div>
@@ -556,10 +550,10 @@ export default function ProfilePage() {
                     {activeTab === 'telegram' && (
                         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
                             <h1 className="profile-section-title">Telegram Bot</h1>
-                            <div className="bg-zinc-50 p-8 rounded-3xl border border-zinc-100 text-center">
-                                <Bot size={32} className="mx-auto mb-4 text-zinc-300" />
-                                <h3 className="font-medium">Bot Integration Active</h3>
-                                <p className="text-zinc-500 text-sm mt-2">Use the builder to trigger Telegram alerts for your workflows.</p>
+                            <div className="profile-panel">
+                                <Bot size={32} className="profile-panel-icon" />
+                                <h3 className="profile-panel-title">Bot Integration Active</h3>
+                                <p className="profile-panel-text">Use the builder to trigger Telegram alerts for your workflows.</p>
                             </div>
                         </motion.div>
                     )}
@@ -571,8 +565,12 @@ export default function ProfilePage() {
                             {tfForms.length === 0 ? (
                                 <EmptyState title="No forms found" desc="Connect Typeform to start processing survey responses automatically." />
                             ) : (
-                                <div className="grid gap-2">
-                                    {tfForms.map(f => <div key={f.id} className="p-3 bg-white rounded-xl border border-zinc-100 text-sm">{f.title}</div>)}
+                                <div style={{ display: 'grid', gap: 8 }}>
+                                    {tfForms.map(f => (
+                                        <div key={f.id} className="profile-row">
+                                            <span className="profile-row-name">{f.title}</span>
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </motion.div>
@@ -582,9 +580,9 @@ export default function ProfilePage() {
                     {activeTab === 'tally' && (
                         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
                             <h1 className="profile-section-title">TallyPrime</h1>
-                            <div className="bg-zinc-50 p-8 rounded-3xl border border-zinc-100 text-center">
-                                <Database size={32} className="mx-auto mb-4 text-zinc-300" />
-                                <p className="text-zinc-500 text-sm">Tally ERP integration is live. Syncing ledger data...</p>
+                            <div className="profile-panel">
+                                <Database size={32} className="profile-panel-icon" />
+                                <p className="profile-panel-text">Tally ERP integration is live. Syncing ledger data...</p>
                             </div>
                         </motion.div>
                     )}
@@ -593,8 +591,8 @@ export default function ProfilePage() {
                     {activeTab === 'zoho' && (
                         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
                             <h1 className="profile-section-title">Zoho CRM</h1>
-                            <div className="p-6 bg-white rounded-2xl border border-zinc-100">
-                                <pre className="text-xs text-zinc-500 font-mono overflow-auto">{JSON.stringify(zohoLeads, null, 2)}</pre>
+                            <div className="profile-data-card">
+                                <pre className="profile-pre">{JSON.stringify(zohoLeads, null, 2)}</pre>
                             </div>
                         </motion.div>
                     )}

@@ -1,0 +1,272 @@
+/* ============================
+   Run History Page Styles
+   ============================ */
+
+.runhistory-page {
+    background: var(--bg-primary);
+    min-height: 100vh;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.runhistory-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ── Header ─────────────────────── */
+.runhistory-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+}
+
+.runhistory-header p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 14px;
+}
+
+/* ── Cards ──────────────────────── */
+.runhistory-card {
+    background: var(--bg-card);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border-default);
+    box-shadow: var(--shadow-sm);
+}
+
+.runhistory-card h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 20px;
+}
+
+/* ── Table ──────────────────────── */
+.runhistory-table-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-default);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.runhistory-table-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-default);
+}
+
+.runhistory-table-header h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.runhistory-table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.runhistory-table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.runhistory-table thead tr {
+    background: var(--bg-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.runhistory-table thead th {
+    padding: 12px 24px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-default);
+    white-space: nowrap;
+}
+
+.runhistory-table tbody {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.runhistory-table tbody tr {
+    border-bottom: 1px solid var(--border-default);
+    transition: background 0.15s ease;
+}
+
+.runhistory-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.runhistory-table tbody tr:hover {
+    background: var(--bg-hover);
+}
+
+.runhistory-table td {
+    padding: 16px 24px;
+    vertical-align: middle;
+}
+
+.runhistory-ts {
+    white-space: nowrap;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.runhistory-workflow {
+    font-weight: 500;
+}
+
+/* ── Status Badge ────────────────── */
+.runhistory-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.runhistory-badge.success {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+}
+
+.runhistory-badge.failed {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+[data-theme='dark'] .runhistory-badge.success {
+    background: rgba(16, 185, 129, 0.18);
+    color: #34d399;
+}
+
+[data-theme='dark'] .runhistory-badge.failed {
+    background: rgba(239, 68, 68, 0.18);
+    color: #f87171;
+}
+
+/* ── Payload cell ────────────────── */
+.runhistory-payload {
+    max-width: 280px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+}
+
+.runhistory-payload.error {
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+}
+
+[data-theme='dark'] .runhistory-payload.error {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+}
+
+/* ── Retry Button ────────────────── */
+.runhistory-retry {
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid var(--border-default);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.runhistory-retry:hover:not(:disabled) {
+    border-color: var(--primary-400);
+    color: var(--primary-500);
+    background: var(--bg-hover);
+}
+
+.runhistory-retry:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ── Empty / Loading ─────────────── */
+.runhistory-empty {
+    padding: 32px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.runhistory-chart-empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.runhistory-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+/* ─────────────────────────────────
+   RESPONSIVE
+───────────────────────────────── */
+
+@media (max-width: 768px) {
+    .runhistory-page {
+        padding: 24px 16px;
+    }
+
+    .runhistory-card {
+        padding: 16px;
+    }
+
+    .runhistory-table-header {
+        padding: 14px 16px;
+    }
+
+    .runhistory-table thead th,
+    .runhistory-table td {
+        padding: 12px 16px;
+    }
+
+    .runhistory-payload {
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .runhistory-page {
+        padding: 20px 12px;
+    }
+
+    .runhistory-header h1 {
+        font-size: 20px;
+    }
+
+    .runhistory-inner {
+        gap: 16px;
+    }
+}

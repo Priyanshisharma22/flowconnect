@@ -1,6 +1,5 @@
 import React from 'react';
 
-// This interface fixes the "Implicit Any" errors in TypeScript
 interface EmptyStateProps {
   title?: string;
   desc?: string;
@@ -9,41 +8,53 @@ interface EmptyStateProps {
 
 const EmptyState: React.FC<EmptyStateProps> = ({ title, desc, onAction }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-6 transition-all duration-1000">
-      
-      {/* Aesthetic Icon Circle */}
-      <div className="w-20 h-20 mb-6 flex items-center justify-center rounded-full bg-zinc-50 border border-zinc-100 text-zinc-400">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          width="32" 
-          height="32" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="1" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        >
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 360, textAlign: 'center', padding: 24, transition: 'all 0.3s ease' }}>
+
+      <div style={{
+        width: 80, height: 80, marginBottom: 24,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        borderRadius: '50%',
+        background: 'var(--bg-secondary)',
+        border: '1px solid var(--border-default)',
+        color: 'var(--text-muted)',
+      }}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
           <rect width="18" height="18" x="3" y="3" rx="2" />
           <path d="M3 9h18" />
           <path d="M9 21V9" />
         </svg>
       </div>
-      
-      <h3 className="text-xl font-light tracking-tight text-zinc-800 mb-2">
-        {title || "No data available"}
+
+      <h3 style={{ fontSize: 20, fontWeight: 300, letterSpacing: '-0.02em', color: 'var(--text-primary)', marginBottom: 8, margin: '0 0 8px' }}>
+        {title || 'No data available'}
       </h3>
-      
-      <p className="text-zinc-500 text-sm max-w-[250px] leading-relaxed font-light">
-        {desc || "There is nothing to show here at the moment."}
+
+      <p style={{ color: 'var(--text-secondary)', fontSize: 14, maxWidth: 250, lineHeight: 1.6, fontWeight: 300, margin: 0 }}>
+        {desc || 'There is nothing to show here at the moment.'}
       </p>
-      
-      <button 
-        onClick={onAction}
-        className="mt-8 px-6 py-2 bg-black text-white rounded-full text-sm hover:opacity-80 transition-all shadow-sm active:scale-95"
-      >
-        Get Started
-      </button>
+
+      {onAction && (
+        <button
+          onClick={onAction}
+          style={{
+            marginTop: 32,
+            padding: '8px 24px',
+            background: 'var(--gradient-primary)',
+            color: 'white',
+            borderRadius: 9999,
+            fontSize: 14,
+            fontWeight: 500,
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)'; }}
+          onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '1'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)'; }}
+        >
+          Get Started
+        </button>
+      )}
     </div>
   );
 };
