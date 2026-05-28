@@ -127,6 +127,8 @@
     width: 100%;
     background: transparent;
     cursor: pointer;
+    min-height: 48px;
+    justify-content: flex-start;
 }
 
 .profile-nav-btn:hover {
@@ -514,6 +516,8 @@
     border: 1px solid var(--border-default);
     border-radius: 12px;
     margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .app-info {
@@ -578,6 +582,7 @@
     box-shadow: var(--shadow-sm);
 }
 
+<<<<<<< HEAD
 /* ── Save message ────────────────────────── */
 .profile-save-msg {
     font-size: 12px;
@@ -677,6 +682,7 @@
     .profile-card {
         padding: 16px;
         border-radius: 14px;
+        overflow: hidden;
     }
 
     .profile-account-card {

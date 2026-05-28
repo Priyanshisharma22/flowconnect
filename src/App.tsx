@@ -35,7 +35,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 // If you are already logged in, you shouldn't see log in screens, so it sends you to /builder
 const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuth = !!localStorage.getItem('access_token')
-  return isAuth ? <Navigate to="/builder" replace /> : children
+  return isAuth ? <Navigate to="/dashboard" replace /> : children
 }
 
 // --- App Content (inside Router) ---

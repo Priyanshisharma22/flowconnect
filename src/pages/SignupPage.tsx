@@ -49,7 +49,7 @@ export default function SignupPage() {
         try {
             const data = await registerUser(fullName, email, password)
             saveAuth(data.access_token, data.user)
-            navigate('/builder')
+            navigate('/dashboard')
         } catch (err: any) {
             setError(err.message)
         } finally {

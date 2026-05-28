@@ -31,7 +31,7 @@ export default function LoginPage() {
             const data = await loginUser(email, password)
             saveAuth(data.access_token, data.user)
             toast.success("Successfully logged in!") // Add success toast
-            navigate('/builder')
+            navigate('/dashboard')
         } catch (err: any) {
             setError(err.message) // Optional: keep this if you still want the red box
             toast.error(err.message || "Failed to log in") // Add error toast
