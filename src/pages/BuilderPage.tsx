@@ -1151,7 +1151,7 @@ const SidebarItem = ({
           style={{
             fontSize: 12,
             fontWeight: 600,
-            color: "#1f2937",
+            color: "var(--text-primary)",
             lineHeight: 1.3,
           }}
         >
@@ -1160,7 +1160,7 @@ const SidebarItem = ({
         <div
           style={{
             fontSize: 11,
-            color: "#9ca3af",
+            color: "var(--text-muted)",
             lineHeight: 1.3,
             whiteSpace: "nowrap",
             overflow: "hidden",
@@ -1979,10 +1979,10 @@ function BuilderInner() {
     width: "100%",
     padding: "8px 10px",
     borderRadius: 8,
-    border: "1px solid #e5e7eb",
+    border: "1px  solid var(--border-default)",
     fontSize: 12,
-    color: "#374151",
-    background: "#fff",
+    color: "var(--text-secondary)",
+    background: "var(--bg-card)",
     boxSizing: "border-box",
     outline: "none",
     transition: "border-color 0.15s",
@@ -1991,7 +1991,7 @@ function BuilderInner() {
   const labelStyle: React.CSSProperties = {
     fontSize: 11,
     fontWeight: 600,
-    color: "#374151",
+    color: "var(--text-secondary)",
     marginBottom: 4,
     display: "block",
   };
@@ -2112,7 +2112,7 @@ function BuilderInner() {
         <aside
           style={{
             width: 280,
-            background: "#fff",
+            background: "var(--bg-card)",
             borderRight: "1px solid #e5e7eb",
             display: "flex",
             flexDirection: "column",
@@ -2149,7 +2149,7 @@ function BuilderInner() {
           {/* Search */}
           <div style={{ padding: "10px 12px 8px" }}>
             <div style={{ position: "relative" }}>
-              <Search size={13} style={{ position: "absolute", left: 9, top: "50%", transform: "translateY(-50%)", color: "#9ca3af" }} />
+              <Search size={13} style={{ position: "absolute", left: 9, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -2158,10 +2158,10 @@ function BuilderInner() {
                   width: "100%",
                   padding: "7px 10px 7px 28px",
                   borderRadius: 8,
-                  border: "1.5px solid #e5e7eb",
+                  border: "1.5px  solid var(--border-default)",
                   fontSize: 12,
-                  color: "#374151",
-                  background: "#f9fafb",
+                  color: "var(--text-secondary)",
+                  background: "var(--bg-hover)",
                   outline: "none",
                   boxSizing: "border-box",
                   transition: "border-color 0.15s",
@@ -2188,7 +2188,7 @@ function BuilderInner() {
                     border: "none",
                     background: "transparent",
                     cursor: "pointer",
-                    color: "#6b7280",
+                    color: "var(--text-muted)",
                     fontSize: 11,
                     fontWeight: 700,
                     textTransform: "uppercase",
@@ -2200,12 +2200,12 @@ function BuilderInner() {
                   <span
                     style={{
                       marginLeft: "auto",
-                      background: "#f3f4f6",
+                      background: "var(--bg-secondary)",
                       borderRadius: 5,
                       padding: "1px 6px",
                       fontSize: 10,
                       fontWeight: 600,
-                      color: "#9ca3af",
+                      color: "var(--text-muted)",
                     }}
                   >
                     {items.length}
@@ -2242,7 +2242,7 @@ function BuilderInner() {
               </div>
             ))}
             {Object.keys(currentGroups).length === 0 && (
-              <div style={{ textAlign: "center", padding: "40px 20px", color: "#9ca3af", fontSize: 13 }}>
+              <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--text-muted)", fontSize: 13 }}>
                 <Search size={24} style={{ margin: "0 auto 8px", opacity: 0.4 }} />
                 <div>No {selectedTab} found</div>
               </div>
@@ -2255,9 +2255,9 @@ function BuilderInner() {
               padding: "10px 12px",
               borderTop: "1px solid #f3f4f6",
               fontSize: 11,
-              color: "#9ca3af",
+              color: "var(--text-muted)",
               textAlign: "center",
-              background: "#fafafa",
+              background: "var(--bg-hover)",
             }}
           >
             💡 Drag to canvas or click to add
@@ -2287,12 +2287,12 @@ function BuilderInner() {
             }}
             fitViewOptions={{ padding: 0.3 }}
             proOptions={{ hideAttribution: true }}
-            style={{ background: "#f8fafc" }}
+            style={{ background: "var(--bg-secondary)" }}
           >
-            <Background variant={BackgroundVariant.Dots} gap={16} size={1} color="#e2e8f0" />
+            <Background variant={BackgroundVariant.Dots} gap={16} size={1} color="var(--border-default)" />
             {showMinimap && (
               <MiniMap
-                style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12 }}
+                style={{ background: "var(--bg-card)", border: "1px  solid var(--border-default)", borderRadius: 12 }}
                 nodeColor={(node) => {
                   const color = node.data?.color as ColorKey;
                   return color ? COLORS[color]?.bg : "#6366f1";
@@ -2301,7 +2301,7 @@ function BuilderInner() {
               />
             )}
             <Controls
-              style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
+              style={{ background: "var(--bg-card)", border: "1px  solid var(--border-default)", borderRadius: 12, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
               showInteractive={false}
             />
 
@@ -2360,7 +2360,7 @@ function BuilderInner() {
               <Panel position="top-center">
                 <div
                   style={{
-                    background: "#fff",
+                    background: "var(--bg-card)",
                     border: "2px dashed #e5e7eb",
                     borderRadius: 16,
                     padding: "32px 48px",
@@ -2368,11 +2368,11 @@ function BuilderInner() {
                     marginTop: 80,
                   }}
                 >
-                  <Layers size={32} color="#9ca3af" style={{ margin: "0 auto 12px" }} />
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "#374151", marginBottom: 6 }}>
+                  <Layers size={32} color="var(--text-muted)" style={{ margin: "0 auto 12px" }} />
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-secondary)", marginBottom: 6 }}>
                     Start Building
                   </div>
-                  <div style={{ fontSize: 13, color: "#9ca3af" }}>
+                  <div style={{ fontSize: 13, color: "var(--text-muted)" }}>
                     Drag a trigger from the sidebar to get started
                   </div>
                 </div>
@@ -2385,7 +2385,7 @@ function BuilderInner() {
         <aside
           style={{
             width: 300,
-            background: "#fff",
+            background: "var(--bg-card)",
             borderLeft: "1px solid #e5e7eb",
             display: "flex",
             flexDirection: "column",
@@ -2416,7 +2416,7 @@ function BuilderInner() {
             >
               <Zap size={12} color="#fff" />
             </div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: "#111827" }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>
               Configuration
             </span>
           </div>
@@ -2439,7 +2439,7 @@ function BuilderInner() {
             <div
               style={{
                 padding: "12px",
-                background: "#f9fafb",
+                background: "var(--bg-hover)",
                 borderRadius: 10,
                 marginBottom: 14,
                 border: "1px solid #f3f4f6",
@@ -2449,7 +2449,7 @@ function BuilderInner() {
                 style={{
                   fontSize: 11,
                   fontWeight: 700,
-                  color: "#6b7280",
+                  color: "var(--text-muted)",
                   textTransform: "uppercase",
                   letterSpacing: "0.07em",
                   marginBottom: 8,
@@ -2466,11 +2466,11 @@ function BuilderInner() {
                     background: selectedTrigger ? "#10b981" : "#d1d5db",
                   }}
                 />
-                <span style={{ fontSize: 12, color: "#374151", fontWeight: 500 }}>
+                <span style={{ fontSize: 12, color: "var(--text-secondary)", fontWeight: 500 }}>
                   Trigger: <strong>{selectedTrigger?.label || "None"}</strong>
                 </span>
               </div>
-              <div style={{ fontSize: 12, color: "#6b7280" }}>
+              <div style={{ fontSize: 12, color: "var(--text-muted)" }}>
                 {selectedActions.length === 0
                   ? "No actions added"
                   : `${selectedActions.length} action${selectedActions.length > 1 ? "s" : ""}: ${selectedActions.map((a) => a.label).join(", ")}`}
@@ -2508,7 +2508,7 @@ function BuilderInner() {
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#6366f1")}
                 onBlur={(e) => (e.currentTarget.style.borderColor = "#e5e7eb")}
               />
-              <div style={{ fontSize: 10, color: "#9ca3af", marginTop: 4 }}>
+              <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 4 }}>
                 Variables: {"{name}"} {"{amount}"} {"{payment_id}"} {"{phone}"}
               </div>
             </div>
@@ -2534,7 +2534,7 @@ function BuilderInner() {
                       disabled={googleOauthLoading}
                       style={{
                         border: "1px solid #86efac",
-                        background: "#ffffff",
+                        background: "var(--bg-card)",
                         borderRadius: 8,
                         padding: "6px 10px",
                         fontSize: 11,
@@ -2550,7 +2550,7 @@ function BuilderInner() {
                       disabled={googleOauthLoading}
                       style={{
                         border: "1px solid #86efac",
-                        background: "#ffffff",
+                        background: "var(--bg-card)",
                         borderRadius: 8,
                         padding: "6px 10px",
                         fontSize: 11,
@@ -2823,10 +2823,10 @@ function ConfigField({
     width: "100%",
     padding: "7px 9px",
     borderRadius: 7,
-    border: "1px solid #e5e7eb",
+    border: "1px  solid var(--border-default)",
     fontSize: 12,
-    color: "#374151",
-    background: "#fff",
+    color: "var(--text-secondary)",
+    background: "var(--bg-card)",
     outline: "none",
     boxSizing: "border-box" as const,
     fontFamily: "inherit",
@@ -2835,7 +2835,7 @@ function ConfigField({
   };
   return (
     <div>
-      <label style={{ fontSize: 11, fontWeight: 600, color: "#374151", marginBottom: 3, display: "block" }}>
+      <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 3, display: "block" }}>
         {label}
       </label>
       {multiline ? (
