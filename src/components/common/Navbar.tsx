@@ -116,7 +116,7 @@ export default function Navbar() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-            <div className="navbar__inner container">
+            <div className="navbar__inner_container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                 <Link to="/" className="navbar__logo" id="navbar-logo">
                     <div className="navbar__logo-icon">
                         <Zap size={20} />
@@ -126,7 +126,7 @@ export default function Navbar() {
                     </span>
                 </Link>
 
-                <div className="navbar__links">
+                <div className="navbar__links" style={{ display: 'flex', flexDirection: 'row', gap: '1.5rem', alignItems: 'center' }}>
                     {navLinks.map((link) => (
                         <Link
                             key={link.label}
